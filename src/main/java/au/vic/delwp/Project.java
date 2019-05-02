@@ -26,12 +26,14 @@ public class Project {
 	public String Abstract;
 	public String Purpose;
 	public String Location;
-	public IDnText DataAvailability;
+	public IDnText Availability;
   public Individual Owner;
   public Individual Custodian;
   public Individual MetadataAuthor;
   public Date LastUpdated;
   public String ANZLIC_ID = "dunno";
+  public AcquisitionDetails ProjectAcquisitionDetails;
+  public Set DatasetDetails = new HashSet();
 	
 	public String hostNameForLinks;
 
@@ -118,6 +120,14 @@ public class Project {
 
   public boolean hasPurpose() {
     return !StringUtils.isBlank(Purpose);
+  }
+
+  public Set getDatasets() {
+    for (Object o : DatasetDetails) { 
+      Dataset ds = (Dataset)o;
+      ds.hostNameForLinks = hostNameForLinks; 
+    }
+    return DatasetDetails;
   }
 
 }

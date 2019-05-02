@@ -43,11 +43,38 @@
 		<property name='Purpose' column='purpose' />
 		<property name='Location' column='location' />
 		<property name='LastUpdated' column='metadatacreatedate' />
-		<many-to-one name="DataAvailability" entity-name="Availability" column='availabilityid' unique='true'/>
+		<many-to-one name="Availability" entity-name="Availability" column='availabilityid' unique='true'/>
 		<many-to-one name="Owner" class="Individual" column='ownerid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
 		<many-to-one name="Custodian" class="Individual" column='custodianid' unique='true' not-null='true' insert='false' update='false'/>
 		<many-to-one name="MetadataAuthor" class="Individual" column='metadataauthorid' unique='true' not-null='true' insert='false' update='false'/>
+		<one-to-one name="ProjectAcquisitionDetails" class="AcquisitionDetails"/>
+    <set name='DatasetDetails'>
+      <key column='projectid' />
+      <one-to-many class='Dataset' />
+    </set>
 	</class>
+
+	<class name='Dataset' table='datasetdetails' mutable='false' lazy='false'>
+		<id name='ID' column='datasetid' >
+			<generator class='native' />
+		</id>
+		<property name='FileIdentifier' column='fileidentifier' />
+		<property name='ANZLICID' column='anzlicid' />
+		<many-to-one name='ProjectTopic' entity-name="ProjectTopic" column='projecttopicid' unique="true" />
+  </class>
+
+	<class name='AcquisitionDetails' table='acquisitiondetails' mutable='false' lazy='false'>
+		<id name='ID' column='projectid' >
+			<generator class='native' />
+		</id>
+		<property name='Program' column='program' />
+		<property name='ContractNumber' column='contractnumber' />
+		<property name='ScheduleNumber' column='schedulenumber' />
+		<property name='Component' column='component' />
+		<property name='AcquisitionYear' column='acquisitionyear' />
+		<property name='SupplierID' column='supplierid' />
+		<many-to-one name='AcquisitionMethod' entity-name="AcquisitionMethod" column='acquisitionmethodid' />
+  </class>
 
 	<class entity-name='Availability' name='IDnText' table='rt_availability' lazy='false' mutable='false' >
 		<id name='ID' column='availabilityid'>
@@ -56,4 +83,17 @@
 		<property name='Text' column='description' />
 	</class>
 
+	<class entity-name='ProjectTopic' name='IDnText' table='rt_projecttopic' lazy='false' mutable='false' >
+		<id name='ID' column='projecttopicid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+	
+  <class entity-name='AcquisitionMethod' name='IDnText' table='rt_acquisitionmethod' lazy='false' mutable='false' >
+		<id name='ID' column='acquisitionmethodid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
 </hibernate-mapping>

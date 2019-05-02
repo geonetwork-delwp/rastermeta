@@ -284,11 +284,11 @@
             </structure>
           </structure>
         </structure>
+        -->
 
-        <collection get-method='getAssociatedResources' item-type='au.gov.vic.delwp.AssociatedResource' >
+        <collection get-method='getDatasets' item-type='au.gov.vic.delwp.Dataset' >
           <structure name='associatedResource' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'/>
         </collection>
-        -->
 
         <structure name='defaultLocale' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
           <structure name='PT_Locale' ns='http://standards.iso.org/iso/19115/-3/lan/1.0'>
@@ -333,7 +333,7 @@
 
   </mapping>
 
-  <mapping class='au.gov.vic.delwp.AssociatedResource' abstract='true'>
+  <mapping class='au.gov.vic.delwp.Dataset' abstract='true'>
     <structure name='MD_AssociatedResource' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
       <structure name='associationType' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
         <structure name='DS_AssociationTypeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
@@ -344,7 +344,7 @@
       <structure name='metadataReference' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
         <structure name='CI_Citation' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
           <structure name='title' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-            <value name='CharacterString' field='anzlicId' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+            <value name='CharacterString' field='ANZLICID' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
           </structure>
           <structure name='onlineResource'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
             <structure name='CI_OnlineResource'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
@@ -355,7 +355,7 @@
                 <value name='CharacterString' constant='WWW:LINK-1.0-http--related' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
               </structure>
               <structure name='description' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-                <value name='CharacterString' constant='Link to Dataset that is part of this product' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                <value name='CharacterString' constant='Link to Dataset that is part of this project' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
               </structure>
             </structure>
           </structure>
