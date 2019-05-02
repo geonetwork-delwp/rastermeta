@@ -63,8 +63,7 @@ public class Project {
 		}
 
 	public String generateUUID( ){	
-		return java.util.UUID.randomUUID().toString();
-    //return DigestUtils.sha1Hex(ANZLIC_ID);
+    return "urn:au.gov.vic.delwp:rastermeta:project:" + ID;
 		}
 
   public String getProjectName() {
@@ -72,7 +71,6 @@ public class Project {
 	}
 
   public ISODateBlock getDateStamp( ) throws ParseException {
-    System.out.println("Date is "+LastUpdated);
     ISODateBlock db = new ISODateBlock();
     db.date = IS08601DateFormat.format( LastUpdated );
     db.dateType = "revision";
@@ -80,7 +78,6 @@ public class Project {
   }
 
   public boolean hasOwner() {
-    System.out.println("Owner is "+Owner);
     return (Owner != null);
   }
 
@@ -89,7 +86,6 @@ public class Project {
   }
 
   public boolean hasCustodian() {
-    System.out.println("Custodian is "+Custodian);
     return (Custodian != null);
   }
 
@@ -97,8 +93,30 @@ public class Project {
     return Custodian;
   }
 
+  public boolean hasMetadataAuthor() {
+    if (MetadataAuthor != null) {
+      if (!StringUtils.isEmpty(MetadataAuthor.getName())) {
+        if (!MetadataAuthor.getName().trim().equals("Raster Metadata Not Entered")) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  public Individual getResourcePOC() {
+    return Individual.getDefault();
+  }
+
+  public Individual getMetadataPOC() {
+    return Individual.getDefault();
+  }
+
+  public Individual getMetadataAuthor() {
+    return MetadataAuthor;
+  }
+
   public boolean hasPurpose() {
-    System.out.println("Purpose is "+Purpose);
     return !StringUtils.isBlank(Purpose);
   }
 

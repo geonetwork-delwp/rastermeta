@@ -151,6 +151,7 @@ public class FileXMLWriter {
 					/* This usually due to data problems such as unexpected nulls or
 					 * referential integrity failures. Once a JiBXException occurs, JiBX's
 					 * state is corrupted, hence it must be reinitialised */
+          e.printStackTrace();
 					logThrowableMsgStack( e.getRootCause( ), d.Name );
 					mctx = getMarshallingContext( );					
 					}
