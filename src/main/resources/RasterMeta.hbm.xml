@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC '-//Hibernate/Hibernate Mapping DTD 3.0//EN' 'http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd'>
+<hibernate-mapping package='au.gov.vic.delwp' default-access='field'>
+
+	<class name='Individual' table='data_contacts' mutable='false' lazy='false'>
+		<id name='ID' column='contactid'>
+			<generator class='native' />
+		</id>
+		<property name='Firstname' column='firstname' />
+		<property name='Lastname' column='lastname' />
+		<property name='Title' column='title' />
+		<property name='Position' column='position' />
+		<property name='Workphone' column='workphone' />
+		<property name='Mobilephone' column='mobilephone' />
+		<property name='Faxnumber' column='faxnumber' />
+		<property name='Email' column='emailname' />
+		<property name='Retired' column='retired' />
+		<many-to-one name='OrganisationDetails' class='Organisation' column='organisationid' unique='true' not-null='true' insert='false' update='false' />
+	</class>
+
+	<class name='Organisation' table='data_organisations' mutable='false' lazy='false'>
+		<id name='ID' column='organisationid'>
+			<generator class='native' />
+		</id>
+		<property name='Name' column='name' />
+		<property name='Streetaddress' column='streetaddress' />
+		<property name='Postaladdress' column='postaladdress' />
+		<property name='City' column='city' />
+		<property name='Stateorprovince' column='stateorprovince' />
+		<property name='Postalcode' column='postalcode' />
+		<property name='Country' column='country' />
+		<property name='Type' column='organisationtype' />
+		<property name='Stakeholdertype' column='stakeholdertype' />
+	</class>
+
+	<class name='Project' table='project' mutable='false'>
+		<id name='ID' column='projectid' >
+			<generator class='native' />
+		</id>
+		<property name='Title' column='projecttitle' />
+		<property name='Name' column='shortname' />
+		<property name='Abstract' column='abstract' />
+		<property name='Purpose' column='purpose' />
+		<property name='Location' column='location' />
+		<property name='LastUpdated' column='metadatacreatedate' />
+		<many-to-one name="DataAvailability" entity-name="Availability" column='availabilityid' unique='true'/>
+		<many-to-one name="Owner" class="Individual" column='ownerid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
+		<many-to-one name="Custodian" class="Individual" column='custodianid' unique='true' not-null='true' insert='false' update='false'/>
+		<many-to-one name="MetadataAuthor" class="Individual" column='metadataauthorid' unique='true' not-null='true' insert='false' update='false'/>
+	</class>
+
+	<class entity-name='Availability' name='IDnText' table='rt_availability' lazy='false' mutable='false' >
+		<id name='ID' column='availabilityid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
+</hibernate-mapping>
