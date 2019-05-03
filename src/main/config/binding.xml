@@ -15,6 +15,7 @@
     <namespace uri='http://standards.iso.org/iso/19115/-3/mrd/1.0' prefix='mrd' />
     <namespace uri='http://standards.iso.org/iso/19115/-3/mrs/1.0' prefix='mrs' />
     <namespace uri='http://standards.iso.org/iso/19115/-3/gex/1.0' prefix='gex' />
+    <namespace uri='http://standards.iso.org/iso/19115/-3/mac/2.0' prefix='mac' />
     <namespace uri='http://standards.iso.org/iso/19157/-2/mdq/1.0' prefix='mdq' />
     <namespace uri='https://github.com/geonetwork-delwp/iso19115-3.2018' prefix='delwp' />
     <namespace uri='http://www.w3.org/2001/XMLSchema-instance' prefix='xsi' />
@@ -330,6 +331,104 @@
       </structure>
     </structure>
     -->
+
+    
+    <structure name='acquisitionInformation' ns='http://standards.iso.org/iso/19115/-3/mdb/2.0'>
+      <structure name='MI_AcquisitionInformation' ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
+        <structure field="ProjectAcquisitionDetails">
+          <structure name="scope" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
+            <structure name='MD_ScopeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+              <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ScopeCode'/>
+              <value name='codeListValue' constant='project' />
+            </structure>
+            <structure name='extent' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+              <structure name='EX_Extent' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
+                <structure name='temporalElement' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
+                  <structure name='EX_TemporalExtent' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
+                    <structure name='extent' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
+                      <structure name='TimePeriod' ns='http://www.opengis.net/gml/3.2'>
+                        <value name='id' constant='temporalExtent' style='attribute' ns='http://www.opengis.net/gml/3.2'/>
+                        <structure name='beginPosition' ns='http://www.opengis.net/gml/3.2'>
+                          <value get-method='getBeginningDate' style='text' />
+                        </structure>
+                        <structure name='endPosition' ns='http://www.opengis.net/gml/3.2'>
+                          <value get-method='getEndingDate' style='text' />
+                        </structure>
+                      </structure>
+                    </structure>
+                  </structure>
+                </structure>
+              </structure>
+            </structure>
+          </structure>
+
+          <structure name="operation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
+            <structure name="MI_Operation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
+              <structure name="description" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
+                <value name='CharacterString' field='Program' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+
+              </structure>
+              <structure name="citation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
+                <structure name='CI_Citation' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                      <!-- ContractNumber, ScheduleNumber - here as MD_Identifier -->
+                      <structure name='identifier' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                        <structure name='MD_Identifier' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                          <structure name='code' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                            <value name='CharacterString' field='ContractNumber' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                          </structure>
+                          <structure name='description' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                            <value name='CharacterString' constant='ContractNumber' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                          </structure>
+                        </structure>
+                      </structure>
+                      <structure name='identifier' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                        <structure name='MD_Identifier' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                          <structure name='code' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                            <value name='CharacterString' field='ScheduleNumber' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                          </structure>
+                          <structure name='description' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                            <value name='CharacterString' constant='ScheduleNumber' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                          </structure>
+                        </structure>
+                      </structure>
+
+                  <structure name='citedResponsibleParty' usage='optional' test-method="hasSupplier" ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                    <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                      <!-- Supplier -->
+                      <structure name='role'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                        <structure name='CI_RoleCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                          <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode' />
+                          <value name='codeListValue' constant='resourceProvider' />
+                        </structure>
+                      </structure>
+                      <structure name='party' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                        <structure name='CI_Organisation' ns='http://standards.iso.org/iso/19115/-3/cit/2.0' field="Supplier"/>
+                      </structure>
+                    </structure>
+                  </structure>
+                </structure>
+              </structure>
+              <structure name="otherProperty" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
+                <structure name="Record" ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+                  <structure name="projectDetails" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+                    <structure name="MD_ProjectDetails" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+                      <structure name="method" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+                        <structure name='MD_MethodCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+                          <value name='codeList' constant='codeListLocation#MD_MethodCode'/>
+                          <value name='codeListValue' get-method='getAcquisitionMethod' />
+                        </structure>
+                      </structure>
+                    </structure>
+                  </structure>
+                </structure>
+              </structure>
+            </structure>
+          </structure>
+
+        </structure>
+
+      </structure>
+    </structure>
 
   </mapping>
 

@@ -123,11 +123,19 @@ public class Project {
   }
 
   public Set getDatasets() {
+    System.out.println(toString());
     for (Object o : DatasetDetails) { 
       Dataset ds = (Dataset)o;
       ds.hostNameForLinks = hostNameForLinks; 
     }
     return DatasetDetails;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder stuff = new StringBuilder();
+    stuff.append("Acq Info: "+ProjectAcquisitionDetails);
+    return stuff.toString();
   }
 
 }
