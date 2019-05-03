@@ -1,0 +1,7 @@
+AVAILABILITY|MD_CLASSIFICATIONCODE
+Unknown|unknown
+Departmental|limitedDistribution
+Restricted|restricted
+General|unclassified
+Data Vic|limitedDistribution
+Withdrawn|withdrawn

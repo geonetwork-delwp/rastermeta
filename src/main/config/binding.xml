@@ -271,11 +271,12 @@
             <structure name='maintenanceDate' usage='optional' test-method='hasVMDDMasterPublicationDate' ns='http://standards.iso.org/iso/19115/-3/mmi/1.0' field='PublicationDate'/>
           </structure>
         </structure>
+        -->
         
         <structure name='resourceConstraints' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
           <structure name='MD_SecurityConstraints' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
             <structure name='useLimitation' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
-              <value name='CharacterString' get-method='getUseLimitation' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+              <value name='CharacterString' get-method='getAvailability' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
             </structure>
             <structure name='classification' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
               <structure name='MD_ClassificationCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
@@ -285,7 +286,6 @@
             </structure>
           </structure>
         </structure>
-        -->
 
         <collection get-method='getDatasets' item-type='au.gov.vic.delwp.Dataset' >
           <structure name='associatedResource' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'/>

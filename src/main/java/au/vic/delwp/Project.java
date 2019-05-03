@@ -37,6 +37,7 @@ public class Project {
 	
 	public String hostNameForLinks;
 
+	static protected HashMap ClassificationCodes = new HashMap( );
 	static protected HashMap MaintenanceFrequencies = new HashMap( );
 	static protected HashMap ProgressCodes = new HashMap( );
 	static protected HashMap EquivalentScales = new HashMap( );
@@ -53,6 +54,7 @@ public class Project {
 	static private final String DEFAULT_DATA_FORMAT = "Most popular formats";
 	
 	static {
+		MapUtils.Populate( "availabilityToMD_ClassificationCode.txt", ClassificationCodes);
 		MapUtils.Populate( "reftab__ms2ap_distance.txt", EquivalentScales, ".+\\|\\d+" );
 		MapUtils.Populate( "reftab__ms2ap_progress.txt", ProgressCodes);
 		MapUtils.Populate( "reftab__ms2ap_maintenance_frequency.txt", MaintenanceFrequencies);
@@ -67,6 +69,22 @@ public class Project {
 	public String generateUUID( ){	
     return "urn:au.gov.vic.delwp:rastermeta:project:" + ID;
 		}
+
+  public String getAvailability() {
+    String result = "Unknown";
+    if (Availability != null) {
+      result = Availability.Text;
+    }
+    return result;
+	}
+
+  public String getResourceConstraint() {
+    String result = (String)ClassificationCodes.get(getAvailability());
+    if (result == null) {
+      result = "unknown";
+    }
+    return result;
+  }
 
   public String getProjectName() {
     System.out.println(this.toString());
