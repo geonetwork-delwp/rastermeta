@@ -1,14 +1,118 @@
 package au.gov.vic.delwp;
 
+import java.util.ArrayList; 
+import java.util.Date;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.HashMap; 
+import java.util.List; 
+import java.util.Map;
+import java.util.Locale;
+import java.text.SimpleDateFormat;
+import java.util.regex.*;
+import java.text.ParseException;
+import java.util.StringTokenizer;
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
+
 public class Dataset {
 
 	public int ID;
 	public String ANZLICID;
-	public String FileIdentifier;
+	public String UUID;
+	public String Title;
+	public String CompressionRatio;
+	public String VerticalAccuracy;
+	public String HorizontalAccuracy;
+	public String ProcessingLineage;
+	public String DatasetCompleteness;
+	public String LogicalConsistency;
+  public IDnText DatasetType;
+  public IDnText DatasetAssembly;
+  public IDnText EPSG;
+  public IDnText DatasetFormat;
+  public IDnText Tilesize;
 	public IDnText ProjectTopic;
-  public String hostNameForLinks;
+  public IDnText QALevel;
+  public IDnText Availability;
+  public IDnText Platform;
+  public LidarDetails Lidar;
+  public RasterDetails Raster;
+  public ContourDetails Contour;
+  public Project ParentProject;
+  
+	static protected HashMap ClassificationCodes = new HashMap();
+	static protected HashMap SpatialRepresentationTypeCodes = new HashMap();
 
-  public String getMetadataRecordUrl() {
-    return hostNameForLinks + "catalog.search?uuid=" + FileIdentifier;
+	static {
+		MapUtils.Populate( "availabilityToMD_ClassificationCode.txt", ClassificationCodes);
+		MapUtils.Populate( "datasetTypeToMD_SpatialRepresentationTypeCode.txt", SpatialRepresentationTypeCodes);
+  }
+
+  public String getDatasetName() {
+    return "dataset "+Title;
+  }
+
+  /* could be more descriptive or if not then use gco:nilReason on abstract */
+  public String getAbstract() {
+    return "dataset "+Title;
+  }
+
+  public Individual getMetadataPOC() {
+    return Individual.getDefault();
+  }
+
+  public Individual getResourcePOC() {
+    return Individual.getDefault();
+  }
+
+  public ISODateBlock getDateStamp() throws ParseException {
+    return ParentProject.getDateStamp();
+  }
+
+  public boolean hasRefSystem() {
+    return (EPSG != null && !StringUtils.isBlank(EPSG.Text));
+  }
+
+  public String getSpatialRepresentationType() {
+    return (String)SpatialRepresentationTypeCodes.get(DatasetType.Text);
+  }
+
+  public String getAvailability() {
+    String result = "Unknown";
+    if (Availability != null) {
+      result = Availability.Text;
+    }
+    return result;
+	}
+
+  public String getResourceConstraint() {
+    String result = (String)ClassificationCodes.get(getAvailability());
+    if (result == null) {
+      result = "unknown";
+    }
+    return result;
+  }
+
+  public String getDatasetType() {
+    return DatasetType.Text;
+  }
+
+  public String getPlatformType() {
+    return Platform.Text;
+  }
+
+  public String getAssembly() {
+    return DatasetAssembly.Text;
+  }
+
+  public String getTilesize() {
+    return Tilesize.Text;
+  }
+
+  public String getEPSGCode() {
+    return EPSG.Text;
   }
 }

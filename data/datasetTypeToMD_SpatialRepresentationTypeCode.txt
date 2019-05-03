@@ -1,0 +1,4 @@
+DatasetType|MD_SpatialRepresentationTypeCode
+LIDAR|pointCloud
+Contour|grid
+Raster|grid

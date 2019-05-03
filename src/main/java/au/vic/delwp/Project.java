@@ -38,15 +38,6 @@ public class Project {
 	public String hostNameForLinks;
 
 	static protected HashMap ClassificationCodes = new HashMap( );
-	static protected HashMap MaintenanceFrequencies = new HashMap( );
-	static protected HashMap ProgressCodes = new HashMap( );
-	static protected HashMap EquivalentScales = new HashMap( );
-	static protected HashMap IndeterminateDates = new HashMap( );
-	static protected HashMap CRSCodes = new HashMap( );
-	static protected HashMap DataTypes = new HashMap( );
-	static protected HashMap ScopeCodes = new HashMap( );
-	static protected HashMap Products = new HashMap( );
-	static protected HashMap Objects = new HashMap( );
 	static protected SimpleDateFormat DBDateFormat = new SimpleDateFormat("ddMMMyyyy",Locale.ENGLISH );
 	static protected SimpleDateFormat IS08601DateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH );
 
@@ -55,15 +46,6 @@ public class Project {
 	
 	static {
 		MapUtils.Populate( "availabilityToMD_ClassificationCode.txt", ClassificationCodes);
-		MapUtils.Populate( "reftab__ms2ap_distance.txt", EquivalentScales, ".+\\|\\d+" );
-		MapUtils.Populate( "reftab__ms2ap_progress.txt", ProgressCodes);
-		MapUtils.Populate( "reftab__ms2ap_maintenance_frequency.txt", MaintenanceFrequencies);
-		MapUtils.Populate( "reftab__ms2ap_temporal.txt", IndeterminateDates );
-		MapUtils.Populate( "reftab__ms2ap_crscodes.txt", CRSCodes, ".+\\|\\d+" );
-		MapUtils.Populate( "reftab__ms2ap_spatial_rep_type.txt", DataTypes, "\\d+\\|.+" );
-		MapUtils.PopulateScopeCodeMap( "reftab__ms2ap_scope_with_series.txt", ScopeCodes );
-    MapUtils.PopulateMulti( "product_object.csv", Products );
-    MapUtils.Populate( "object.csv", Objects );
 		}
 
 	public String generateUUID( ){	
@@ -149,13 +131,17 @@ public class Project {
     return !StringUtils.isBlank(Purpose);
   }
 
-  public Set getDatasets() {
-    System.out.println(toString());
+  public Set getAssociatedResources() {
+    Set asrs = new HashSet();
     for (Object o : DatasetDetails) { 
       Dataset ds = (Dataset)o;
-      ds.hostNameForLinks = hostNameForLinks; 
+      AssociatedResource asr = new AssociatedResource();
+      asr.ANZLICID = ds.ANZLICID;
+      asr.FileIdentifier = ds.UUID; 
+      asr.hostNameForLinks = hostNameForLinks; 
+      asrs.add(asr);
     }
-    return DatasetDetails;
+    return asrs;
   }
 
   @Override

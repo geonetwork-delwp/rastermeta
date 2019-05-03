@@ -29,15 +29,17 @@ import org.apache.commons.cli.Options;
 
 public class FileXMLWriter {
 
+
     public static void main( String args[] ){
 
     String hostNameForLinks = "http://localhost:8080/geonetwork/srv/eng/";
-		IMarshallingContext mctx = getMarshallingContext( );
 		
 		Session src = new Configuration( ).configure("SourceDB.cfg.xml").buildSessionFactory( ).openSession( );
 
     Options options = new Options();
     options.addOption("h", true, "Specify host name for linkages to metadata records. If not specified then http://localhost:8080/geonetwork/srv/eng/ will be used.");
+    options.addOption("D", false, "Process rastermeta datasets (mutually exclusive with -P.");
+    options.addOption("P", false, "Process rastermeta projects (mutually exclusive with -D.");
     options.addOption("q", true, "Specify a query condition eg. ANZLIC_ID = 'ANZVI0803002511' for debugging purposes.");
     options.addOption("s", false, "Skip validation. Useful for debugging because reading the schemas takes some time.");
     options.addRequiredOption("d", "directory", true, "Specify the directory name for output xml files.");
@@ -68,65 +70,98 @@ public class FileXMLWriter {
     File op = new File(path + "invalid");
     op.mkdirs(); // creates both output directory and invalid directory if they don't exist
 
-		
-		/* Fetch list of (or iterator over?) datasets from Oracle DB */
-		String HQL = "FROM Project WHERE ( PROJECTID IS NOT NULL )"; // Build a HQL query string from command line arguments plus some default
-		if( cmd.hasOption("q")) {
-      String query = cmd.getOptionValue("q");
-      if (query.matches(".*\\S+.*")) HQL += " AND " + query;
+    String HQL = null;	
+    if (cmd.hasOption("P")) {	
+		  /* Fetch list of (or iterator over?) projects from Oracle DB */
+		  HQL = "FROM Project WHERE ( PROJECTID IS NOT NULL )"; // Build a HQL query string from command line arguments plus some default
+		  if( cmd.hasOption("q")) {
+        String query = cmd.getOptionValue("q");
+        if (query.matches(".*\\S+.*")) HQL += " AND " + query;
+      }
+      System.out.println("Requesting rastermeta records using:\n" + HQL);
+  
+		  ArrayList projects = (ArrayList) src.createQuery( HQL ).list( );
+	  	
+      System.out.println("Found "+projects.size()+" records");
+		  try {
+        for( int i = 0; i < projects.size(); ++i ){
+          Project d = (Project) projects.get( i );
+          d.hostNameForLinks = hostNameForLinks;
+				  System.out.println("Processing Project '" + d.Name + "'");
+				  d.UUID = d.generateUUID( ); // generate new UUID for dataset
+          jibxit(d, cmd, path, d.UUID, src);
+        }
+  
+		  } catch( org.hibernate.HibernateException e ) {
+			  System.out.println( "Hibernate exception occurred" );
+			  logThrowableMsgStack( e, "N/A" );
+			  System.exit( 1 );
+		  } finally {
+			  src.close( );
+			  //dest.close( );
+		  }
+    } else if (cmd.hasOption("D")) {
+
+		  /* Fetch list of (or iterator over?) projects from Oracle DB */
+		  HQL = "FROM Dataset WHERE ( DATASETID IS NOT NULL )"; // Build a HQL query string from command line arguments plus some default
+		  if( cmd.hasOption("q")) {
+        String query = cmd.getOptionValue("q");
+        if (query.matches(".*\\S+.*")) HQL += " AND " + query;
+      }
+      System.out.println("Requesting rastermeta records using:\n" + HQL);
+  
+		  ArrayList datasets = (ArrayList) src.createQuery( HQL ).list( );
+	  	
+      System.out.println("Found "+datasets.size()+" records");
+		  try {
+        for( int i = 0; i < datasets.size(); ++i ){
+          Dataset d = (Dataset) datasets.get( i );
+				  System.out.println("Processing Dataset '" + d.Title + "'");
+          jibxit(d, cmd, path, d.UUID, src);
+        }
+
+		  } catch( org.hibernate.HibernateException e ) {
+			  System.out.println( "Hibernate exception occurred" );
+			  logThrowableMsgStack( e, "N/A" );
+			  System.exit( 1 );
+	  	} finally {
+			  src.close( );
+			  //dest.close( );
+		  }
     }
-    System.out.println("Requesting rastermeta records using:\n" + HQL);
-
-		ArrayList projects = (ArrayList) src.createQuery( HQL ).list( );
-		
-    System.out.println("Found "+projects.size()+" records");
-		try {
-      for( int i = 0; i < projects.size(); ++i ){
-        Project d = (Project) projects.get( i );
-        d.hostNameForLinks = hostNameForLinks;
-				System.out.println("Processing Project '" + d.Name + "'");
-		  	
-        ANZMetadataProfile m = new ANZMetadataProfile();	
-				d.UUID = d.generateUUID( ); // generate new UUID for dataset
-
-        /* set metadata attributes */
-        m.UUID = d.UUID; // also apply to new metadata record
-        m.DatasetID = d.ID;
-        //m.ANZLIC_ID = d.ANZLIC_ID;
-        m.Datestamp = d.LastUpdated; // use dataset update date for date stamp
-        m.LastUpdated = d.LastUpdated; // Added on 28th Aug 08
+  }
+	
+  private static void jibxit(Object d, CommandLine cmd, String path, String UUID, Session src) {
 				
+		IMarshallingContext mctx = getMarshallingContext( );
 				/* Transform Project instance to XML */
 				try {
 					StringWriter sw = new StringWriter( );
 	        mctx.marshalDocument( d, "utf-8", Boolean.FALSE, sw );
 					
-	        // Update other metadata profile attributes which may change 
-          // and persist 
-					m.Name = d.Name;
-					m.Title = d.Title;
-					m.XML = sw.toString( );
+					String XML = sw.toString( );
+          boolean XMLIsValid = false, ContentIsValid = false;
           if (cmd.hasOption("s")) {
 					  System.out.println("Validation is skipped.");
-            m.XMLIsValid = m.ContentIsValid = true;
+            XMLIsValid = ContentIsValid = true;
           } else {
-					  System.out.println("Validating '" + d.Name + "' against http://schemas.isotc211.org/19115/-3/mdb/2.0 :" );
-					  m.XMLIsValid = ISO19115Validator.isValid( m.XML );
+					  System.out.println("Validating against http://schemas.isotc211.org/19115/-3/mdb/2.0 :" );
+					  XMLIsValid = ISO19115Validator.isValid( XML );
 					  System.out.println();
-					  System.out.println("Validating '" + d.Name + "' against ANZLIC Metadata Schematron:");
-					  m.ContentIsValid = ANZLICSchematronValidator.isValid( m.XML );
+					  System.out.println("Validating against ANZLIC Metadata Schematron:");
+					  ContentIsValid = ANZLICSchematronValidator.isValid( XML );
           }
 
 					/* Write XML out to file */
           String outputFile = path;
-          if (!m.XMLIsValid) {
+          if (!XMLIsValid) {
             outputFile += "invalid" + File.separator;
           } 
-          outputFile += d.UUID + ".xml";
+          outputFile += UUID + ".xml";
            
           
 					FileWriter fw = new FileWriter( outputFile );
-					fw.write( m.XML );
+					fw.write( XML );
 					fw.close( );
 
           // Now finally run the created XML through a postprocessing XSLT which does
@@ -153,33 +188,19 @@ public class FileXMLWriter {
 					 * referential integrity failures. Once a JiBXException occurs, JiBX's
 					 * state is corrupted, hence it must be reinitialised */
           e.printStackTrace();
-					logThrowableMsgStack( e.getRootCause( ), d.Name );
+					logThrowableMsgStack( e.getRootCause( ), UUID );
 					mctx = getMarshallingContext( );					
 					}
 				catch( Exception e ){
 					/* Write exception info to console, then continue processing next dataset record */
-					logThrowableMsgStack( e, d.Name );
+					logThrowableMsgStack( e, UUID );
 					}
 				finally {
 					// Have finished with these elements, so purge them from the session
 					//dest.evict( m );
 					src.evict( d );
-					}
-
-         
-				} // for each dataset				
-			}
-		catch( org.hibernate.HibernateException e ){
-			System.out.println( "Hibernate exception occurred" );
-			logThrowableMsgStack( e, "N/A" );
-			System.exit( 1 );
-			}
-		finally {
-			src.close( );
-			//dest.close( );
-			}
-		}
-	
+				}
+  } 			
 	
 	private static void logThrowableMsgStack( Throwable t, String objName ){
 

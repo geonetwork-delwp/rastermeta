@@ -58,9 +58,49 @@
 		<id name='ID' column='datasetid' >
 			<generator class='native' />
 		</id>
-		<property name='FileIdentifier' column='fileidentifier' />
+		<property name='UUID' column='fileidentifier' />
+		<property name='Title' column='datasetname' />
 		<property name='ANZLICID' column='anzlicid' />
+		<property name='CompressionRatio' column='compressionratio' />
+		<property name='VerticalAccuracy' column='verticalaccuracy' />
+		<property name='HorizontalAccuracy' column='horizontalaccuracy' />
+		<property name='ProcessingLineage' column='processinglineage' />
+		<property name='DatasetCompleteness' column='datasetcompleteness' />
+		<property name='LogicalConsistency' column='logicalconsistency' />
+		<many-to-one name="DatasetType" entity-name="DatasetType" column='datasettypeid' unique='true'/>
+		<many-to-one name="DatasetAssembly" entity-name="DatasetAssembly" column='datasetassemblyid' unique='true'/>
+		<many-to-one name="EPSG" entity-name="EPSG" column='epsgid' unique='true'/>
+		<many-to-one name="DatasetFormat" entity-name="DatasetFormat" column='datasetformatid' unique='true'/>
+		<many-to-one name="Tilesize" entity-name="Tilesize" column='tilesizeid' unique='true'/>
 		<many-to-one name='ProjectTopic' entity-name="ProjectTopic" column='projecttopicid' unique="true" />
+		<many-to-one name='Platform' entity-name="Platform" column='platformid' unique="true" />
+		<many-to-one name='QALevel' entity-name="QALevel" column='qalevelid' unique="true" />
+		<many-to-one name="Availability" entity-name="Availability" column='availabilityid' unique='true'/>
+		<many-to-one name="Lidar" class="LidarDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
+		<many-to-one name="Raster" class="RasterDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
+		<many-to-one name="Contour" class="ContourDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
+		<many-to-one name="ParentProject" class="Project" column='projectid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
+  </class>
+
+	<class name='LidarDetails' table='lidardetails' mutable='false' lazy='false'>
+		<id name='ID' column='datasetid' >
+			<generator class='native'/>
+		</id>
+		<property name='LidarID' column='lidarid' />
+  </class>
+
+	<class name='RasterDetails' table='rasterdetails' mutable='false' lazy='false'>
+		<id name='ID' column='datasetid' >
+			<generator class='native'/>
+		</id>
+		<property name='RasterID' column='rasterid' />
+  </class>
+
+	<class name='ContourDetails' table='contourdetails' mutable='false' lazy='false'>
+		<id name='ID' column='datasetid' >
+			<generator class='native'/>
+		</id>
+		<property name='ContourID' column='contourid' />
   </class>
 
 	<class name='AcquisitionDetails' table='acquisitiondetails' mutable='false' lazy='false'>
@@ -95,6 +135,55 @@
 		<property name='Text' column='description' />
 	</class>
 	
+	<class entity-name='DatasetType' name='IDnText' table='rt_datasettype' lazy='false' mutable='false' >
+		<id name='ID' column='datasettypeid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+	
+	<class entity-name='DatasetAssembly' name='IDnText' table='rt_datasetassemblytype' lazy='false' mutable='false' >
+		<id name='ID' column='datasetassemblyid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+	
+	<class entity-name='EPSG' name='IDnText' table='rt_epsg' lazy='false' mutable='false' >
+		<id name='ID' column='epsgid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='title' />
+	</class>
+	
+	<class entity-name='DatasetFormat' name='IDnText' table='rt_datasetformat' lazy='false' mutable='false' >
+		<id name='ID' column='datasetformatid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+	
+	<class entity-name='Tilesize' name='IDnText' table='rt_tilesize' lazy='false' mutable='false' >
+		<id name='ID' column='tilesizeid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+	
+	<class entity-name='Platform' name='IDnText' table='rt_platform' lazy='false' mutable='false' >
+		<id name='ID' column='platformid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
+	<class entity-name='QALevel' name='IDnText' table='rt_qalevel' lazy='false' mutable='false' >
+		<id name='ID' column='qalevelid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
   <class entity-name='AcquisitionMethod' name='IDnText' table='rt_acquisitionmethod' lazy='false' mutable='false' >
 		<id name='ID' column='acquisitionmethodid'>
 			<generator class='native' />
