@@ -183,7 +183,7 @@
           </structure>
         </structure>
         <structure name='abstract' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
-          <value name='CharacterString' field='Abstract' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+          <value name='CharacterString' get-method='getAbstract' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
         </structure>
         <structure name='purpose' usage='optional' test-method='hasPurpose' ns='http://standards.iso.org/iso/19115/-3/mri/1.0' >
           <value name='CharacterString' field='Purpose' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
@@ -333,7 +333,7 @@
     -->
 
     
-    <structure name='acquisitionInformation' ns='http://standards.iso.org/iso/19115/-3/mdb/2.0'>
+    <structure name='acquisitionInformation' usage="optional" test-method="hasAcquisitionInfo" ns='http://standards.iso.org/iso/19115/-3/mdb/2.0'>
       <structure name='MI_AcquisitionInformation' ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
         <structure field="ProjectAcquisitionDetails">
           <structure name="scope" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
@@ -341,7 +341,7 @@
               <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ScopeCode'/>
               <value name='codeListValue' constant='project' />
             </structure>
-            <structure name='extent' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+            <structure name='extent' usage='optional' test-method='hasAcquisitionYear' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
               <structure name='EX_Extent' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
                 <structure name='temporalElement' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
                   <structure name='EX_TemporalExtent' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
@@ -364,14 +364,14 @@
 
           <structure name="operation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
             <structure name="MI_Operation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
-              <structure name="description" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
+              <structure name="description" usage='optional' test-method='hasProgram' ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
                 <value name='CharacterString' field='Program' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
 
               </structure>
               <structure name="citation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
                 <structure name='CI_Citation' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                       <!-- ContractNumber, ScheduleNumber - here as MD_Identifier -->
-                      <structure name='identifier' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                      <structure name='identifier' usage='optional' test-method='hasContractNumber' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                         <structure name='MD_Identifier' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
                           <structure name='code' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
                             <value name='CharacterString' field='ContractNumber' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
@@ -381,7 +381,7 @@
                           </structure>
                         </structure>
                       </structure>
-                      <structure name='identifier' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                      <structure name='identifier' usage='optional' test-method='hasScheduleNumber' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                         <structure name='MD_Identifier' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
                           <structure name='code' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
                             <value name='CharacterString' field='ScheduleNumber' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />

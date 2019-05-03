@@ -14,6 +14,9 @@ public class AcquisitionDetails {
 	public IDnText AcquisitionMethod;
   public Project project;
 
+  public boolean hasAcquisitionYear() {
+    return (AcquisitionYear != null);
+  }
   public String getBeginningDate() {
     System.out.println(toString());
     return StringUtils.substringBefore(AcquisitionYear,"-");
@@ -29,6 +32,18 @@ public class AcquisitionDetails {
     return (Supplier != null);
   }
 
+  public boolean hasProgram() {
+    return (Program != null);
+  }
+
+  public boolean hasScheduleNumber() {
+    return (ScheduleNumber != null);
+  }
+
+  public boolean hasContractNumber() {
+    return (ContractNumber != null);
+  }
+
   public String getAcquisitionMethod() {
     return AcquisitionMethod.Text;
   }
@@ -36,9 +51,13 @@ public class AcquisitionDetails {
   @Override
   public String toString() {
     StringBuilder stuff = new StringBuilder();
-    stuff.append("ID: "+ID);
-    stuff.append("Program: "+Program);
-    stuff.append("AcquisitionYear: "+AcquisitionYear);
+    stuff.append("ID: "+ID+"\n");
+    stuff.append("Program: "+Program+"\n");
+    stuff.append("AcquisitionYear: "+AcquisitionYear+"\n");
+    stuff.append("Component: "+Component+"\n");
+    stuff.append("ContractNumber: "+ContractNumber+"\n");
+    stuff.append("ScheduleNumber: "+ScheduleNumber+"\n");
+    stuff.append("AcquisitionMethod: "+AcquisitionMethod.Text+"\n");
     return stuff.toString();
   }
 

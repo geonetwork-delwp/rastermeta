@@ -79,11 +79,12 @@ public class FileXMLWriter {
 
 		ArrayList projects = (ArrayList) src.createQuery( HQL ).list( );
 		
+    System.out.println("Found "+projects.size()+" records");
 		try {
       for( int i = 0; i < projects.size(); ++i ){
         Project d = (Project) projects.get( i );
         d.hostNameForLinks = hostNameForLinks;
-				System.out.println("Processing Project '" + d.Name);
+				System.out.println("Processing Project '" + d.Name + "'");
 		  	
         ANZMetadataProfile m = new ANZMetadataProfile();	
 				d.UUID = d.generateUUID( ); // generate new UUID for dataset

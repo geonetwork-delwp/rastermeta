@@ -77,7 +77,6 @@ public class Individual {
   }
 
   public boolean hasName() {
-    System.out.println("Names "+Firstname+" "+Lastname);
     return !(StringUtils.isBlank(Firstname) && StringUtils.isBlank(Lastname));
   }	
 
@@ -91,7 +90,6 @@ public class Individual {
   } 
 
   public boolean hasContactInfo() {
-    System.out.println("CI "+hasPhone()+" "+hasEmail());
     return hasPhone() || hasEmail();
   }
 
@@ -167,5 +165,9 @@ public class Individual {
 
   public boolean hasPosition() {
     return !StringUtils.isBlank(Position);
+  }
+
+  @Override public String toString() {
+    return "";
   }
 }

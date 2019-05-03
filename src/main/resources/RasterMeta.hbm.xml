@@ -44,9 +44,9 @@
 		<property name='Location' column='location' />
 		<property name='LastUpdated' column='metadatacreatedate' />
 		<many-to-one name="Availability" entity-name="Availability" column='availabilityid' unique='true'/>
-		<many-to-one name="Owner" class="Individual" column='ownerid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
-		<many-to-one name="Custodian" class="Individual" column='custodianid' unique='true' not-null='true' insert='false' update='false'/>
-		<many-to-one name="MetadataAuthor" class="Individual" column='metadataauthorid' unique='true' not-null='true' insert='false' update='false'/>
+		<many-to-one name="Owner" class="Individual" column='ownerid' unique='false' not-null='true' insert='false' update='false' not-found='ignore'/>
+		<many-to-one name="Custodian" class="Individual" column='custodianid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
+		<many-to-one name="MetadataAuthor" class="Individual" column='metadataauthorid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
 		<one-to-one name="ProjectAcquisitionDetails" class="AcquisitionDetails" cascade="all"/>
     <set name='DatasetDetails'>
       <key column='projectid' />

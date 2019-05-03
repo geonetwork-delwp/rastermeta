@@ -69,7 +69,12 @@ public class Project {
 		}
 
   public String getProjectName() {
+    System.out.println(this.toString());
     return "project "+Title;
+	}
+
+  public String getAbstract() {
+    if (Abstract == null) { return Title; } else { return Abstract; }
 	}
 
   public ISODateBlock getDateStamp( ) throws ParseException {
@@ -77,6 +82,10 @@ public class Project {
     db.date = IS08601DateFormat.format( LastUpdated );
     db.dateType = "revision";
     return db;
+  }
+
+  public boolean hasAcquisitionInfo() {
+    return (ProjectAcquisitionDetails != null);
   }
 
   public boolean hasOwner() {
@@ -134,7 +143,32 @@ public class Project {
   @Override
   public String toString() {
     StringBuilder stuff = new StringBuilder();
-    stuff.append("Acq Info: "+ProjectAcquisitionDetails);
+    stuff.append("Acq Info: "+ProjectAcquisitionDetails+"\n");
+    stuff.append("UUID: "+UUID+"\n");
+    stuff.append("Title: "+Title+"\n");
+    stuff.append("Name: "+Name+"\n");
+    stuff.append("Abstract: "+Abstract+"\n");
+    stuff.append("Purpose: "+Purpose+"\n");
+    stuff.append("Location: "+Location+"\n");
+    String availability = (Availability != null) ? Availability.Text : null;
+    stuff.append("Availability: "+availability+"\n");
+    stuff.append("LastUpdated: "+LastUpdated+"\n");
+/*
+public String UUID;
+  public String Title;
+  public String Name;
+  public String Abstract;
+  public String Purpose;
+  public String Location;
+  public IDnText Availability;
+  public Individual Owner;
+  public Individual Custodian;
+  public Individual MetadataAuthor;
+  public Date LastUpdated;
+  public String ANZLIC_ID = "dunno";
+  public AcquisitionDetails ProjectAcquisitionDetails;
+  public Set DatasetDetails = new HashSet();
+*/
     return stuff.toString();
   }
 
