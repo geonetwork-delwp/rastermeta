@@ -124,6 +124,14 @@ public class Dataset {
     return DatasetType.Text;
   }
 
+  public boolean hasDatasetFormat() {
+    return DatasetFormat != null;
+  }
+
+  public String getDatasetFormat() {
+    return DatasetFormat.Text;
+  }
+
   public String getPlatformType() {
     return Platform.Text;
   }

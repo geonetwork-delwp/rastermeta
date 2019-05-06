@@ -784,17 +784,6 @@
         <structure name='abstract' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
           <value name='CharacterString' get-method='getAbstract' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
         </structure>
-        <!--
-        <structure name='credit' usage='optional' test-method='isCreditNotNull'  ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
-          <value name='CharacterString' field='Credit' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
-        </structure>
-        <structure name='status' usage='optional' test-method='isProgressCodeNotNull' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
-          <structure name='MD_ProgressCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ProgressCode' />
-            <value name='codeListValue' get-method='getProgressCode' />
-          </structure>
-        </structure>
-        -->
 
         <structure name='pointOfContact' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
               <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
@@ -846,40 +835,7 @@
         <structure name='topicCategory' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
           <value name='MD_TopicCategoryCode' ns='http://standards.iso.org/iso/19115/-3/mri/1.0' constant='imageryBaseMapsEarthCover'/>
         </structure>
-
-        <!--
-        <structure name='extent' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
-          <structure name='EX_Extent' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
-            <structure name='description' usage='optional' test-method='isExtentDescriptionNotNull' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
-              <value name='CharacterString' get-method='getExtentDescription' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
-            </structure>
-            <collection get-method='getExtents' item-type='au.gov.vic.delwp.Extent' >
-              <structure name='geographicElement'  ns='http://standards.iso.org/iso/19115/-3/gex/1.0'/>
-            </collection>
-          </structure>
-        </structure>    
-        <structure name='extent' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
-          <structure name='EX_Extent' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
-            <structure name='temporalElement' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
-              <structure name='EX_TemporalExtent' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
-                <structure name='extent' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
-                  <structure name='TimePeriod' ns='http://www.opengis.net/gml/3.2'>
-                    <value name='id' constant='temporalExtent' style='attribute' ns='http://www.opengis.net/gml/3.2'/>
-                    <structure name='beginPosition' ns='http://www.opengis.net/gml/3.2'>
-                      <value name='indeterminatePosition' get-method='getIndeterminateBeginning' style='attribute' usage='optional' />
-                      <value get-method='getBeginningDate' style='text' usage='optional' />
-                    </structure>
-                    <structure name='endPosition' ns='http://www.opengis.net/gml/3.2'>
-                      <value name='indeterminatePosition' get-method='getIndeterminateEnding' style='attribute' usage='optional' />
-                      <value get-method='getEndingDate' style='text' usage='optional' />
-                    </structure>
-                  </structure>
-                </structure>
-              </structure>
-            </structure>
-          </structure>
-        </structure>
-
+<!--
         <structure name='resourceMaintenance' usage='optional' test-method='isMaintenanceFrequencyNotNull' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
           <structure name='MD_MaintenanceInformation' ns='http://standards.iso.org/iso/19115/-3/mmi/1.0'>
             <structure name='maintenanceAndUpdateFrequency' ns='http://standards.iso.org/iso/19115/-3/mmi/1.0'>
@@ -893,6 +849,31 @@
         </structure>
         -->
         
+        <structure name='resourceFormat' usage='optional' test-method='hasDatasetFormat' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
+          <structure name='MD_Format' ns='http://standards.iso.org/iso/19115/-3/mrd/1.0'>
+            <structure name='formatSpecificationCitation' ns='http://standards.iso.org/iso/19115/-3/mrd/1.0'>
+              <structure name='CI_Citation' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                <structure name='title' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                  <value name='CharacterString' get-method='getDatasetFormat'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                </structure>
+                <structure name='citedResponsibleParty' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                  <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                    <structure name='role' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                      <structure name='CI_RoleCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                        <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
+                        <value name='codeListValue' constant='owner' />
+                      </structure>
+                    </structure>
+                    <structure name='party' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                      <structure name='CI_Organisation' ns='http://standards.iso.org/iso/19115/-3/cit/2.0' get-method="getMetadataPOC"/>
+                    </structure>
+                  </structure>
+                </structure>
+              </structure>
+            </structure>
+          </structure>
+        </structure>
+
         <structure name='resourceConstraints' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
           <structure name='MD_SecurityConstraints' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
             <structure name='useLimitation' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
@@ -924,11 +905,6 @@
           </structure>
         </structure>
 
-        <!--
-        <structure name='supplementalInformation' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
-          <value name='CharacterString' get-method='getSupplementalInformation' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
-        </structure>
-        -->
       </structure>
     </structure>
 
