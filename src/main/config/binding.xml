@@ -817,6 +817,32 @@
           </structure>
         </structure>
 
+        <structure name='spatialResolution' test-method='hasHorizontalAccuracy' usage='optional' ns='http://standards.iso.org/iso/19115/-3/mri/1.0' >
+          <structure name='MD_Resolution' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
+            <structure name='distance' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
+              <structure name='Distance' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' >
+                <value name='uom' constant='m'  style='attribute' />
+                <value field='HorizontalAccuracy' style='text' />
+              </structure>
+            </structure>
+          </structure>
+        </structure>
+
+        <structure name='spatialResolution' test-method='hasVerticalAccuracy' usage='optional' ns='http://standards.iso.org/iso/19115/-3/mri/1.0' >
+          <structure name='MD_Resolution' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
+            <structure name='vertical' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
+              <structure name='Distance' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' >
+                <value name='uom' constant='m'  style='attribute' />
+                <value field='VerticalAccuracy' style='text' />
+              </structure>
+            </structure>
+          </structure>
+        </structure>
+
+        <structure name='topicCategory' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
+          <value name='MD_TopicCategoryCode' ns='http://standards.iso.org/iso/19115/-3/mri/1.0' constant='elevation'/>
+        </structure>
+
         <structure name='topicCategory' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
           <value name='MD_TopicCategoryCode' ns='http://standards.iso.org/iso/19115/-3/mri/1.0' constant='imageryBaseMapsEarthCover'/>
         </structure>
@@ -903,6 +929,83 @@
           <value name='CharacterString' get-method='getSupplementalInformation' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
         </structure>
         -->
+      </structure>
+    </structure>
+
+    <structure name='dataQualityInfo' usage='optional' test-method='hasDataQualityInfo'>
+      <structure name='DQ_DataQuality' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
+        <structure name='scope' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
+          <structure name='MD_Scope' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+            <structure name='level' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+              <structure name='MD_ScopeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ScopeCode'/>
+                <value name='codeListValue' constant='dataset' />
+              </structure>
+            </structure>
+            <structure name='levelDescription' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+              <structure name='MD_ScopeDescription' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                <structure name='other' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                  <value name='CharacterString' field='Title' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                </structure>
+              </structure>
+            </structure>
+          </structure>
+        </structure>
+        <structure name='report' usage='optional' test-method='hasLogicalConsistency' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
+          <structure name='DQ_ConceptualConsistency' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
+            <structure name='result' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
+              <structure name='DQ_ConformanceResult' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
+                <structure name='specification' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
+                  <structure name='CI_Citation'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                    <structure name='title'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                      <value name='nilReason' constant='unknown' style='attribute' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                    </structure>
+                  </structure>
+                </structure>
+                <structure name='explanation' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
+                  <value field='LogicalConsistency' name='CharacterString' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                </structure>
+                <structure name='pass' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
+                  <value name='Boolean' constant='1' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                </structure>
+              </structure>
+            </structure>
+          </structure>
+        </structure>
+        <structure name='report' usage='optional' test-method='hasDatasetCompleteness' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
+          <structure name='DQ_CompletenessOmission' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
+            <structure name='result' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
+              <structure name='DQ_ConformanceResult' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
+                <structure name='specification' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
+                  <structure name='CI_Citation'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                    <structure name='title'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                      <value name='nilReason' constant='unknown' style='attribute' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                    </structure>
+                  </structure>
+                </structure>
+                <structure name='explanation' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
+                  <value field='DatasetCompleteness' name='CharacterString' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                </structure>
+                <structure name='pass' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
+                  <value name='Boolean' constant='1' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                </structure>
+              </structure>
+            </structure>
+          </structure>
+        </structure>
+
+      </structure>
+    </structure>
+
+    <structure name='resourceLineage' usage='optional' test-method='hasProcessingLineage'  ns='http://standards.iso.org/iso/19115/-3/mdb/2.0'>
+      <structure name='LI_Lineage'  ns='http://standards.iso.org/iso/19115/-3/mrl/2.0'>
+        <structure name='processStep' ns='http://standards.iso.org/iso/19115/-3/mrl/2.0'>
+          <structure name='LI_ProcessStep'  ns='http://standards.iso.org/iso/19115/-3/mrl/2.0'>
+            <structure name='description'  ns='http://standards.iso.org/iso/19115/-3/mrl/2.0'>
+              <value field='ProcessingLineage' name='CharacterString' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+            </structure>
+          </structure>
+        </structure>
       </structure>
     </structure>
 
@@ -1060,7 +1163,7 @@
       </structure>
     </structure>
     <structure name='ellipsoidFormat' usage='optional' test-method='hasEllipsoidProvided' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
-      <structure name='MD_EllipsoidFormat' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_EllipsoidFormatCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
         <value name='codeList' constant='codeListLocation#MD_EllipsoidFormatCode'/>
         <value name='codeListValue' get-method='getEllipsoidFormatCode' />
       </structure>

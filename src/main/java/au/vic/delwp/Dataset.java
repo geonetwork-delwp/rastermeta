@@ -80,6 +80,14 @@ public class Dataset {
     return (String)SpatialRepresentationTypeCodes.get(DatasetType.Text);
   }
 
+  public boolean hasHorizontalAccuracy() {
+    return HorizontalAccuracy != null;
+  }
+
+  public boolean hasVerticalAccuracy() {
+    return VerticalAccuracy != null;
+  }
+
   public String getAvailability() {
     String result = "Unknown";
     if (Availability != null) {
@@ -94,6 +102,22 @@ public class Dataset {
       result = "unknown";
     }
     return result;
+  }
+
+  public boolean hasProcessingLineage() {
+    return ProcessingLineage != null;
+  }
+
+  public boolean hasDataQualityInfo() {
+    return hasLogicalConsistency() || hasDatasetCompleteness();
+  }
+
+  public boolean hasLogicalConsistency() {
+    return LogicalConsistency != null;
+  }
+
+  public boolean hasDatasetCompleteness() {
+    return DatasetCompleteness != null;
   }
 
   public String getDatasetType() {
