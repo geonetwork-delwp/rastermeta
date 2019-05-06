@@ -5,6 +5,7 @@ public class PointCloudDetails {
 	public int ID;
 	public String PointCloudID;
 	public String PulseMode;
+	public String ReturnType;
 	public String ScanRate;
 	public String ScanFrequency;
 	public String ScanAngle;
@@ -25,4 +26,31 @@ public class PointCloudDetails {
     return PulseMode != null;
   }
 
+  public boolean hasReturnType() {
+    return ReturnType != null;
+  }
+
+  public boolean hasScanAngle() {
+    return ScanAngle != null;
+  }
+
+  public boolean hasPointDensityTarget() {
+    return PointDensityTarget != null;
+  }
+
+  public boolean hasPointSpacingTarget() {
+    return PointSpacingTarget != null;
+  }
+
+  public boolean hasAdditionalAdjustments() {
+    return AdditionalAdjustments != null;
+  }
+
+  public boolean hasEnvironmentalConditions() {
+    return EnvironmentalConditions != null;
+  }
+
+  public boolean hasTidalConditions() {
+    return TidalConditions != null;
+  }
 }

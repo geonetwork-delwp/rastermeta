@@ -976,7 +976,7 @@
                             <structure name="MD_RasterDetails" field="Raster" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
                             </structure>
                           </structure>
-                          <structure name="countourDetails" usage="optional" test-method="isContour" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+                          <structure name="contourDetails" usage="optional" test-method="isContour" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
                             <structure name="MD_ContourDetails" field="Contour" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
                             </structure>
                           </structure>
@@ -996,7 +996,72 @@
 
   <mapping class='au.gov.vic.delwp.PointCloudDetails' abstract='true'>
     <structure name='pulseMode' usage="optional" test-method="hasPulseMode" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
-      <value name='Character' field='PulseMode' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+      <value name='CharacterString' field='PulseMode' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='returnType' usage="optional" test-method="hasReturnType" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='CharacterString' field='ReturnType' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='scanRate' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+        <value name='uom' constant='Hz' style='attribute'/>
+        <value style='text' field='ScanRate'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
+      </structure>
+    </structure>
+    <structure name='scanFrequency' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+        <value name='uom' constant='kHz' style='attribute'/>
+        <value style='text' field='ScanFrequency'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
+      </structure>
+    </structure>
+    <structure name='scanAngle' usage='optional' test-method='hasScanAngle' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+        <value name='uom' constant='degrees' style='attribute'/>
+        <value style='text' field='ScanAngle'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
+      </structure>
+    </structure>
+    <structure name='footprintSize' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+        <value name='uom' constant='m' style='attribute'/>
+        <value style='text' field='FootprintSize'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
+      </structure>
+    </structure>
+    <structure name='pointDensityTarget' usage='optional' test-method='hasPointDensityTarget' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+        <value name='uom' constant='points/m2' style='attribute'/>
+        <value style='text' field='PointDensityTarget'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
+      </structure>
+    </structure>
+    <structure name='pointDensityActual' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+        <value name='uom' constant='points/m2' style='attribute'/>
+        <value style='text' field='PointDensityActual'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
+      </structure>
+    </structure>
+    <structure name='pointSpacingTarget' usage='optional' test-method='hasPointSpacingTarget' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+        <value name='uom' constant='points/m2' style='attribute'/>
+        <value style='text' field='PointSpacingTarget'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
+      </structure>
+    </structure>
+    <structure name='pointSpacingActual' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+        <value name='uom' constant='points/m2' style='attribute'/>
+        <value style='text' field='PointSpacingActual'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
+      </structure>
+    </structure>
+    <structure name='ellipsoidProvided' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Boolean' field='EllipsoidProvided' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+
+
+    <structure name='additionalAdjustments' usage="optional" test-method="hasAdditionalAdjustments" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='CharacterString' field='AdditionalAdjustments' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='environmentalConditions' usage="optional" test-method="hasEnvironmentalConditions" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='CharacterString' field='EnvironmentalConditions' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='tidalConditions' usage="optional" test-method="hasTidalConditions" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='CharacterString' field='TidalConditions' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
     </structure>
   </mapping>
 
@@ -1047,7 +1112,10 @@
 
   <mapping class='au.gov.vic.delwp.ContourDetails' abstract='true'>
     <structure name='interval' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
-      <value name='Integer' field='ContourInterval' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+      <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+        <value name='uom' constant='m' style='attribute'/>
+        <value style='text' field='ContourInterval'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
+      </structure>
     </structure>
   </mapping>
 
