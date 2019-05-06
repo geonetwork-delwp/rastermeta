@@ -372,6 +372,9 @@
               </structure>
               <structure name="citation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
                 <structure name='CI_Citation' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                      <structure name='title' value-style="attribute" ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                        <value name='nilReason' constant='inapplicable' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                      </structure>
                       <!-- ContractNumber, ScheduleNumber - here as MD_Identifier -->
                       <structure name='identifier' usage='optional' test-method='hasContractNumber' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                         <structure name='MD_Identifier' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
@@ -408,6 +411,12 @@
                       </structure>
                     </structure>
                   </structure>
+                </structure>
+              </structure>
+              <structure name='status' ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
+                <structure name='MD_ProgressCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                  <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ProgressCode' />
+                  <value name='codeListValue' get-method='getAcquisitionStatus' />
                 </structure>
               </structure>
               <structure name="otherProperty" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
@@ -646,6 +655,64 @@
         <!-- TODO: Add version and date? -->
       </structure>
     </structure>
+    <structure name='spatialRepresentationInfo' usage='optional' test-method='isRaster'>
+      <structure name='MD_GridSpatialRepresentation' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+        <structure name='numberOfDimensions' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+          <value name='Integer' constant='2'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+        </structure>
+        <structure field="Raster">
+          <structure name='axisDimensionProperties' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+            <structure name='MD_Dimension' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+              <structure name='dimensionName' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+                <structure name='MD_DimensionNameTypeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+                  <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_DimensionNameTypeCode' />
+                  <value name='codeListValue' constant='column' />
+                </structure>
+              </structure>
+              <structure name='dimensionSize' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+                <value name='Integer' field='NumberColumns' usage='optional' test-method='hasNumberColumns' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                <value name='nilReason' style='attribute' constant='unknown' usage='optional' test-method="doesNotHaveNumberColumns"  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+              </structure>
+              <structure name='resolution' usage='optional' test-method='hasXPixelResolution' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+                <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+                  <value name='uom' constant='cm' style='attribute'/>
+                  <value style='text' field='XPixelResolution'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
+                </structure>
+              </structure>
+            </structure> 
+          </structure> 
+          <structure name='axisDimensionProperties' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+            <structure name='MD_Dimension' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+              <structure name='dimensionName' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+                <structure name='MD_DimensionNameTypeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+                  <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_DimensionNameTypeCode' />
+                  <value name='codeListValue' constant='row' />
+                </structure>
+              </structure>
+              <structure name='dimensionSize' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+                <value name='Integer' field='NumberRows' usage='optional' test-method='hasNumberRows' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                <value name='nilReason' constant='unknown' style='attribute' usage='optional' test-method="doesNotHaveNumberRows"  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+              </structure>
+              <structure name='resolution' usage='optional' test-method='hasYPixelResolution' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+                <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+                  <value name='uom' constant='cm' style='attribute'/>
+                  <value style='text' field='YPixelResolution'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
+                </structure>
+              </structure>
+            </structure> 
+          </structure> 
+          <structure name='cellGeometry' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+            <structure name='MD_CellGeometryCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+              <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_DimensionNameTypeCode' />
+              <value name='codeListValue' constant='area' />
+            </structure>
+          </structure> 
+          <structure name='transformationParameterAvailability' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+            <value name='Boolean' constant='1' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+          </structure> 
+        </structure> 
+      </structure> 
+    </structure>
     <structure name='referenceSystemInfo' usage='optional' test-method='hasRefSystem' >
       <structure name='MD_ReferenceSystem' ns='http://standards.iso.org/iso/19115/-3/mrs/1.0'>
         <structure name='referenceSystemIdentifier' ns='http://standards.iso.org/iso/19115/-3/mrs/1.0'>
@@ -871,6 +938,12 @@
   
           <structure name="operation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
             <structure name="MI_Operation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
+              <structure name='status' ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
+                <structure name='MD_ProgressCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                  <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ProgressCode' />
+                  <value name='codeListValue' get-method='getAcquisitionStatus' />
+                </structure>
+              </structure>
               <structure name="otherProperty" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
                 <structure name="Record" ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
                   <structure name="datasetDetails" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
@@ -889,8 +962,24 @@
                       </structure>
                       <structure name="tileSize" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
                         <structure name='MD_TileSizeCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
-                          <value name='codeList' constant='codeListLocation#MD_PlatformTypeCode'/>
+                          <value name='codeList' constant='codeListLocation#MD_TileSizeCode'/>
                           <value name='codeListValue' get-method='getTilesize' />
+                        </structure>
+                      </structure>
+                      <structure name="dataDetails" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+                        <structure name="MD_DataDetails" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+                          <structure name="pointCloudDetails" usage="optional" test-method="isPointCloud" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+                            <structure name="MD_PointCloudDetails" field="PointCloud" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+                            </structure>
+                          </structure>
+                          <structure name="rasterDetails" usage="optional" test-method="isRaster" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+                            <structure name="MD_RasterDetails" field="Raster" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+                            </structure>
+                          </structure>
+                          <structure name="countourDetails" usage="optional" test-method="isContour" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+                            <structure name="MD_ContourDetails" field="Contour" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+                            </structure>
+                          </structure>
                         </structure>
                       </structure>
                     </structure>
@@ -903,4 +992,63 @@
     </structure>
 
   </mapping>
+
+
+  <mapping class='au.gov.vic.delwp.PointCloudDetails' abstract='true'>
+    <structure name='pulseMode' usage="optional" test-method="hasPulseMode" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Character' field='PulseMode' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+  </mapping>
+
+  <mapping class='au.gov.vic.delwp.RasterDetails' abstract='true'>
+    <structure name="type" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_RasterTypeCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_SeamlessnessCode'/>
+        <value name='codeListValue' get-method='getRasterTypeCode' />
+      </structure>
+    </structure>
+    <structure name="seamlessness" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_SeamlessnessCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_SeamlessnessCode'/>
+        <value name='codeListValue' get-method='getSeamlessness' />
+      </structure>
+    </structure>
+    <structure name="rectificationType" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_RectificationTypeCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_RectificationTypeCode'/>
+        <value name='codeListValue' get-method='getRectificationTypeCode' />
+      </structure>
+    </structure>
+    <structure name='numberOfBands' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Integer' field='NumberBands' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name="bandList" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_BandListCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_BandListCode'/>
+        <value name='codeListValue' get-method='getBandListCode' />
+      </structure>
+    </structure>
+    <structure name="resamplingKernel" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_ResamplingKernelCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_ResamplingKernelCode'/>
+        <value name='codeListValue' get-method='getResamplingKernelCode' />
+      </structure>
+    </structure>
+    <structure name="platform" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_PlatformCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_PlaformCode'/>
+        <value name='codeListValue' get-method='getPlatformCode' />
+      </structure>
+    </structure>
+    <structure name='rectificationNotes' usage="optional" test-method="hasRectificationNotes" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='CharacterString' field='RectificationNotes' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+  </mapping>
+
+  <mapping class='au.gov.vic.delwp.ContourDetails' abstract='true'>
+    <structure name='interval' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Integer' field='ContourInterval' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+  </mapping>
+
 </binding>

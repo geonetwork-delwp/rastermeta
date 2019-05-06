@@ -48,6 +48,14 @@ public class AcquisitionDetails {
     return AcquisitionMethod.Text;
   }
 
+  public String getAcquisitionStatus() {
+    if (project.Availability.ID == 0) { // unknown 
+      return "underDevelopment";
+    } else {   // every other availability means that the acquisition is complete
+      return "completed";
+    }
+  }
+
   @Override
   public String toString() {
     StringBuilder stuff = new StringBuilder();

@@ -38,7 +38,7 @@ public class Dataset {
   public IDnText QALevel;
   public IDnText Availability;
   public IDnText Platform;
-  public LidarDetails Lidar;
+  public PointCloudDetails PointCloud;
   public RasterDetails Raster;
   public ContourDetails Contour;
   public Project ParentProject;
@@ -114,5 +114,25 @@ public class Dataset {
 
   public String getEPSGCode() {
     return EPSG.Text;
+  }
+
+  public boolean isPointCloud() {
+    return (PointCloud != null);
+  }
+
+  public boolean isRaster() {
+    return (Raster != null);
+  }
+
+  public boolean isContour() {
+    return (Contour != null);
+  }
+
+  public String getAcquisitionStatus() {
+    if (Availability == null || Availability.ID == 0) { // unknown 
+      return "underDevelopment";
+    } else {   // every other availability means that the acquisition is complete
+      return "completed";
+    }
   }
 }

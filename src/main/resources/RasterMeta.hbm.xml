@@ -76,17 +76,33 @@
 		<many-to-one name='Platform' entity-name="Platform" column='platformid' unique="true" />
 		<many-to-one name='QALevel' entity-name="QALevel" column='qalevelid' unique="true" />
 		<many-to-one name="Availability" entity-name="Availability" column='availabilityid' unique='true'/>
-		<many-to-one name="Lidar" class="LidarDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
+		<many-to-one name="PointCloud" class="PointCloudDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
 		<many-to-one name="Raster" class="RasterDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
 		<many-to-one name="Contour" class="ContourDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
 		<many-to-one name="ParentProject" class="Project" column='projectid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
   </class>
 
-	<class name='LidarDetails' table='lidardetails' mutable='false' lazy='false'>
-		<id name='ID' column='datasetid' >
+	<class name='PointCloudDetails' table='lidardetails' mutable='false' lazy='false'>
+		<id name='ID' column='datasetid'>
 			<generator class='native'/>
 		</id>
-		<property name='LidarID' column='lidarid' />
+		<property name='PointCloudID' column='lidarid' />
+		<property name='PulseMode' column='pulsemode' />
+		<property name='ScanRate' column='scanrate' />
+		<property name='ScanFrequency' column='scanfrequency' />
+		<property name='ScanAngle' column='scanangle' />
+		<property name='FootprintSize' column='footprintsize' />
+		<property name='PointDensityTarget' column='pointdensity_target' />
+		<property name='PointDensityActual' column='pointdensity_actual' />
+		<property name='PointSpacingTarget' column='pointspacing_target' />
+		<property name='PointSpacingActual' column='pointspacing_actual' />
+		<property name='EllipsoidProvided' column='ellipsoidprovided' />
+		<property name='EllipsoidFormat' column='ellipsoidformat' />
+		<property name='EllipsoidVerticalDatum' column='ellipsoidverticaldatum' />
+		<property name='GeoidVerticalDatum' column='geoidverticaldatum' />
+		<property name='AdditionalAdjustments' column='additionaladjustments' />
+		<property name='TidalConditions' column='tidalconditions' />
+		<property name='EnvironmentalConditions' column='environmentalconditions' />
   </class>
 
 	<class name='RasterDetails' table='rasterdetails' mutable='false' lazy='false'>
@@ -94,13 +110,68 @@
 			<generator class='native'/>
 		</id>
 		<property name='RasterID' column='rasterid' />
+		<many-to-one name='RasterType' entity-name="RasterType" column='rastertypeid' />
+		<many-to-one name='Seamlessness' entity-name="Seamlessness" column='seamlessnessid' />
+		<many-to-one name='RectificationType' entity-name="RectificationType" column='rectificationtypeid' />
+		<property name='XPixelResolution' column='xpixelresolution' />
+		<property name='YPixelResolution' column='ypixelresolution' />
+		<property name='NumberBands' column='numberbands' />
+		<property name='NumberColumns' column='numbercolumns' />
+		<property name='NumberRows' column='numberrows' />
+		<many-to-one name='BandList' entity-name="BandList" column='bandlistid' />
+		<many-to-one name='ResamplingKernel' entity-name="ResamplingKernel" column='resamplingkernelid' />
+		<many-to-one name='PlatformName' entity-name="PlatformName" column='platformnameid' />
+		<property name='RectificationNotes' column='rectificationnotes' />
   </class>
+
+	<class entity-name='RasterType' name='IDnText' table='rt_rastertype' lazy='false' mutable='false' >
+		<id name='ID' column='rastertypeid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
+	<class entity-name='Seamlessness' name='IDnText' table='rt_seamlessness' lazy='false' mutable='false' >
+		<id name='ID' column='seamlessnessid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
+	<class entity-name='RectificationType' name='IDnText' table='rt_rectificationtype' lazy='false' mutable='false' >
+		<id name='ID' column='rectificationtypeid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
+	<class entity-name='BandList' name='IDnText' table='rt_bandlist' lazy='false' mutable='false' >
+		<id name='ID' column='bandlistid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
+	<class entity-name='ResamplingKernel' name='IDnText' table='rt_resamplingkernel' lazy='false' mutable='false' >
+		<id name='ID' column='resamplingkernelid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
+	<class entity-name='PlatformName' name='IDnText' table='rt_platformname' lazy='false' mutable='false' >
+		<id name='ID' column='platformnameid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
 
 	<class name='ContourDetails' table='contourdetails' mutable='false' lazy='false'>
 		<id name='ID' column='datasetid' >
 			<generator class='native'/>
 		</id>
 		<property name='ContourID' column='contourid' />
+		<property name='ContourInterval' column='contourinterval' />
   </class>
 
 	<class name='AcquisitionDetails' table='acquisitiondetails' mutable='false' lazy='false'>
