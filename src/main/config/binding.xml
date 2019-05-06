@@ -1050,9 +1050,27 @@
       </structure>
     </structure>
     <structure name='ellipsoidProvided' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
-      <value name='Boolean' field='EllipsoidProvided' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+      <value name='Boolean' get-method='getEllipsoidProvided' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
     </structure>
 
+    <structure name='ellipsoidVerticalDatum' usage='optional' test-method='hasEllipsoidProvided' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_EllipsoidVerticalDatumCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_EllipsoidVerticalDatumCode'/>
+        <value name='codeListValue' get-method='getEllipsoidVerticalDatumCode' />
+      </structure>
+    </structure>
+    <structure name='ellipsoidFormat' usage='optional' test-method='hasEllipsoidProvided' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_EllipsoidFormat' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_EllipsoidFormatCode'/>
+        <value name='codeListValue' get-method='getEllipsoidFormatCode' />
+      </structure>
+    </structure>
+    <structure name='geoidVerticalDatum' usage='optional' test-method='hasGeoidVerticalDatum' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_GeoidVerticalDatumCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_GeoidVerticalDatumCode'/>
+        <value name='codeListValue' get-method='getGeoidVerticalDatumCode' />
+      </structure>
+    </structure>
 
     <structure name='additionalAdjustments' usage="optional" test-method="hasAdditionalAdjustments" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <value name='CharacterString' field='AdditionalAdjustments' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />

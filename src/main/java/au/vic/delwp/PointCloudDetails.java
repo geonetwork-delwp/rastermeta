@@ -1,5 +1,7 @@
 package au.gov.vic.delwp;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class PointCloudDetails {
 
 	public int ID;
@@ -53,4 +55,33 @@ public class PointCloudDetails {
   public boolean hasTidalConditions() {
     return TidalConditions != null;
   }
+
+  public boolean hasEllipsoidProvided() {
+    return !(StringUtils.isBlank(EllipsoidProvided) || EllipsoidProvided.trim().equals("0"));
+  }
+
+  public boolean hasGeoidVerticalDatum() {
+    return !(StringUtils.isBlank(GeoidVerticalDatum) || GeoidVerticalDatum.trim().equals("0"));
+  }
+
+  public String getEllipsoidProvided() {
+    if (StringUtils.isBlank(EllipsoidProvided) || EllipsoidProvided.trim().equals("0")) {
+      return "0";
+    } else {
+      return "1";
+    }
+  }
+
+  public String getEllipsoidVerticalDatumCode() {
+    return EllipsoidVerticalDatum;
+  }
+
+  public String getEllipsoidFormatCode() {
+    return EllipsoidFormat;
+  }
+
+  public String getGeoidVerticalDatumCode() {
+    return GeoidVerticalDatum;
+  }
+
 }
