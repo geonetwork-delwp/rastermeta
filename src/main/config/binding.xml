@@ -33,7 +33,7 @@
       <structure name='MD_MetadataScope'>
         <structure name='resourceScope'>
           <structure name='MD_ScopeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-            <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ScopeCode'/>
+            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ScopeCode'/>
             <value name='codeListValue' constant='project' />
           </structure>
         </structure>
@@ -47,7 +47,7 @@
       <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
         <structure name='role'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
           <structure name='CI_RoleCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-            <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode' />
+            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
             <value name='codeListValue' constant='pointOfContact' />
           </structure>
         </structure>
@@ -60,7 +60,7 @@
       <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
         <structure name='role'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
           <structure name='CI_RoleCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-            <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode' />
+            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
             <value name='codeListValue' constant='author' />
           </structure>
         </structure>
@@ -124,7 +124,7 @@
                         </structure>
                         <structure name='dateType' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                           <structure name='CI_DateTypeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-                            <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode' />
+                            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_DateTypeCode' />
                             <value name='codeListValue' constant='revision' />
                           </structure>
                         </structure>
@@ -134,7 +134,7 @@
                       <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                         <structure name='role' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                           <structure name='CI_RoleCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-                            <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode' />
+                            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
                             <value name='codeListValue' constant='custodian' />
                           </structure>
                         </structure>
@@ -158,7 +158,7 @@
               <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                 <structure name='role'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                   <structure name='CI_RoleCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-                    <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode' />
+                    <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
                     <value name='codeListValue' constant='owner' />
                   </structure>
                 </structure>
@@ -171,7 +171,7 @@
               <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                 <structure name='role'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                   <structure name='CI_RoleCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-                    <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode' />
+                    <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
                     <value name='codeListValue' constant='custodian' />
                   </structure>
                 </structure>
@@ -194,7 +194,7 @@
         </structure>
         <structure name='status' usage='optional' test-method='isProgressCodeNotNull' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
           <structure name='MD_ProgressCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-            <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ProgressCode' />
+            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ProgressCode' />
             <value name='codeListValue' get-method='getProgressCode' />
           </structure>
         </structure>
@@ -204,7 +204,7 @@
               <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                 <structure name='role'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                   <structure name='CI_RoleCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-                    <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode' />
+                    <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
                     <value name='codeListValue' constant='pointOfContact' />
                   </structure>
                 </structure>
@@ -216,7 +216,7 @@
 
         <structure name='spatialRepresentationType' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
           <structure name='MD_SpatialRepresentationTypeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-            <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_SpatialRepresentationTypeCode' />
+            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_SpatialRepresentationTypeCode' />
             <value name='codeListValue' constant='grid' />
           </structure>
         </structure>
@@ -262,7 +262,7 @@
           <structure name='MD_MaintenanceInformation' ns='http://standards.iso.org/iso/19115/-3/mmi/1.0'>
             <structure name='maintenanceAndUpdateFrequency' ns='http://standards.iso.org/iso/19115/-3/mmi/1.0'>
               <structure name='MD_MaintenanceFrequencyCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mmi/1.0'>
-                <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_MaintenanceFrequencyCode' />
+                <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_MaintenanceFrequencyCode' />
                 <value name='codeListValue' get-method='getMaintenanceFrequency' />
               </structure>
             </structure>
@@ -278,7 +278,7 @@
             </structure>
             <structure name='classification' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
               <structure name='MD_ClassificationCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
-                <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ClassificationCode' />
+                <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ClassificationCode' />
                 <value name='codeListValue' get-method='getResourceConstraint'/>
               </structure>
             </structure>
@@ -293,13 +293,13 @@
           <structure name='PT_Locale' ns='http://standards.iso.org/iso/19115/-3/lan/1.0'>
             <structure name='language' ns='http://standards.iso.org/iso/19115/-3/lan/1.0'>
               <structure name='LanguageCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/lan/1.0'>
-                <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_SpatialRepresentationTypeCode' />
+                <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_SpatialRepresentationTypeCode' />
                 <value name='codeListValue' constant='eng' />
               </structure>
             </structure>
             <structure name='characterEncoding' ns='http://standards.iso.org/iso/19115/-3/lan/1.0'>
               <structure name='MD_CharacterSetCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/lan/1.0'>
-                <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_SpatialRepresentationTypeCode' />
+                <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_SpatialRepresentationTypeCode' />
                 <value name='codeListValue' constant='utf8' />
               </structure>
             </structure>
@@ -322,7 +322,7 @@
         </structure>
         <structure name='classification' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
           <structure name='MD_ClassificationCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
-            <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ClassificationCode' />
+            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ClassificationCode' />
             <value name='codeListValue' get-method='getMetadataAccessClassification'/>
           </structure>
         </structure>
@@ -338,7 +338,7 @@
             <structure name='MD_Scope' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
               <structure name='level' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
                 <structure name='MD_ScopeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-                  <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ScopeCode'/>
+                  <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ScopeCode'/>
                   <value name='codeListValue' constant='project' />
                 </structure>
               </structure>
@@ -402,7 +402,7 @@
                       <!-- Supplier -->
                       <structure name='role'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                         <structure name='CI_RoleCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-                          <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode' />
+                          <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
                           <value name='codeListValue' constant='resourceProvider' />
                         </structure>
                       </structure>
@@ -415,7 +415,7 @@
               </structure>
               <structure name='status' ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
                 <structure name='MD_ProgressCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-                  <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ProgressCode' />
+                  <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ProgressCode' />
                   <value name='codeListValue' get-method='getAcquisitionStatus' />
                 </structure>
               </structure>
@@ -447,7 +447,7 @@
     <structure name='MD_AssociatedResource' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
       <structure name='associationType' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
         <structure name='DS_AssociationTypeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
-          <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode' />
+          <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
           <value name='codeListValue' constant='isComposedOf' />
         </structure>
       </structure>
@@ -537,7 +537,7 @@
               </structure>
               <structure name='numberType' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                 <structure name='CI_TelephoneTypeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-                  <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode' />
+                  <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
                   <value name='codeListValue' constant='voice' />
                 </structure>
               </structure>
@@ -550,7 +550,7 @@
               </structure>
               <structure name='numberType' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                 <structure name='CI_TelephoneTypeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-                  <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode' />
+                  <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
                   <value name='codeListValue' constant='facsimile' />
                 </structure>
               </structure>
@@ -563,7 +563,7 @@
               </structure>
               <structure name='numberType' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                 <structure name='CI_TelephoneTypeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-                  <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode' />
+                  <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
                   <value name='codeListValue' constant='mobile' />
                 </structure>
               </structure>
@@ -595,7 +595,7 @@
       </structure>
       <structure name='dateType' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
         <structure name='CI_DateTypeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-          <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode' />
+          <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_DateTypeCode' />
           <value name='codeListValue' field='dateType' />
         </structure>
       </structure>
@@ -615,7 +615,7 @@
       <structure name='MD_MetadataScope'>
         <structure name='resourceScope'>
           <structure name='MD_ScopeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-            <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ScopeCode'/>
+            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ScopeCode'/>
             <value name='codeListValue' constant='dataset' />
           </structure>
         </structure>
@@ -629,7 +629,7 @@
       <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
         <structure name='role'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
           <structure name='CI_RoleCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-            <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode' />
+            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
             <value name='codeListValue' constant='pointOfContact' />
           </structure>
         </structure>
@@ -665,7 +665,7 @@
             <structure name='MD_Dimension' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
               <structure name='dimensionName' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
                 <structure name='MD_DimensionNameTypeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
-                  <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_DimensionNameTypeCode' />
+                  <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_DimensionNameTypeCode' />
                   <value name='codeListValue' constant='column' />
                 </structure>
               </structure>
@@ -685,7 +685,7 @@
             <structure name='MD_Dimension' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
               <structure name='dimensionName' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
                 <structure name='MD_DimensionNameTypeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
-                  <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_DimensionNameTypeCode' />
+                  <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_DimensionNameTypeCode' />
                   <value name='codeListValue' constant='row' />
                 </structure>
               </structure>
@@ -703,7 +703,7 @@
           </structure> 
           <structure name='cellGeometry' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
             <structure name='MD_CellGeometryCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
-              <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_DimensionNameTypeCode' />
+              <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_DimensionNameTypeCode' />
               <value name='codeListValue' constant='area' />
             </structure>
           </structure> 
@@ -749,7 +749,7 @@
                         </structure>
                         <structure name='dateType' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                           <structure name='CI_DateTypeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-                            <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_DateTypeCode' />
+                            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_DateTypeCode' />
                             <value name='codeListValue' constant='revision' />
                           </structure>
                         </structure>
@@ -759,7 +759,7 @@
                       <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                         <structure name='role' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                           <structure name='CI_RoleCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-                            <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode' />
+                            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
                             <value name='codeListValue' constant='custodian' />
                           </structure>
                         </structure>
@@ -790,7 +790,7 @@
         </structure>
         <structure name='status' usage='optional' test-method='isProgressCodeNotNull' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
           <structure name='MD_ProgressCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-            <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ProgressCode' />
+            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ProgressCode' />
             <value name='codeListValue' get-method='getProgressCode' />
           </structure>
         </structure>
@@ -800,7 +800,7 @@
               <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                 <structure name='role'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                   <structure name='CI_RoleCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-                    <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode' />
+                    <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
                     <value name='codeListValue' constant='pointOfContact' />
                   </structure>
                 </structure>
@@ -812,7 +812,7 @@
 
         <structure name='spatialRepresentationType' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
           <structure name='MD_SpatialRepresentationTypeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-            <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_SpatialRepresentationTypeCode' />
+            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_SpatialRepresentationTypeCode' />
             <value name='codeListValue' get-method='getSpatialRepresentationType' />
           </structure>
         </structure>
@@ -858,7 +858,7 @@
           <structure name='MD_MaintenanceInformation' ns='http://standards.iso.org/iso/19115/-3/mmi/1.0'>
             <structure name='maintenanceAndUpdateFrequency' ns='http://standards.iso.org/iso/19115/-3/mmi/1.0'>
               <structure name='MD_MaintenanceFrequencyCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mmi/1.0'>
-                <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_MaintenanceFrequencyCode' />
+                <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_MaintenanceFrequencyCode' />
                 <value name='codeListValue' get-method='getMaintenanceFrequency' />
               </structure>
             </structure>
@@ -874,7 +874,7 @@
             </structure>
             <structure name='classification' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
               <structure name='MD_ClassificationCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
-                <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ClassificationCode' />
+                <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ClassificationCode' />
                 <value name='codeListValue' get-method='getResourceConstraint'/>
               </structure>
             </structure>
@@ -885,13 +885,13 @@
           <structure name='PT_Locale' ns='http://standards.iso.org/iso/19115/-3/lan/1.0'>
             <structure name='language' ns='http://standards.iso.org/iso/19115/-3/lan/1.0'>
               <structure name='LanguageCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/lan/1.0'>
-                <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_SpatialRepresentationTypeCode' />
+                <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_SpatialRepresentationTypeCode' />
                 <value name='codeListValue' constant='eng' />
               </structure>
             </structure>
             <structure name='characterEncoding' ns='http://standards.iso.org/iso/19115/-3/lan/1.0'>
               <structure name='MD_CharacterSetCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/lan/1.0'>
-                <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_SpatialRepresentationTypeCode' />
+                <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_SpatialRepresentationTypeCode' />
                 <value name='codeListValue' constant='utf8' />
               </structure>
             </structure>
@@ -914,7 +914,7 @@
         </structure>
         <structure name='classification' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
           <structure name='MD_ClassificationCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
-            <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ClassificationCode' />
+            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ClassificationCode' />
             <value name='codeListValue' get-method='getMetadataAccessClassification'/>
           </structure>
         </structure>
@@ -929,7 +929,7 @@
             <structure name='MD_Scope' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
               <structure name='level' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
                 <structure name='MD_ScopeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-                  <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ScopeCode'/>
+                  <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ScopeCode'/>
                   <value name='codeListValue' constant='dataset' />
                 </structure>
               </structure>
@@ -940,7 +940,7 @@
             <structure name="MI_Operation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
               <structure name='status' ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
                 <structure name='MD_ProgressCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-                  <value name='codeList' constant='http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#MD_ProgressCode' />
+                  <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ProgressCode' />
                   <value name='codeListValue' get-method='getAcquisitionStatus' />
                 </structure>
               </structure>
