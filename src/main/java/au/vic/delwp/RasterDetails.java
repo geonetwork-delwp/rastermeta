@@ -16,6 +16,7 @@ public class RasterDetails {
 	public IDnText ResamplingKernel;
 	public IDnText PlatformName;
 	public String RectificationNotes;
+	public AerialPhoto AerialPhotoDetails;
 
   public String getRasterTypeCode() {
     return RasterType.Text;
@@ -71,6 +72,14 @@ public class RasterDetails {
 
   public String getRectificationNotes() {
     return RectificationNotes;
+  }
+
+  public boolean hasAerialPhoto() {
+    return AerialPhotoDetails != null;
+  }
+
+  public AerialPhoto getAerialPhoto() {
+    return AerialPhotoDetails;
   }
 
 }

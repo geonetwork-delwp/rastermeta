@@ -1165,20 +1165,8 @@
   <mapping class='au.gov.vic.delwp.RasterDetails' abstract='true'>
     <structure name="type" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='MD_RasterTypeCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
-        <value name='codeList' constant='codeListLocation#MD_SeamlessnessCode'/>
+        <value name='codeList' constant='codeListLocation#MD_RasterTypeCode'/>
         <value name='codeListValue' get-method='getRasterTypeCode' />
-      </structure>
-    </structure>
-    <structure name="seamlessness" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
-      <structure name='MD_SeamlessnessCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
-        <value name='codeList' constant='codeListLocation#MD_SeamlessnessCode'/>
-        <value name='codeListValue' get-method='getSeamlessness' />
-      </structure>
-    </structure>
-    <structure name="rectificationType" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
-      <structure name='MD_RectificationTypeCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
-        <value name='codeList' constant='codeListLocation#MD_RectificationTypeCode'/>
-        <value name='codeListValue' get-method='getRectificationTypeCode' />
       </structure>
     </structure>
     <structure name='numberOfBands' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
@@ -1202,8 +1190,43 @@
         <value name='codeListValue' get-method='getPlatformCode' />
       </structure>
     </structure>
+    <structure name="seamlessness" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_SeamlessnessCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_SeamlessnessCode'/>
+        <value name='codeListValue' get-method='getSeamlessness' />
+      </structure>
+    </structure>
+    <structure name="rectificationType" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_RectificationTypeCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_RectificationTypeCode'/>
+        <value name='codeListValue' get-method='getRectificationTypeCode' />
+      </structure>
+    </structure>
     <structure name='rectificationNotes' usage="optional" test-method="hasRectificationNotes" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <value name='CharacterString' field='RectificationNotes' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='rasterPlatformSpecificProperties' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_RasterPlatformSpecificProperties' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <structure name='aerialPhoto' usage="optional" test-method="hasAerialPhoto" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+          <structure name='MD_AerialPhoto' get-method="getAerialPhoto" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+          </structure>
+        </structure>
+      </structure>
+    </structure>
+  </mapping>
+
+  <mapping class='au.gov.vic.delwp.AerialPhoto' abstract='true'>
+    <structure name='photoType' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_PhotoTypeCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_PhotoTypeCode'/>
+        <value name='codeListValue' get-method='getPhotoType' />
+      </structure>
+    </structure>
+    <structure name='lens' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_LensCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_LensCode'/>
+        <value name='codeListValue' get-method='getLens' />
+      </structure>
     </structure>
   </mapping>
 

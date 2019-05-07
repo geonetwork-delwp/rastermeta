@@ -122,7 +122,30 @@
 		<many-to-one name='ResamplingKernel' entity-name="ResamplingKernel" column='resamplingkernelid' />
 		<many-to-one name='PlatformName' entity-name="PlatformName" column='platformnameid' />
 		<property name='RectificationNotes' column='rectificationnotes' />
+		<many-to-one name="AerialPhotoDetails" class="AerialPhoto" column='rasterid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
   </class>
+
+	<class name='AerialPhoto' table='aerialphotodetails' mutable='false' lazy='false'>
+		<id name='ID' column='rasterid'>
+			<generator class='native'/>
+		</id>
+		<many-to-one name="PhotoType" entity-name="PhotoType" column='phototypeid' unique='true'/>
+		<many-to-one name="Lens" entity-name="Lens" column='lensid' unique='true'/>
+  </class>
+
+	<class entity-name='PhotoType' name='IDnText' table='rt_phototype' lazy='false' mutable='false' >
+		<id name='ID' column='phototypeid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
+	<class entity-name='Lens' name='IDnText' table='rt_lens' lazy='false' mutable='false' >
+		<id name='ID' column='lensid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
 
 	<class entity-name='RasterType' name='IDnText' table='rt_rastertype' lazy='false' mutable='false' >
 		<id name='ID' column='rastertypeid'>
