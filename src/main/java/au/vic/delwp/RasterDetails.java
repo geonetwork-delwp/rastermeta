@@ -17,6 +17,7 @@ public class RasterDetails {
 	public IDnText PlatformName;
 	public String RectificationNotes;
 	public AerialPhoto AerialPhotoDetails;
+	public Satellite SatelliteDetails;
 
   public String getRasterTypeCode() {
     return RasterType.Text;
@@ -82,4 +83,15 @@ public class RasterDetails {
     return AerialPhotoDetails;
   }
 
+  public boolean hasSatellite() {
+    return SatelliteDetails != null;
+  }
+
+  public Satellite getSatellite() {
+    return SatelliteDetails;
+  }
+
+  public boolean hasRasterPlatformSpecificProperties() {
+     return hasSatellite() || hasAerialPhoto();
+  }
 }

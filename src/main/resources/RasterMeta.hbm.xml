@@ -2,6 +2,8 @@
 <!DOCTYPE hibernate-mapping PUBLIC '-//Hibernate/Hibernate Mapping DTD 3.0//EN' 'http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd'>
 <hibernate-mapping package='au.gov.vic.delwp' default-access='field'>
 
+  <!-- BEGIN: Individuals and Organisations are assembled from here on down -->
+
 	<class name='Individual' table='data_contacts' mutable='false' lazy='false'>
 		<id name='ID' column='contactid'>
 			<generator class='native' />
@@ -33,6 +35,8 @@
 		<property name='Stakeholdertype' column='stakeholdertype' />
 	</class>
 
+  <!-- BEGIN: Project metadata records are assembled from here on down -->
+
 	<class name='Project' table='project' mutable='false'>
 		<id name='ID' column='projectid' >
 			<generator class='native' />
@@ -54,6 +58,30 @@
     </set>
 	</class>
 
+	<class name='AcquisitionDetails' table='acquisitiondetails' mutable='false' lazy='false'>
+		<id name='ID' column='projectid' >
+			<generator class='foreign'>
+       <param name="property">project</param>
+      </generator>
+		</id>
+		<property name='Program' column='program' />
+		<property name='ContractNumber' column='contractnumber' />
+		<property name='ScheduleNumber' column='schedulenumber' />
+		<property name='Component' column='component' />
+		<property name='AcquisitionYear' column='acquisitionyear' />
+    <one-to-one name="project" constrained="true" class="Project" /> 
+		<many-to-one name='AcquisitionMethod' entity-name="AcquisitionMethod" column='acquisitionmethodid' />
+  </class>
+
+  <class entity-name='AcquisitionMethod' name='IDnText' table='rt_acquisitionmethod' lazy='false' mutable='false' >
+		<id name='ID' column='acquisitionmethodid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
+  <!-- BEGIN: Dataset (aka contour, pointCloud (or Lidar), raster metadata records -->
+
 	<class name='Dataset' table='datasetdetails' mutable='false' lazy='false'>
 		<id name='ID' column='datasetid' >
 			<generator class='native' />
@@ -61,7 +89,7 @@
 		<property name='UUID' column='fileidentifier' />
 		<property name='Title' column='datasetname' />
 		<property name='ANZLICID' column='anzlicid' />
-		<property name='CompressionRatio' column='compressionratio' />
+		<!-- <property name='CompressionRatio' column='compressionratio' /> -->
 		<property name='VerticalAccuracy' column='verticalaccuracy' />
 		<property name='HorizontalAccuracy' column='horizontalaccuracy' />
 		<property name='ProcessingLineage' column='processinglineage' />
@@ -105,6 +133,14 @@
 		<property name='EnvironmentalConditions' column='environmentalconditions' />
   </class>
 
+	<class name='ContourDetails' table='contourdetails' mutable='false' lazy='false'>
+		<id name='ID' column='datasetid' >
+			<generator class='native'/>
+		</id>
+		<property name='ContourID' column='contourid' />
+		<property name='ContourInterval' column='contourinterval' />
+  </class>
+
 	<class name='RasterDetails' table='rasterdetails' mutable='false' lazy='false'>
 		<id name='ID' column='datasetid' >
 			<generator class='native'/>
@@ -122,7 +158,8 @@
 		<many-to-one name='ResamplingKernel' entity-name="ResamplingKernel" column='resamplingkernelid' />
 		<many-to-one name='PlatformName' entity-name="PlatformName" column='platformnameid' />
 		<property name='RectificationNotes' column='rectificationnotes' />
-		<many-to-one name="AerialPhotoDetails" class="AerialPhoto" column='rasterid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
+		<many-to-one name="AerialPhotoDetails" class="AerialPhoto" column='rasterid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
+		<many-to-one name="SatelliteDetails" class="Satellite" column='rasterid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
   </class>
 
 	<class name='AerialPhoto' table='aerialphotodetails' mutable='false' lazy='false'>
@@ -133,36 +170,33 @@
 		<many-to-one name="Lens" entity-name="Lens" column='lensid' unique='true'/>
   </class>
 
-	<class entity-name='PhotoType' name='IDnText' table='rt_phototype' lazy='false' mutable='false' >
-		<id name='ID' column='phototypeid'>
+	<class name='Satellite' table='satellitedetails' mutable='false' lazy='false'>
+		<id name='ID' column='rasterid'>
+			<generator class='native'/>
+		</id>
+		<property name='Nadir' column='nadir' />
+		<property name='ControlPoints' column='controlpoints' />
+		<property name='RawImageStorage' column='rawimagestorage' />
+		<many-to-one name="RawImageFormat" entity-name="DatasetFormat" column='rawimageformatid' unique='true'/>
+		<property name='UnrectifiedImageStorage' column='unrectifiedimagestorage' />
+		<many-to-one name="UnrectifiedImageFormat" entity-name="DatasetFormat" column='unrectifiedimageformatid' unique='true'/>
+		<property name='RectifiedImageStorage' column='rectifiedimagestorage' />
+		<many-to-one name="RectifiedImageFormat" entity-name="DatasetFormat" column='rectifiedimageformatid' unique='true'/>
+		<many-to-one name="ProcessingLevel" entity-name="ProcessingLevel" column='processinglevelid' unique='true'/>
+		<many-to-one name="AtmosphericCorrection" entity-name="AtmosphericCorrection" column='atmosphericcorrectionid' unique='true'/>
+  </class>
+
+  <!-- Lookup tables for codelists - these are prefixed with rt_ in oracle -->
+
+	<class entity-name='AtmosphericCorrection' name='IDnText' table='rt_atmosphericcorrection' lazy='false' mutable='false' >
+		<id name='ID' column='atmosphericcorrectionid'>
 			<generator class='native' />
 		</id>
 		<property name='Text' column='description' />
 	</class>
 
-	<class entity-name='Lens' name='IDnText' table='rt_lens' lazy='false' mutable='false' >
-		<id name='ID' column='lensid'>
-			<generator class='native' />
-		</id>
-		<property name='Text' column='description' />
-	</class>
-
-	<class entity-name='RasterType' name='IDnText' table='rt_rastertype' lazy='false' mutable='false' >
-		<id name='ID' column='rastertypeid'>
-			<generator class='native' />
-		</id>
-		<property name='Text' column='description' />
-	</class>
-
-	<class entity-name='Seamlessness' name='IDnText' table='rt_seamlessness' lazy='false' mutable='false' >
-		<id name='ID' column='seamlessnessid'>
-			<generator class='native' />
-		</id>
-		<property name='Text' column='description' />
-	</class>
-
-	<class entity-name='RectificationType' name='IDnText' table='rt_rectificationtype' lazy='false' mutable='false' >
-		<id name='ID' column='rectificationtypeid'>
+	<class entity-name='Availability' name='IDnText' table='rt_availability' lazy='false' mutable='false' >
+		<id name='ID' column='availabilityid'>
 			<generator class='native' />
 		</id>
 		<property name='Text' column='description' />
@@ -175,55 +209,15 @@
 		<property name='Text' column='description' />
 	</class>
 
-	<class entity-name='ResamplingKernel' name='IDnText' table='rt_resamplingkernel' lazy='false' mutable='false' >
-		<id name='ID' column='resamplingkernelid'>
+	<class entity-name='DatasetAssembly' name='IDnText' table='rt_datasetassemblytype' lazy='false' mutable='false' >
+		<id name='ID' column='datasetassemblyid'>
 			<generator class='native' />
 		</id>
 		<property name='Text' column='description' />
 	</class>
-
-	<class entity-name='PlatformName' name='IDnText' table='rt_platformname' lazy='false' mutable='false' >
-		<id name='ID' column='platformnameid'>
-			<generator class='native' />
-		</id>
-		<property name='Text' column='description' />
-	</class>
-
-	<class name='ContourDetails' table='contourdetails' mutable='false' lazy='false'>
-		<id name='ID' column='datasetid' >
-			<generator class='native'/>
-		</id>
-		<property name='ContourID' column='contourid' />
-		<property name='ContourInterval' column='contourinterval' />
-  </class>
-
-	<class name='AcquisitionDetails' table='acquisitiondetails' mutable='false' lazy='false'>
-		<id name='ID' column='projectid' >
-			<generator class='foreign'>
-       <param name="property">project</param>
-      </generator>
-		</id>
-		<property name='Program' column='program' />
-		<property name='ContractNumber' column='contractnumber' />
-		<property name='ScheduleNumber' column='schedulenumber' />
-		<property name='Component' column='component' />
-		<property name='AcquisitionYear' column='acquisitionyear' />
-    <one-to-one name="project" constrained="true" class="Project" /> 
-    <!--
-		<many-to-one name="Supplier" class="Individual" column='supplierid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
--->
-		<many-to-one name='AcquisitionMethod' entity-name="AcquisitionMethod" column='acquisitionmethodid' />
-  </class>
-
-	<class entity-name='Availability' name='IDnText' table='rt_availability' lazy='false' mutable='false' >
-		<id name='ID' column='availabilityid'>
-			<generator class='native' />
-		</id>
-		<property name='Text' column='description' />
-	</class>
-
-	<class entity-name='ProjectTopic' name='IDnText' table='rt_projecttopic' lazy='false' mutable='false' >
-		<id name='ID' column='projecttopicid'>
+	
+	<class entity-name='DatasetFormat' name='IDnText' table='rt_datasetformat' lazy='false' mutable='false' >
+		<id name='ID' column='datasetformatid'>
 			<generator class='native' />
 		</id>
 		<property name='Text' column='description' />
@@ -236,13 +230,6 @@
 		<property name='Text' column='description' />
 	</class>
 	
-	<class entity-name='DatasetAssembly' name='IDnText' table='rt_datasetassemblytype' lazy='false' mutable='false' >
-		<id name='ID' column='datasetassemblyid'>
-			<generator class='native' />
-		</id>
-		<property name='Text' column='description' />
-	</class>
-	
 	<class entity-name='EPSG' name='IDnText' table='rt_epsg' lazy='false' mutable='false' >
 		<id name='ID' column='epsgid'>
 			<generator class='native' />
@@ -250,20 +237,20 @@
 		<property name='Text' column='title' />
 	</class>
 	
-	<class entity-name='DatasetFormat' name='IDnText' table='rt_datasetformat' lazy='false' mutable='false' >
-		<id name='ID' column='datasetformatid'>
+	<class entity-name='Lens' name='IDnText' table='rt_lens' lazy='false' mutable='false' >
+		<id name='ID' column='lensid'>
 			<generator class='native' />
 		</id>
 		<property name='Text' column='description' />
 	</class>
-	
-	<class entity-name='Tilesize' name='IDnText' table='rt_tilesize' lazy='false' mutable='false' >
-		<id name='ID' column='tilesizeid'>
+
+	<class entity-name='PhotoType' name='IDnText' table='rt_phototype' lazy='false' mutable='false' >
+		<id name='ID' column='phototypeid'>
 			<generator class='native' />
 		</id>
 		<property name='Text' column='description' />
 	</class>
-	
+
 	<class entity-name='Platform' name='IDnText' table='rt_platform' lazy='false' mutable='false' >
 		<id name='ID' column='platformid'>
 			<generator class='native' />
@@ -271,6 +258,27 @@
 		<property name='Text' column='description' />
 	</class>
 
+	<class entity-name='PlatformName' name='IDnText' table='rt_platformname' lazy='false' mutable='false' >
+		<id name='ID' column='platformnameid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
+	<class entity-name='ProcessingLevel' name='IDnText' table='rt_processinglevel' lazy='false' mutable='false' >
+		<id name='ID' column='processinglevelid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
+	<class entity-name='ProjectTopic' name='IDnText' table='rt_projecttopic' lazy='false' mutable='false' >
+		<id name='ID' column='projecttopicid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+	
 	<class entity-name='QALevel' name='IDnText' table='rt_qalevel' lazy='false' mutable='false' >
 		<id name='ID' column='qalevelid'>
 			<generator class='native' />
@@ -278,10 +286,39 @@
 		<property name='Text' column='description' />
 	</class>
 
-  <class entity-name='AcquisitionMethod' name='IDnText' table='rt_acquisitionmethod' lazy='false' mutable='false' >
-		<id name='ID' column='acquisitionmethodid'>
+	<class entity-name='RasterType' name='IDnText' table='rt_rastertype' lazy='false' mutable='false' >
+		<id name='ID' column='rastertypeid'>
 			<generator class='native' />
 		</id>
 		<property name='Text' column='description' />
 	</class>
+
+	<class entity-name='RectificationType' name='IDnText' table='rt_rectificationtype' lazy='false' mutable='false' >
+		<id name='ID' column='rectificationtypeid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
+	<class entity-name='ResamplingKernel' name='IDnText' table='rt_resamplingkernel' lazy='false' mutable='false' >
+		<id name='ID' column='resamplingkernelid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
+	<class entity-name='Seamlessness' name='IDnText' table='rt_seamlessness' lazy='false' mutable='false' >
+		<id name='ID' column='seamlessnessid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
+	<class entity-name='Tilesize' name='IDnText' table='rt_tilesize' lazy='false' mutable='false' >
+		<id name='ID' column='tilesizeid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+	
 </hibernate-mapping>

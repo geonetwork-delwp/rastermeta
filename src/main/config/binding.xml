@@ -1035,7 +1035,7 @@
                       </structure>
                       <structure name="assembly" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
                         <structure name='MD_AssemblyCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
-                          <value name='codeList' constant='codeListLocation#MD_PlatformTypeCode'/>
+                          <value name='codeList' constant='codeListLocation#MD_AssemblyCode'/>
                           <value name='codeListValue' get-method='getAssembly' />
                         </structure>
                       </structure>
@@ -1205,10 +1205,14 @@
     <structure name='rectificationNotes' usage="optional" test-method="hasRectificationNotes" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <value name='CharacterString' field='RectificationNotes' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
     </structure>
-    <structure name='rasterPlatformSpecificProperties' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+    <structure name='rasterPlatformSpecificProperties' usage='optional' test-method='hasRasterPlatformSpecificProperties' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='MD_RasterPlatformSpecificProperties' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
         <structure name='aerialPhoto' usage="optional" test-method="hasAerialPhoto" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
           <structure name='MD_AerialPhoto' get-method="getAerialPhoto" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+          </structure>
+        </structure>
+        <structure name='satellite' usage="optional" test-method="hasSatellite" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+          <structure name='MD_Satellite' get-method="getSatellite" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
           </structure>
         </structure>
       </structure>
@@ -1226,6 +1230,59 @@
       <structure name='MD_LensCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
         <value name='codeList' constant='codeListLocation#MD_LensCode'/>
         <value name='codeListValue' get-method='getLens' />
+      </structure>
+    </structure>
+  </mapping>
+
+  <mapping class='au.gov.vic.delwp.Satellite' abstract='true'>
+    <structure name='nadir' usage='optional' test-method='hasNadir' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Real' field='Nadir' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='controlPoints' usage='optional' test-method='hasControlPoints' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='CharacterString' field='ControlPoints'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='rawImageFormat' usage='optional' test-method='hasRawImageFormat' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_Format' get-method="getRawImageFormat" ns='http://standards.iso.org/iso/19115/-3/mrd/1.0'/>
+    </structure>
+    <structure name='rectifiedImageFormat' usage='optional' test-method='hasRectifiedImageFormat' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_Format' get-method="getRectifiedImageFormat" ns='http://standards.iso.org/iso/19115/-3/mrd/1.0'/>
+    </structure>
+    <structure name='unrectifiedImageFormat' usage='optional' test-method='hasUnrectifiedImageFormat' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_Format' get-method="getUnrectifiedImageFormat" ns='http://standards.iso.org/iso/19115/-3/mrd/1.0'/>
+    </structure>
+    <structure name='atmosphericCorrection' usage='optional' test-method='hasAtmosphericCorrection' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_AtmosphericCorrectionCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_AtmosphericCorrectionCode'/>
+        <value name='codeListValue' get-method='getAtmosphericCorrection' />
+      </structure>
+    </structure>
+    <structure name='processingLevel' usage='optional' test-method='hasProcessingLevel' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_ProcessingLevelCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_ProcessingLevelCode'/>
+        <value name='codeListValue' get-method='getProcessingLevel' />
+      </structure>
+    </structure>
+  </mapping>
+
+  <mapping class="au.gov.vic.delwp.Format" abstract='true'>
+    <structure name='formatSpecificationCitation' ns='http://standards.iso.org/iso/19115/-3/mrd/1.0'>
+      <structure name='CI_Citation' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+        <structure name='title' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+          <value name='CharacterString' field='format'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+        </structure>
+        <structure name='citedResponsibleParty' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+          <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+            <structure name='role' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+              <structure name='CI_RoleCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
+                <value name='codeListValue' constant='owner' />
+              </structure>
+            </structure>
+            <structure name='party' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+              <structure name='CI_Organisation' ns='http://standards.iso.org/iso/19115/-3/cit/2.0' get-method="getMetadataPOC"/>
+            </structure>
+          </structure>
+        </structure>
       </structure>
     </structure>
   </mapping>
