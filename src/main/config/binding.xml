@@ -1237,6 +1237,58 @@
     <structure name='tidalConditions' usage="optional" test-method="hasTidalConditions" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <value name='CharacterString' field='TidalConditions' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
     </structure>
+    <structure name='classification' usage="optional" test-method="hasPointCloudClassificationDetails" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_Classification' field="PointCloudClassification" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      </structure>
+    </structure>
+  </mapping>
+
+  <mapping class='au.gov.vic.delwp.PointCloudClassificationDetails' abstract='true'>
+    <structure name='classLevel' usage="optional" test-method="hasClassLevel" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Integer' field='ClassLevel' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='classAccuracy' usage="optional" test-method="hasClassAccuracy" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Real' field='ClassAccuracy' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='otherClass' usage="optional" test-method="hasOtherClass" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='CharacterString' field='OtherClass' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='class0' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Boolean' field='Class0' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='class1' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Boolean' field='Class1' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='class2' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Boolean' field='Class2' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='class3' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Boolean' field='Class3' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='class4' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Boolean' field='Class4' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='class5' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Boolean' field='Class5' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='class6' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Boolean' field='Class6' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='class7' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Boolean' field='Class7' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='class8' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Boolean' field='Class8' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='class9' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Boolean' field='Class9' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='class10' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Boolean' field='Class10' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='class12' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Boolean' field='Class12' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
   </mapping>
 
   <mapping class='au.gov.vic.delwp.RasterDetails' abstract='true'>
@@ -1408,7 +1460,7 @@
   </mapping>
 
   <mapping class='au.gov.vic.delwp.ContourDetails' abstract='true'>
-    <structure name='runs' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+    <structure name='interval' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
         <value name='uom' constant='m' style='attribute'/>
         <value style='text' field='ContourInterval'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>

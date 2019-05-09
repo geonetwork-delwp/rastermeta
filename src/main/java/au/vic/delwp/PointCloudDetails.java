@@ -23,6 +23,7 @@ public class PointCloudDetails {
 	public String AdditionalAdjustments;
 	public String TidalConditions;
 	public String EnvironmentalConditions;
+	public PointCloudClassificationDetails PointCloudClassification;
 
   public boolean hasPulseMode() {
     return PulseMode != null;
@@ -62,6 +63,10 @@ public class PointCloudDetails {
 
   public boolean hasGeoidVerticalDatum() {
     return !(StringUtils.isBlank(GeoidVerticalDatum) || GeoidVerticalDatum.trim().equals("0"));
+  }
+
+  public boolean hasPointCloudClassificationDetails() {
+    return PointCloudClassification != null;
   }
 
   public String getEllipsoidProvided() {

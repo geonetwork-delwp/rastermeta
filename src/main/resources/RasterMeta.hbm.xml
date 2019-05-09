@@ -132,6 +132,28 @@
 		<property name='AdditionalAdjustments' column='additionaladjustments' />
 		<property name='TidalConditions' column='tidalconditions' />
 		<property name='EnvironmentalConditions' column='environmentalconditions' />
+		<many-to-one name="PointCloudClassification" class="PointCloudClassificationDetails" column='classificationid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
+  </class>
+
+	<class name='PointCloudClassificationDetails' table='lidarclassification' mutable='false' lazy='false'>
+		<id name='ID' column='classificationid' >
+			<generator class='native'/>
+		</id>
+		<property name='ClassLevel' column='classlevel' />
+		<property name='ClassAccuracy' column='classaccuracy' />
+		<property name='OtherClass' column='otherclass' />
+		<property name='Class0' column='class_0' />
+		<property name='Class1' column='class_1' />
+		<property name='Class2' column='class_2' />
+		<property name='Class3' column='class_3' />
+		<property name='Class4' column='class_4' />
+		<property name='Class5' column='class_5' />
+		<property name='Class6' column='class_6' />
+		<property name='Class7' column='class_7' />
+		<property name='Class8' column='class_8' />
+		<property name='Class9' column='class_9' />
+		<property name='Class10' column='class_10' />
+		<property name='Class12' column='class_12' />
   </class>
 
 	<class name='ContourDetails' table='contourdetails' mutable='false' lazy='false'>
