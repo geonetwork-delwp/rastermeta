@@ -41,11 +41,14 @@ public class Dataset {
   public PointCloudDetails PointCloud;
   public RasterDetails Raster;
   public ContourDetails Contour;
-  public Project ParentProject;
   public SurveyDetails Survey;
   
 	static protected HashMap ClassificationCodes = new HashMap();
 	static protected HashMap SpatialRepresentationTypeCodes = new HashMap();
+
+  static protected Date now = new Date(System.currentTimeMillis());
+	static protected SimpleDateFormat IS08601DateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH );
+
 
 	static {
 		MapUtils.Populate( "availabilityToMD_ClassificationCode.txt", ClassificationCodes);
@@ -67,10 +70,6 @@ public class Dataset {
 
   public Individual getResourcePOC() {
     return Individual.getDefault();
-  }
-
-  public ISODateBlock getDateStamp() throws ParseException {
-    return ParentProject.getDateStamp();
   }
 
   public boolean hasRefSystem() {
@@ -107,6 +106,13 @@ public class Dataset {
       result = "unknown";
     }
     return result;
+  }
+
+  public ISODateBlock getDateStamp() throws ParseException {
+    ISODateBlock isodb = new ISODateBlock();
+    isodb.date = IS08601DateFormat.format(now);
+    isodb.dateType = "revision";
+    return isodb;
   }
 
   public boolean hasProcessingLineage() {
@@ -165,11 +171,21 @@ public class Dataset {
     return (Contour != null);
   }
 
-  public String getAcquisitionStatus() {
-    if (Availability == null || Availability.ID == 0) { // unknown 
-      return "underDevelopment";
-    } else {   // every other availability means that the acquisition is complete
-      return "completed";
-    }
+  public String getUUID() {
+    return StringUtils.replace(StringUtils.replace(UUID, "{", ""), "}", "");
   }
+
+  public boolean acquisitionStatusIsUnknown() {
+    return (Availability == null || Availability.ID == 0);
+  }
+      
+  public boolean acquisitionStatusIsKnown() {
+    return !acquisitionStatusIsUnknown();
+  }
+      
+  public String getAcquisitionStatus() {
+    // every other availability means that the acquisition is complete
+    return "completed";
+  }
+
 }

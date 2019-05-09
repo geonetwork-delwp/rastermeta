@@ -18,6 +18,7 @@ public class RasterDetails {
 	public String RectificationNotes;
 	public AerialPhoto AerialPhotoDetails;
 	public Satellite SatelliteDetails;
+	public DEM DEMDetails;
 
   public String getRasterTypeCode() {
     return RasterType.Text;
@@ -49,6 +50,10 @@ public class RasterDetails {
 
   public boolean doesNotHaveNumberColumns() {
     return NumberColumns == null;
+  }
+
+  public boolean hasNumberBands() {
+    return NumberBands != null;
   }
 
   public boolean hasNumberColumns() {
@@ -91,7 +96,15 @@ public class RasterDetails {
     return SatelliteDetails;
   }
 
+  public boolean hasDEM() {
+    return DEMDetails != null;
+  }
+
+  public DEM getDEM() {
+    return DEMDetails;
+  }
+
   public boolean hasRasterPlatformSpecificProperties() {
-     return hasSatellite() || hasAerialPhoto();
+     return hasSatellite() || hasAerialPhoto() || hasDEM();
   }
 }

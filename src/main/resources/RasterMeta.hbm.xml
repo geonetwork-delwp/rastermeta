@@ -97,7 +97,8 @@
 		<property name='LogicalConsistency' column='logicalconsistency' />
 		<many-to-one name="DatasetType" entity-name="DatasetType" column='datasettypeid' unique='true'/>
 		<many-to-one name="DatasetAssembly" entity-name="DatasetAssembly" column='datasetassemblyid' unique='true'/>
-		<many-to-one name="EPSG" entity-name="EPSG" column='epsgid' unique='true'/>
+    <!-- some datasets try and use epsg code 0 hence we have a not-found='ignore'-->
+		<many-to-one name="EPSG" entity-name="EPSG" column='epsgid' unique='true' not-found='ignore'/>
 		<many-to-one name="DatasetFormat" entity-name="DatasetFormat" column='datasetformatid' unique='true'/>
 		<many-to-one name="Tilesize" entity-name="Tilesize" column='tilesizeid' unique='true'/>
 		<many-to-one name='ProjectTopic' entity-name="ProjectTopic" column='projecttopicid' unique="true" />
@@ -107,7 +108,6 @@
 		<many-to-one name="PointCloud" class="PointCloudDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
 		<many-to-one name="Raster" class="RasterDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
 		<many-to-one name="Contour" class="ContourDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
-		<many-to-one name="ParentProject" class="Project" column='projectid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
 		<many-to-one name="Survey" class="SurveyDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
   </class>
 
@@ -194,6 +194,7 @@
 		<property name='RectificationNotes' column='rectificationnotes' />
 		<many-to-one name="AerialPhotoDetails" class="AerialPhoto" column='rasterid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
 		<many-to-one name="SatelliteDetails" class="Satellite" column='rasterid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
+		<many-to-one name="DEMDetails" class="DEM" column='rasterid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
   </class>
 
 	<class name='AerialPhoto' table='aerialphotodetails' mutable='false' lazy='false'>
@@ -218,6 +219,13 @@
 		<many-to-one name="RectifiedImageFormat" entity-name="DatasetFormat" column='rectifiedimageformatid' unique='true'/>
 		<many-to-one name="ProcessingLevel" entity-name="ProcessingLevel" column='processinglevelid' unique='true'/>
 		<many-to-one name="AtmosphericCorrection" entity-name="AtmosphericCorrection" column='atmosphericcorrectionid' unique='true'/>
+  </class>
+
+	<class name='DEM' table='demdetails' mutable='false' lazy='false'>
+		<id name='ID' column='rasterid'>
+			<generator class='native'/>
+		</id>
+		<many-to-one name="DEMCreator" entity-name="DEMCreator" column='demcreatorid' unique='true'/>
   </class>
 
   <!-- Lookup tables for codelists - these are prefixed with rt_ in oracle -->
@@ -259,6 +267,13 @@
 	
 	<class entity-name='DatasetType' name='IDnText' table='rt_datasettype' lazy='false' mutable='false' >
 		<id name='ID' column='datasettypeid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+	
+	<class entity-name='DEMCreator' name='IDnText' table='rt_demcreator' lazy='false' mutable='false' >
+		<id name='ID' column='demcreatorid'>
 			<generator class='native' />
 		</id>
 		<property name='Text' column='description' />

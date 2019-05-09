@@ -414,7 +414,8 @@
                 </structure>
               </structure>
               <structure name='status' ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
-                <structure name='MD_ProgressCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                <value name='nilReason' constant='unknown' usage='optional' style='attribute' test-method='acquisitionStatusIsUnknown' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                <structure name='MD_ProgressCode' value-style='attribute' usage='optional' test-method='acquisitionStatusIsKnown' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
                   <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ProgressCode' />
                   <value name='codeListValue' get-method='getAcquisitionStatus' />
                 </structure>
@@ -607,7 +608,7 @@
     <structure name='metadataIdentifier'>
       <structure name='MD_Identifier' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
         <structure name='code' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-          <value name='CharacterString' field='UUID' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+          <value name='CharacterString' get-method='getUUID' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
         </structure>
       </structure>
     </structure>
@@ -734,7 +735,9 @@
             <structure name='title' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
               <value field='Title' name='CharacterString' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
             </structure>
+             <!-- No datestamp for datasets 
             <structure name='date' ns='http://standards.iso.org/iso/19115/-3/cit/2.0' get-method="getDateStamp"/>
+            -->
             <structure name='identifier' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
               <structure name='MD_Identifier' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
                 <structure name='authority' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
@@ -911,6 +914,9 @@
     <structure field="Survey" usage='optional' test-method='hasSurvey'>
       <structure name='contentInfo' usage='optional' test-method='hasCloudCoverPercentage' ns='http://standards.iso.org/iso/19115/-3/mdb/2.0'>
         <structure name="MD_ImageDescription" ns='http://standards.iso.org/iso/19115/-3/mrc/2.0'>
+          <structure name='attributeDescription' value-style="attribute" ns='http://standards.iso.org/iso/19115/-3/mrc/2.0'>
+            <value name='nilReason' constant='inapplicable' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+          </structure>
           <structure name="cloudCoverPercentage" ns='http://standards.iso.org/iso/19115/-3/mrc/2.0'>
             <value name='Real' field='CloudCoverPercentage' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
           </structure>
@@ -1079,7 +1085,8 @@
           <structure name="operation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
             <structure name="MI_Operation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
               <structure name='status' ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
-                <structure name='MD_ProgressCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                <value name='nilReason' constant='unknown' usage='optional' style='attribute' test-method='acquisitionStatusIsUnknown' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                <structure name='MD_ProgressCode' value-style='attribute' usage='optional' test-method='acquisitionStatusIsKnown' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
                   <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ProgressCode' />
                   <value name='codeListValue' get-method='getAcquisitionStatus' />
                 </structure>
@@ -1239,7 +1246,7 @@
         <value name='codeListValue' get-method='getRasterTypeCode' />
       </structure>
     </structure>
-    <structure name='numberOfBands' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+    <structure name='numberOfBands' usage='optional' test-method='hasNumberBands' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <value name='Integer' field='NumberBands' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
     </structure>
     <structure name="bandList" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
@@ -1285,6 +1292,19 @@
           <structure name='MD_Satellite' get-method="getSatellite" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
           </structure>
         </structure>
+        <structure name='dem' usage="optional" test-method="hasDEM" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+          <structure name='MD_DEM' get-method="getDEM" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+          </structure>
+        </structure>
+      </structure>
+    </structure>
+  </mapping>
+
+  <mapping class='au.gov.vic.delwp.DEM' abstract='true'>
+    <structure name='demCreator' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_DEMCreatorCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_DEMCreatorCode'/>
+        <value name='codeListValue' get-method='getDEMCreator' />
       </structure>
     </structure>
   </mapping>

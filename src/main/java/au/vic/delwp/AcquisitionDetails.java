@@ -48,12 +48,17 @@ public class AcquisitionDetails {
     return AcquisitionMethod.Text;
   }
 
+  public boolean acquisitionStatusIsUnknown() {
+    return (project == null || project.Availability == null || project.Availability.ID == 0);
+  }
+      
+  public boolean acquisitionStatusIsKnown() {
+    return !acquisitionStatusIsUnknown();
+  }
+      
   public String getAcquisitionStatus() {
-    if (project.Availability.ID == 0) { // unknown 
-      return "underDevelopment";
-    } else {   // every other availability means that the acquisition is complete
-      return "completed";
-    }
+    // every other availability means that the acquisition is complete
+    return "completed";
   }
 
   @Override

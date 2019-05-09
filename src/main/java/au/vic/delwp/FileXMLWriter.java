@@ -87,8 +87,8 @@ public class FileXMLWriter {
         for( int i = 0; i < projects.size(); ++i ){
           Project d = (Project) projects.get( i );
           d.hostNameForLinks = hostNameForLinks;
-				  System.out.println("Processing Project '" + d.Name + "'");
 				  d.UUID = d.generateUUID( ); // generate new UUID for dataset
+				  System.out.println("Processing Project '" + d.Name + "' with uuid "+d.UUID);
           jibxit(d, cmd, path, d.UUID, src);
         }
   
@@ -116,7 +116,7 @@ public class FileXMLWriter {
 		  try {
         for( int i = 0; i < datasets.size(); ++i ){
           Dataset d = (Dataset) datasets.get( i );
-				  System.out.println("Processing Dataset '" + d.Title + "'");
+				  System.out.println("Processing Dataset '" + d.Title + "' with uuid "+d.UUID);
           jibxit(d, cmd, path, d.UUID, src);
         }
 
