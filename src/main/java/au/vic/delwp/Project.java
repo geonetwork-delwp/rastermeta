@@ -40,9 +40,6 @@ public class Project {
 	static protected HashMap ClassificationCodes = new HashMap( );
 	static protected SimpleDateFormat IS08601DateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH );
 
-	
-	static private final String DEFAULT_DATA_FORMAT = "Most popular formats";
-	
 	static {
 		MapUtils.Populate( "availabilityToMD_ClassificationCode.txt", ClassificationCodes);
 		}

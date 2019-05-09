@@ -1122,6 +1122,15 @@
                           </structure>
                         </structure>
                       </structure>
+                      <structure field="Survey" usage='optional' test-method='hasSurvey'>
+                        <structure name="surveyDetails" usage="optional" test-method="hasExtraSurveyDetails" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+                          <structure name="MD_SurveyDetails" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+                            <structure name="aerialSurveyDetails" usage="optional" test-method="hasAerialSurveyDetails" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+                              <structure name="MD_AerialSurveyDetails" field="AerialSurvey" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'/>
+                            </structure>
+                          </structure>
+                        </structure>
+                       </structure>
                     </structure>
                   </structure>
                 </structure>
@@ -1348,8 +1357,38 @@
     </structure>
   </mapping>
 
+  <mapping class='au.gov.vic.delwp.AerialSurveyDetails' abstract='true'>
+    <structure name='runs' usage='optional' test-method='hasRuns' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Integer' field='Runs'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='runOrientation' usage='optional' test-method='hasRunOrientation' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_RunOrientationCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_RunOrientationCode'/>
+        <value name='codeListValue' get-method='getRunOrientation' />
+      </structure>
+    </structure>
+    <structure name='swathWidth' usage='optional' test-method='hasSwathWidth' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Integer' field='SwathWidth'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='sideOverlap' usage='optional' test-method='hasSideOverlap' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Integer' field='SideOverlap'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='forwardOverlap' usage='optional' test-method='hasForwardOverlap' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Integer' field='ForwardOverlap'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='flyingHeightUnit' usage='optional' test-method='hasFlyingHeightUnit' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_FlyingHeightUnitCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+        <value name='codeList' constant='codeListLocation#MD_FlyingHeightUnitCode'/>
+        <value name='codeListValue' get-method='getFlyingHeightUnit' />
+      </structure>
+    </structure>
+    <structure name='flightHeight' usage='optional' test-method='hasFlightHeight' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Integer' field='FlightHeight'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+  </mapping>
+
   <mapping class='au.gov.vic.delwp.ContourDetails' abstract='true'>
-    <structure name='interval' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+    <structure name='runs' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
         <value name='uom' constant='m' style='attribute'/>
         <value style='text' field='ContourInterval'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>

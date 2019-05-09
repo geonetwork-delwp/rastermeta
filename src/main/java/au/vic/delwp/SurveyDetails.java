@@ -25,6 +25,12 @@ public class SurveyDetails {
     return !StringUtils.isBlank(CloudCoverPercentage);
   }
 
+  // this is an extension point as there may be other survey details apart from those
+  // relating to platform type aerial
+  public boolean hasExtraSurveyDetails() {
+    return hasAerialSurveyDetails(); 
+  }
+
   public boolean hasAerialSurveyDetails() {
     return AerialSurvey != null;
   }
