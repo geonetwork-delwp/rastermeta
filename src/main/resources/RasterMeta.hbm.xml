@@ -104,10 +104,11 @@
 		<many-to-one name='Platform' entity-name="Platform" column='platformid' unique="true" />
 		<many-to-one name='QALevel' entity-name="QALevel" column='qalevelid' unique="true" />
 		<many-to-one name="Availability" entity-name="Availability" column='availabilityid' unique='true'/>
-		<many-to-one name="PointCloud" class="PointCloudDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
-		<many-to-one name="Raster" class="RasterDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
-		<many-to-one name="Contour" class="ContourDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
-		<many-to-one name="ParentProject" class="Project" column='projectid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
+		<many-to-one name="PointCloud" class="PointCloudDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
+		<many-to-one name="Raster" class="RasterDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
+		<many-to-one name="Contour" class="ContourDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
+		<many-to-one name="ParentProject" class="Project" column='projectid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
+		<many-to-one name="Survey" class="SurveyDetails" column='datasetid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
   </class>
 
 	<class name='PointCloudDetails' table='lidardetails' mutable='false' lazy='false'>
@@ -139,6 +140,39 @@
 		</id>
 		<property name='ContourID' column='contourid' />
 		<property name='ContourInterval' column='contourinterval' />
+  </class>
+
+	<class name='SurveyDetails' table='surveydetails' mutable='false' lazy='false'>
+		<id name='ID' column='datasetid' >
+			<generator class='native'/>
+		</id>
+		<many-to-one name="AerialSurvey" class="AerialSurveyDetails" column='surveyid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
+		<property name='CloudCoverPercentage' column='cloudcoverpercentage' />
+		<many-to-one name="Sensor" class="SensorDetails" column='sensorid' unique='true' not-null='true' insert='false' update='false' not-found='ignore' fetch='select'/>
+		<property name='StartDate' column='startdate' />
+		<property name='EndDate' column='enddate' />
+  </class>
+
+	<class name='AerialSurveyDetails' table='aerialsurveydetails' mutable='false' lazy='false'>
+		<id name='ID' column='surveyid' >
+			<generator class='native'/>
+		</id>
+		<property name='Runs' column='runs' />
+		<property name='SwathWidth' column='swathwidth' />
+		<property name='ForwardOverlap' column='forwardoverlap' />
+		<property name='SideOverlap' column='sideoverlap' />
+		<property name='FlightHeight' column='flightheight' />
+		<many-to-one name="FlyingHeightUnit" entity-name="FlyingHeightUnit" column='flyingheightunitid' unique='true'/>
+		<many-to-one name="RunOrientation" entity-name="RunOrientation" column='runorientationid' unique='true'/>
+  </class>
+
+	<class name='SensorDetails' table='rt_sensordetails' mutable='false' lazy='false'>
+		<id name='ID' column='sensorid' >
+			<generator class='native'/>
+		</id>
+		<many-to-one name='Platform' entity-name="Platform" column='platformid' />
+		<many-to-one name='SensorName' entity-name="SensorName" column='sensornameid' />
+		<many-to-one name='SensorType' entity-name="SensorType" column='sensortypeid' />
   </class>
 
 	<class name='RasterDetails' table='rasterdetails' mutable='false' lazy='false'>
@@ -237,6 +271,13 @@
 		<property name='Text' column='title' />
 	</class>
 	
+	<class entity-name='FlyingHeightUnit' name='IDnText' table='rt_flyingheightunit' lazy='false' mutable='false' >
+		<id name='ID' column='flyingheightunitid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+	
 	<class entity-name='Lens' name='IDnText' table='rt_lens' lazy='false' mutable='false' >
 		<id name='ID' column='lensid'>
 			<generator class='native' />
@@ -307,8 +348,29 @@
 		<property name='Text' column='description' />
 	</class>
 
+	<class entity-name='RunOrientation' name='IDnText' table='rt_runorientation' lazy='false' mutable='false' >
+		<id name='ID' column='runorientationid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
 	<class entity-name='Seamlessness' name='IDnText' table='rt_seamlessness' lazy='false' mutable='false' >
 		<id name='ID' column='seamlessnessid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
+	<class entity-name='SensorName' name='IDnText' table='rt_sensorname' lazy='false' mutable='false' >
+		<id name='ID' column='sensornameid'>
+			<generator class='native' />
+		</id>
+		<property name='Text' column='description' />
+	</class>
+
+	<class entity-name='SensorType' name='IDnText' table='rt_sensortype' lazy='false' mutable='false' >
+		<id name='ID' column='sensortypeid'>
 			<generator class='native' />
 		</id>
 		<property name='Text' column='description' />
