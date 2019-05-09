@@ -38,7 +38,6 @@ public class Project {
 	public String hostNameForLinks;
 
 	static protected HashMap ClassificationCodes = new HashMap( );
-	static protected SimpleDateFormat DBDateFormat = new SimpleDateFormat("ddMMMyyyy",Locale.ENGLISH );
 	static protected SimpleDateFormat IS08601DateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH );
 
 	

@@ -42,6 +42,7 @@ public class Dataset {
   public RasterDetails Raster;
   public ContourDetails Contour;
   public Project ParentProject;
+  public SurveyDetails Survey;
   
 	static protected HashMap ClassificationCodes = new HashMap();
 	static protected HashMap SpatialRepresentationTypeCodes = new HashMap();
@@ -86,6 +87,10 @@ public class Dataset {
 
   public boolean hasVerticalAccuracy() {
     return VerticalAccuracy != null;
+  }
+
+  public boolean hasSurvey() {
+    return Survey != null;
   }
 
   public String getAvailability() {

@@ -907,6 +907,16 @@
 
       </structure>
     </structure>
+    
+    <structure field="Survey" usage='optional' test-method='hasSurvey'>
+      <structure name='contentInfo' usage='optional' test-method='hasCloudCoverPercentage' ns='http://standards.iso.org/iso/19115/-3/mdb/2.0'>
+        <structure name="MD_ImageDescription" ns='http://standards.iso.org/iso/19115/-3/mrc/2.0'>
+          <structure name="cloudCoverPercentage" ns='http://standards.iso.org/iso/19115/-3/mrc/2.0'>
+            <value name='Real' field='CloudCoverPercentage' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+          </structure>
+        </structure>
+      </structure>
+    </structure>
 
     <structure name='dataQualityInfo' usage='optional' test-method='hasDataQualityInfo'>
       <structure name='DQ_DataQuality' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
@@ -1012,9 +1022,60 @@
                   <value name='codeListValue' constant='dataset' />
                 </structure>
               </structure>
+
+              <structure field="Survey" usage='optional' test-method='hasSurvey'>
+                <structure name='extent' usage='optional' test-method='hasStartOrEndDate' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                  <structure name='EX_Extent' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
+                    <structure name='temporalElement' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
+                      <structure name='EX_TemporalExtent' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
+                        <structure name='extent' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
+                          <structure name='TimePeriod' ns='http://www.opengis.net/gml/3.2'>
+                            <value name='id' constant='temporalExtent' style='attribute' ns='http://www.opengis.net/gml/3.2'/>
+                            <structure name='beginPosition' ns='http://www.opengis.net/gml/3.2'>
+                              <value get-method='getBeginningDate' style='text' />
+                            </structure>
+                            <structure name='endPosition' ns='http://www.opengis.net/gml/3.2'>
+                              <value get-method='getEndingDate' style='text' />
+                            </structure>
+                          </structure>
+                        </structure>
+                      </structure>
+                    </structure>
+                  </structure>
+                </structure>
+              </structure>
             </structure>
           </structure>
-  
+
+          <structure field="Survey" usage='optional' test-method='hasSurvey'>
+            <structure field="Sensor" usage='optional' test-method='hasSensorDetails'>
+              <structure name="instrument" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
+                <structure name="MI_Sensor" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
+                  <structure name="citation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
+                    <structure name='CI_Citation'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                      <structure name='title'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                        <value name='CharacterString' get-method='getSensorName' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                      </structure>
+                    </structure>
+                  </structure>
+                  <structure name="identifier" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
+                    <structure name='MD_Identifier'  ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                      <structure name='code'  ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                        <value name='CharacterString' get-method='getPlatformType' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                      </structure>
+                      <structure name='description' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                        <value name='CharacterString' constant='DELWP PlatformType' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                      </structure>
+                    </structure>
+                  </structure>
+                  <structure name="type" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
+                    <value name='CharacterString' get-method='getSensorType' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                  </structure>
+                </structure>
+              </structure>
+            </structure>
+          </structure>
+
           <structure name="operation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
             <structure name="MI_Operation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
               <structure name='status' ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>

@@ -7,7 +7,7 @@ public class AerialSurveyDetails {
 	public String SwathWidth;
 	public String ForwardOverlap;
 	public String SideOverlap;
-	public String FlyingHeight;
+	public String FlightHeight;
 	public IDnText FlyingHeightUnit;
 	public IDnText RunOrientation;
 
