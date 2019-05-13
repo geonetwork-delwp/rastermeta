@@ -832,12 +832,9 @@
         </structure>
 
         <structure name='topicCategory' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
-          <value name='MD_TopicCategoryCode' ns='http://standards.iso.org/iso/19115/-3/mri/1.0' constant='elevation'/>
+          <value name='MD_TopicCategoryCode' ns='http://standards.iso.org/iso/19115/-3/mri/1.0' get-method='getProjectTopic'/>
         </structure>
 
-        <structure name='topicCategory' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
-          <value name='MD_TopicCategoryCode' ns='http://standards.iso.org/iso/19115/-3/mri/1.0' constant='imageryBaseMapsEarthCover'/>
-        </structure>
 <!--
         <structure name='resourceMaintenance' usage='optional' test-method='isMaintenanceFrequencyNotNull' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
           <structure name='MD_MaintenanceInformation' ns='http://standards.iso.org/iso/19115/-3/mmi/1.0'>

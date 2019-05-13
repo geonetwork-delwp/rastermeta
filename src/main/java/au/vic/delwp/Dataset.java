@@ -155,6 +155,10 @@ public class Dataset {
     return Tilesize.Text;
   }
 
+  public String getProjectTopic() {
+    return StringUtils.uncapitalize(ProjectTopic.Text);
+  }
+
   public String getEPSGCode() {
     return EPSG.Text;
   }
