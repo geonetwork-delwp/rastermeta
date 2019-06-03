@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import au.csiro.utils.Xml;
+import au.csiro.utils.XmlResolver;
+
 import org.jibx.runtime.JiBXException;
 
 import org.jdom.Element;
@@ -27,10 +30,25 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 
+import jeeves.JeevesJCS;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class FileXMLWriter {
 
+  private static final Logger logger = LogManager.getLogger("main");
 
-    public static void main( String args[] ){
+  public static void main( String args[] ){
+
+    String oasisCatalogFile = "schemas/iso19115-3/src/main/plugin/iso19115-3/oasis-catalog.xml";
+
+    try {
+      JeevesJCS.setConfigFilename("src/main/config/cache.ccf");
+      JeevesJCS.getInstance(XmlResolver.XMLRESOLVER_JCS);
+    } catch (Exception ce) {
+      logger.error("Failed to create cache for schema files");
+    }
 
     String hostNameForLinks = "http://localhost:8080/geonetwork/srv/eng/";
 		
@@ -40,7 +58,7 @@ public class FileXMLWriter {
     options.addOption("h", true, "Specify host name for linkages to metadata records. If not specified then http://localhost:8080/geonetwork/srv/eng/ will be used.");
     options.addOption("D", false, "Process rastermeta datasets (mutually exclusive with -P.");
     options.addOption("P", false, "Process rastermeta projects (mutually exclusive with -D.");
-    options.addOption("q", true, "Specify a query condition eg. ANZLIC_ID = 'ANZVI0803002511' for debugging purposes.");
+    options.addOption("q", true, "Specify a query condition eg. ANZLICID = 'ANZVI0803002511' for debugging purposes.");
     options.addOption("s", false, "Skip validation. Useful for debugging because reading the schemas takes some time.");
     options.addRequiredOption("d", "directory", true, "Specify the directory name for output xml files.");
 
@@ -78,22 +96,21 @@ public class FileXMLWriter {
         String query = cmd.getOptionValue("q");
         if (query.matches(".*\\S+.*")) HQL += " AND " + query;
       }
-      System.out.println("Requesting rastermeta records using:\n" + HQL);
+      logger.info("Requesting rastermeta records using:\n" + HQL);
   
 		  ArrayList projects = (ArrayList) src.createQuery( HQL ).list( );
 	  	
-      System.out.println("Found "+projects.size()+" records");
 		  try {
         for( int i = 0; i < projects.size(); ++i ){
           Project d = (Project) projects.get( i );
           d.hostNameForLinks = hostNameForLinks;
 				  d.UUID = d.generateUUID( ); // generate new UUID for dataset
-				  System.out.println("Processing Project '" + d.Name + "' with uuid "+d.UUID);
-          jibxit(d, cmd, path, d.UUID, src);
+				  logger.debug("Processing Project '" + d.Name + "' with uuid "+d.UUID);
+          jibxit(d, cmd, path, d.UUID, null, src);
         }
   
 		  } catch( org.hibernate.HibernateException e ) {
-			  System.out.println( "Hibernate exception occurred" );
+			  logger.error( "Hibernate exception occurred" );
 			  logThrowableMsgStack( e, "N/A" );
 			  System.exit( 1 );
 		  } finally {
@@ -108,20 +125,19 @@ public class FileXMLWriter {
         String query = cmd.getOptionValue("q");
         if (query.matches(".*\\S+.*")) HQL += " AND " + query;
       }
-      System.out.println("Requesting rastermeta records using:\n" + HQL);
+      logger.info("Requesting rastermeta records using:\n" + HQL);
   
 		  ArrayList datasets = (ArrayList) src.createQuery( HQL ).list( );
 	  	
-      System.out.println("Found "+datasets.size()+" records");
 		  try {
         for( int i = 0; i < datasets.size(); ++i ){
           Dataset d = (Dataset) datasets.get( i );
-				  System.out.println("Processing Dataset '" + d.Title + "' with uuid "+d.UUID);
-          jibxit(d, cmd, path, d.UUID, src);
+				  logger.debug("Processing Dataset '" + d.Title + "' with uuid "+d.UUID);
+          jibxit(d, cmd, path, d.UUID, d.ANZLICID, src);
         }
 
 		  } catch( org.hibernate.HibernateException e ) {
-			  System.out.println( "Hibernate exception occurred" );
+			  logger.error( "Hibernate exception occurred" );
 			  logThrowableMsgStack( e, "N/A" );
 			  System.exit( 1 );
 	  	} finally {
@@ -131,71 +147,64 @@ public class FileXMLWriter {
     }
   }
 	
-  private static void jibxit(Object d, CommandLine cmd, String path, String UUID, Session src) {
+  private static void jibxit(Object d, CommandLine cmd, String path, String UUID, String ANZLICID, Session src) {
 				
 		IMarshallingContext mctx = getMarshallingContext( );
 				/* Transform Project instance to XML */
 				try {
 					StringWriter sw = new StringWriter( );
 	        mctx.marshalDocument( d, "utf-8", Boolean.FALSE, sw );
-					
-					String XML = sw.toString( );
-          boolean XMLIsValid = false, ContentIsValid = false;
+
+          // Now run the created XML through a postprocessing XSLT which does
+          // things like add the GML polygons (if anzlic_id matches)
+          Element mdXml = Xml.loadString(sw.toString(), false);
+          if (ANZLICID != null) {
+            Map<String,String> xsltparams = new HashMap<String,String>();
+            xsltparams.put("anzlicid", ANZLICID);
+            logger.debug("Transforming "+UUID );
+            mdXml = Xml.transform(mdXml, "data" + File.separator + "insert-gml.xsl",  xsltparams);				
+          }
+
+	
+          boolean xmlIsValid = false;
           if (cmd.hasOption("s")) {
-					  System.out.println("Validation is skipped.");
-            XMLIsValid = ContentIsValid = true;
+					  logger.error("Validation is skipped.");
           } else {
-					  System.out.println("Validating against http://schemas.isotc211.org/19115/-3/mdb/2.0 :" );
-					  XMLIsValid = ISO19115Validator.isValid( XML );
-					  System.out.println();
-					  System.out.println("Validating against ANZLIC Metadata Schematron:");
-					  ContentIsValid = ANZLICSchematronValidator.isValid( XML );
+            try {
+              Xml.validate(mdXml);
+            } catch (Exception e) {
+              logger.error("Validation of '"+UUID+"' against http://schemas.isotc211.org/19115/-3/mdb/2.0 FAILED:" );
+              logger.error("\n"+e.getMessage());
+              xmlIsValid = false;
+            }
           }
 
 					/* Write XML out to file */
           String outputFile = path;
-          if (!XMLIsValid) {
+          if (!xmlIsValid) {
             outputFile += "invalid" + File.separator;
           } 
           outputFile += UUID + ".xml";
            
-          
-					FileWriter fw = new FileWriter( outputFile );
-					fw.write( XML );
-					fw.close( );
-
-          // Now finally run the created XML through a postprocessing XSLT which does
-          // things like add the GML polygons (if anzlic_id matches)
-          /*
-          Element mdXml = Xml.loadFile(outputFile);
-          Map<String,String> xsltparams = new HashMap<String,String>();
-          xsltparams.put("anzlicid", d.ANZLIC_ID);
-			    System.out.println( "Transforming "+d.UUID );
-          Element result = Xml.transform(mdXml, "data" + File.separator + "insert-gml.xsl",  xsltparams);
-          //System.out.println("Result was \n"+Xml.getString(result));
+         
           XMLOutputter out = new XMLOutputter();
-          Format f = Format.getPrettyFormat();  
+          Format f = Format.getPrettyFormat();
           f.setEncoding("UTF-8");
-          out.setFormat(f);  
+          out.setFormat(f);
           FileOutputStream fo = new FileOutputStream(outputFile);
-          out.output(result, fo);
-          fo.close();
-          */
+          out.output(mdXml, fo);
+          fo.close(); 
 
-					}
-				catch( JiBXException e ){
+				} catch( JiBXException e ) {
 					/* This usually due to data problems such as unexpected nulls or
 					 * referential integrity failures. Once a JiBXException occurs, JiBX's
 					 * state is corrupted, hence it must be reinitialised */
-          e.printStackTrace();
 					logThrowableMsgStack( e.getRootCause( ), UUID );
 					mctx = getMarshallingContext( );					
-					}
-				catch( Exception e ){
-					/* Write exception info to console, then continue processing next dataset record */
+				} catch( Exception e ) {
+					// Write exception info to console, then continue processing next
 					logThrowableMsgStack( e, UUID );
-					}
-				finally {
+				} finally {
 					// Have finished with these elements, so purge them from the session
 					//dest.evict( m );
 					src.evict( d );
@@ -204,14 +213,15 @@ public class FileXMLWriter {
 	
 	private static void logThrowableMsgStack( Throwable t, String objName ){
 
-		java.io.PrintStream ps = System.out;
-		
-		ps.println( "Problem whilst processing dataset '" + objName + "'" );
-		t.printStackTrace(ps);
-		do ps.println( "Cause: " + t.getMessage( ) + " - " + t.getClass( ).getName( ) );
+	  StringBuffer ps = new StringBuffer();
+	
+		ps.append( "Problem whilst processing dataset '" + objName + "'" );
+		do ps.append( "Cause: " + t.getMessage( ) + " - " + t.getClass( ).getName( ) );
 		while( ( t = t.getCause( ) ) != null );
-		ps.println( "Processing of '" + objName + "' aborted" );
-		}
+		ps.append( "Processing of '" + objName + "' aborted" );
+    
+    logger.error(ps.toString());
+	}
 
 		
 	private static IMarshallingContext getMarshallingContext( ){
@@ -221,15 +231,13 @@ public class FileXMLWriter {
 			IBindingFactory bfact = BindingDirectory.getFactory( Project.class );
 			try {
 				mctx = bfact.createMarshallingContext( );
-				}
-			catch( JiBXException e ){
+			} catch( JiBXException e ){
 				throw new RuntimeException("Problem instantiating JiBX Marshalling Context", e );
-				}
 			}
-		catch( JiBXException e ){
+		} catch( JiBXException e ){
 			throw new RuntimeException("Problem instantiating JiBX Binding Factory", e );
-			}
+		}
 		mctx.setIndent( 1 );
 		return mctx;
-		}
 	}
+}
