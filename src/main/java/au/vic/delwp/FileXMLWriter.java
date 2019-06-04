@@ -91,10 +91,10 @@ public class FileXMLWriter {
     String HQL = null;	
     if (cmd.hasOption("P")) {	
 		  /* Fetch list of (or iterator over?) projects from Oracle DB */
-		  HQL = "FROM Project WHERE ( PROJECTID IS NOT NULL )"; // Build a HQL query string from command line arguments plus some default
+		  HQL = "FROM Project"; // Build a HQL query string from command line arguments plus some default
 		  if( cmd.hasOption("q")) {
         String query = cmd.getOptionValue("q");
-        if (query.matches(".*\\S+.*")) HQL += " AND " + query;
+        if (query.matches(".*\\S+.*")) HQL += " WHERE " + query;
       }
       logger.info("Requesting rastermeta records using:\n" + HQL);
   
@@ -120,10 +120,10 @@ public class FileXMLWriter {
     } else if (cmd.hasOption("D")) {
 
 		  /* Fetch list of (or iterator over?) projects from Oracle DB */
-		  HQL = "FROM Dataset WHERE ( DATASETID IS NOT NULL )"; // Build a HQL query string from command line arguments plus some default
+		  HQL = "FROM Dataset"; // Build a HQL query string from command line arguments plus some default
 		  if( cmd.hasOption("q")) {
         String query = cmd.getOptionValue("q");
-        if (query.matches(".*\\S+.*")) HQL += " AND " + query;
+        if (query.matches(".*\\S+.*")) HQL += " WHERE " + query;
       }
       logger.info("Requesting rastermeta records using:\n" + HQL);
   
