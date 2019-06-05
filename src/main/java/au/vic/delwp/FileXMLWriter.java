@@ -88,6 +88,9 @@ public class FileXMLWriter {
     File op = new File(path + "invalid");
     op.mkdirs(); // creates both output directory and invalid directory if they don't exist
 
+    System.setProperty("XML_CATALOG_FILES", oasisCatalogFile);
+    Xml.resetResolver();
+
     String HQL = null;	
     if (cmd.hasOption("P")) {	
 		  /* Fetch list of (or iterator over?) projects from Oracle DB */
@@ -96,7 +99,7 @@ public class FileXMLWriter {
         String query = cmd.getOptionValue("q");
         if (query.matches(".*\\S+.*")) HQL += " WHERE " + query;
       }
-      logger.info("Requesting rastermeta records using:\n" + HQL);
+      logger.info("Requesting rastermeta project records using:\n" + HQL);
   
 		  ArrayList projects = (ArrayList) src.createQuery( HQL ).list( );
 	  	
@@ -105,7 +108,7 @@ public class FileXMLWriter {
           Project d = (Project) projects.get( i );
           d.hostNameForLinks = hostNameForLinks;
 				  d.UUID = d.generateUUID( ); // generate new UUID for dataset
-				  logger.debug("Processing Project '" + d.Name + "' with uuid "+d.UUID);
+				  logger.info("Processing Project '" + d.Name + "' with uuid "+d.UUID);
           jibxit(d, cmd, path, d.UUID, null, src);
         }
   
@@ -125,14 +128,14 @@ public class FileXMLWriter {
         String query = cmd.getOptionValue("q");
         if (query.matches(".*\\S+.*")) HQL += " WHERE " + query;
       }
-      logger.info("Requesting rastermeta records using:\n" + HQL);
+      logger.info("Requesting rastermeta dataset records using:\n" + HQL);
   
 		  ArrayList datasets = (ArrayList) src.createQuery( HQL ).list( );
 	  	
 		  try {
         for( int i = 0; i < datasets.size(); ++i ){
           Dataset d = (Dataset) datasets.get( i );
-				  logger.debug("Processing Dataset '" + d.Title + "' with uuid "+d.UUID);
+				  logger.info("Processing Dataset '" + d.Title + "' with uuid "+d.UUID);
           jibxit(d, cmd, path, d.UUID, d.ANZLICID, src);
         }
 
@@ -166,7 +169,7 @@ public class FileXMLWriter {
           }
 
 	
-          boolean xmlIsValid = false;
+          boolean xmlIsValid = true;
           if (cmd.hasOption("s")) {
 					  logger.error("Validation is skipped.");
           } else {

@@ -83,7 +83,38 @@
         <structure name='title' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
           <value constant='DELWP Profile'  name='CharacterString' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
         </structure>
-        <!-- TODO: Add version and date? -->
+        <structure name='date' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+          <structure name='CI_Date' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+            <structure name='date' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+              <value name='Date' constant='2019-05-24' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+            </structure>
+            <structure name='dateType' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+              <structure name='CI_DateTypeCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_DateTypeCode'/>
+                <value name='codeListValue' constant='creation' />
+              </structure>
+            </structure>
+          </structure>
+        </structure>
+        <structure name='edition' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+          <value name='CharacterString' constant='Version 1' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+        </structure>
+        <structure name='editionDate' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+          <value name='DateTime' constant='2019-05-24T00:00:00' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+        </structure>
+        <structure name='citedResponsibleParty' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+          <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+            <structure name='role'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+              <structure name='CI_RoleCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
+                <value name='codeListValue' constant='owner' />
+              </structure>
+            </structure>
+            <structure name='party' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+              <structure name='CI_Organisation' get-method="getDefaultDELWP" ns='http://standards.iso.org/iso/19115/-3/cit/2.0'/>
+            </structure>
+          </structure>
+        </structure>
       </structure>
     </structure>
     <!--
@@ -225,17 +256,14 @@
           <value name='MD_TopicCategoryCode' ns='http://standards.iso.org/iso/19115/-3/mri/1.0' constant='imageryBaseMapsEarthCover'/>
         </structure>
 
-        <!--
-        <structure name='extent' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
+        <structure name='extent' usage='optional' test-method='hasLocation' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
           <structure name='EX_Extent' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
-            <structure name='description' usage='optional' test-method='isExtentDescriptionNotNull' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
-              <value name='CharacterString' get-method='getExtentDescription' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+            <structure name='description' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
+              <value name='CharacterString' field='Location' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
             </structure>
-            <collection get-method='getExtents' item-type='au.gov.vic.delwp.Extent' >
-              <structure name='geographicElement'  ns='http://standards.iso.org/iso/19115/-3/gex/1.0'/>
-            </collection>
           </structure>
         </structure>    
+        <!--
         <structure name='extent' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
           <structure name='EX_Extent' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
             <structure name='temporalElement' ns='http://standards.iso.org/iso/19115/-3/gex/1.0'>
@@ -417,7 +445,7 @@
                 <value name='nilReason' constant='unknown' usage='optional' style='attribute' test-method='acquisitionStatusIsUnknown' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
                 <structure name='MD_ProgressCode' value-style='attribute' usage='optional' test-method='acquisitionStatusIsKnown' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
                   <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ProgressCode' />
-                  <value name='codeListValue' get-method='getAcquisitionStatus' />
+                  <value name='codeListValue' constant='complete' />
                 </structure>
               </structure>
               <structure name="otherProperty" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
@@ -455,7 +483,7 @@
       <structure name='metadataReference' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
         <structure name='CI_Citation' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
           <structure name='title' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-            <value name='CharacterString' field='ANZLICID' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+            <value name='CharacterString' field='Title' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
           </structure>
           <structure name='onlineResource'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
             <structure name='CI_OnlineResource'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>

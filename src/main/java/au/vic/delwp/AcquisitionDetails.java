@@ -18,7 +18,6 @@ public class AcquisitionDetails {
     return (AcquisitionYear != null);
   }
   public String getBeginningDate() {
-    System.out.println(toString());
     return StringUtils.substringBefore(AcquisitionYear,"-");
   }
 

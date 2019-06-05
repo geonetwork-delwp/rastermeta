@@ -45,7 +45,7 @@ public class Project {
 		}
 
 	public String generateUUID( ){	
-    return "urn:au.gov.vic.delwp:rastermeta:project:" + ID;
+    return DigestUtils.sha1Hex("urn:au.gov.vic.delwp:rastermeta:project:" + ID);
 		}
 
   public String getAvailability() {
@@ -65,7 +65,6 @@ public class Project {
   }
 
   public String getProjectName() {
-    System.out.println(this.toString());
     return "project "+Title;
 	}
 
@@ -111,7 +110,15 @@ public class Project {
     return false;
   }
 
+  public boolean hasLocation() {
+    return Location != null;
+  }
+
   public Individual getResourcePOC() {
+    return Individual.getDefault();
+  }
+
+  public Individual getDefaultDELWP() {
     return Individual.getDefault();
   }
 
@@ -133,7 +140,8 @@ public class Project {
       Dataset ds = (Dataset)o;
       AssociatedResource asr = new AssociatedResource();
       asr.ANZLICID = ds.ANZLICID;
-      asr.FileIdentifier = ds.UUID; 
+      asr.Title = ds.Title;
+      asr.UUID = ds.getUUID(); 
       asr.hostNameForLinks = hostNameForLinks; 
       asrs.add(asr);
     }

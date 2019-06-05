@@ -86,7 +86,6 @@
 		<id name='ID' column='datasetid' >
 			<generator class='native' />
 		</id>
-		<property name='UUID' column='fileidentifier' />
 		<property name='Title' column='datasetname' />
 		<property name='ANZLICID' column='anzlicid' />
 		<!-- <property name='CompressionRatio' column='compressionratio' /> -->

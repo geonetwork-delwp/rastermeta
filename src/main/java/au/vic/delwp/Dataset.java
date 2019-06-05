@@ -20,8 +20,8 @@ import org.apache.commons.lang3.StringUtils;
 public class Dataset {
 
 	public int ID;
-	public String ANZLICID;
 	public String UUID;
+	public String ANZLICID;
 	public String Title;
 	public String CompressionRatio;
 	public String VerticalAccuracy;
@@ -176,7 +176,7 @@ public class Dataset {
   }
 
   public String getUUID() {
-    return StringUtils.replace(StringUtils.replace(UUID, "{", ""), "}", "");
+    return DigestUtils.sha1Hex(ANZLICID);
   }
 
   public boolean acquisitionStatusIsUnknown() {
