@@ -24,8 +24,11 @@
   </xsl:variable>
 
   <xsl:template mode="togml32" match="oldgml:*">
-    <xsl:message>ANZLICID <xsl:value-of select="$anzlicid"/></xsl:message>
-    <xsl:variable name="newgmlname" select="concat('gml:',local-name())"/> 
+    <xsl:variable name="gmlname" select="if (local-name()='outerBoundaryIs') then 'exterior'
+                          else if (local-name()='innerBoundaryIs') then 'interior'
+                          else local-name()" as="xs:string"/>
+    <!-- <xsl:message>NAME <xsl:value-of select="$gmlname"/></xsl:message> -->
+    <xsl:variable name="newgmlname" select="concat('gml:',$gmlname)"/> 
     <xsl:element name="{$newgmlname}">
       <xsl:apply-templates mode="togml32" select="@*|node()"/>
     </xsl:element>
@@ -84,7 +87,7 @@
   </xsl:template>
 
   <xsl:template name="fill">
-      <xsl:message><xsl:copy-of select="$gml32"/></xsl:message>
+      <!-- <xsl:message><xsl:copy-of select="$gml32"/></xsl:message> -->
       <mri:extent>
         <gex:EX_Extent>
           <gex:geographicElement>

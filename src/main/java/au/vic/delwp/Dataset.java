@@ -61,15 +61,19 @@ public class Dataset {
 
   /* could be more descriptive or if not then use gco:nilReason on abstract */
   public String getAbstract() {
-    return "dataset "+Title;
+    return "Dataset: "+Title+"\nAssembly: "+getAssembly();
   }
 
-  public Individual getMetadataPOC() {
-    return Individual.getDefault();
+  public XlinkedIndividual getMetadataPOC() {
+    return new XlinkedIndividual(Individual.getDefault());
   }
 
-  public Individual getResourcePOC() {
-    return Individual.getDefault();
+  public XlinkedIndividual getResourcePOC() {
+    return new XlinkedIndividual(Individual.getDefault());
+  }
+
+  public XlinkedIndividual getDefaultDELWP() {
+    return new XlinkedIndividual(Individual.getDefault());
   }
 
   public boolean hasRefSystem() {

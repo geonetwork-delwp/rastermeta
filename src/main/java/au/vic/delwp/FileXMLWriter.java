@@ -136,6 +136,7 @@ public class FileXMLWriter {
 		  try {
         for( int i = 0; i < datasets.size(); ++i ){
           Dataset d = (Dataset) datasets.get( i );
+          d.UUID = d.getUUID();
 				  logger.info("Processing Dataset '" + d.Title + "' with uuid "+d.UUID);
           jibxit(d, cmd, path, d.UUID, d.ANZLICID, src, false);
         }
