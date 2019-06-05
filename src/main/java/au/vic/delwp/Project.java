@@ -87,16 +87,16 @@ public class Project {
     return (Owner != null);
   }
 
-  public Individual getOwner() {
-    return Owner;
+  public XlinkedIndividual getOwner() {
+    return new XlinkedIndividual(Owner);
   }
 
   public boolean hasCustodian() {
     return (Custodian != null);
   }
 
-  public Individual getCustodian() {
-    return Custodian;
+  public XlinkedIndividual getCustodian() {
+    return new XlinkedIndividual(Custodian);
   }
 
   public boolean hasMetadataAuthor() {
@@ -114,20 +114,20 @@ public class Project {
     return Location != null;
   }
 
-  public Individual getResourcePOC() {
-    return Individual.getDefault();
+  public XlinkedIndividual getResourcePOC() {
+    return new XlinkedIndividual(Individual.getDefault());
   }
 
-  public Individual getDefaultDELWP() {
-    return Individual.getDefault();
+  public XlinkedIndividual getDefaultDELWP() {
+    return new XlinkedIndividual(Individual.getDefault());
   }
 
-  public Individual getMetadataPOC() {
-    return Individual.getDefault();
+  public XlinkedIndividual getMetadataPOC() {
+    return new XlinkedIndividual(Individual.getDefault());
   }
 
-  public Individual getMetadataAuthor() {
-    return MetadataAuthor;
+  public XlinkedIndividual getMetadataAuthor() {
+    return new XlinkedIndividual(MetadataAuthor);
   }
 
   public boolean hasPurpose() {

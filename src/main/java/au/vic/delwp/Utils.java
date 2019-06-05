@@ -19,7 +19,7 @@ public class Utils {
      }
    }
 
-   public static String generateContactUUID(String id) {
-    return "urn:delwp:metashare:person:"+id+"_person_organisation";
+   public static String generateIndividualUUID(String id) {
+    return "urn:delwp:rastermeta:person:"+id+"_person_organisation";
    }
 }

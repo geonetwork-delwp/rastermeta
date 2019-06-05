@@ -68,6 +68,7 @@ public class Individual {
     i.Faxnumber = p.getProperty("Fax");
     i.Email = p.getProperty("Email");
     i.OrganisationDetails = o;
+    i.ID = -1;
 
     Default = i;
   }
