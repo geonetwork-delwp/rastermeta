@@ -108,7 +108,7 @@ public class FileXMLWriter {
           Project d = (Project) projects.get( i );
           d.hostNameForLinks = hostNameForLinks;
 				  d.UUID = d.generateUUID( ); // generate new UUID for dataset
-				  logger.info("Processing Project '" + d.Name + "' with uuid "+d.UUID);
+				  logger.info("Processing Project '" + d.Title + "' with uuid "+d.UUID);
           jibxit(d, cmd, path, d.UUID, null, src);
         }
   
