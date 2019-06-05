@@ -601,9 +601,6 @@
             <value name='codeListValue' constant='dataset' />
           </structure>
         </structure>
-        <structure name='name'>
-          <value name='CharacterString' get-method='getDatasetName' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
-        </structure>
       </structure>
     </structure>
     <!-- contact is [1..*] according to ISO 19115 -->
