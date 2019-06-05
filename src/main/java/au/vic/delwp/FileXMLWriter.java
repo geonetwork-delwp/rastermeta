@@ -56,8 +56,9 @@ public class FileXMLWriter {
 
     Options options = new Options();
     options.addOption("h", true, "Specify host name for linkages to metadata records. If not specified then http://localhost:8080/geonetwork/srv/eng/ will be used.");
-    options.addOption("D", false, "Process rastermeta datasets (mutually exclusive with -P.");
-    options.addOption("P", false, "Process rastermeta projects (mutually exclusive with -D.");
+    options.addOption("D", false, "Process rastermeta datasets (mutually exclusive with -P and -c.");
+    options.addOption("P", false, "Process rastermeta projects (mutually exclusive with -D and -c.");
+    options.addOption("c", false, "Process rastermeta contacts (mutually exclusive with -D and -P");
     options.addOption("q", true, "Specify a query condition eg. ANZLICID = 'ANZVI0803002511' for debugging purposes.");
     options.addOption("s", false, "Skip validation. Useful for debugging because reading the schemas takes some time.");
     options.addRequiredOption("d", "directory", true, "Specify the directory name for output xml files.");
@@ -109,7 +110,7 @@ public class FileXMLWriter {
           d.hostNameForLinks = hostNameForLinks;
 				  d.UUID = d.generateUUID( ); // generate new UUID for dataset
 				  logger.info("Processing Project '" + d.Title + "' with uuid "+d.UUID);
-          jibxit(d, cmd, path, d.UUID, null, src);
+          jibxit(d, cmd, path, d.UUID, null, src, false);
         }
   
 		  } catch( org.hibernate.HibernateException e ) {
@@ -122,7 +123,7 @@ public class FileXMLWriter {
 		  }
     } else if (cmd.hasOption("D")) {
 
-		  /* Fetch list of (or iterator over?) projects from Oracle DB */
+		  /* Fetch list of (or iterator over?) datasets from Oracle DB */
 		  HQL = "FROM Dataset"; // Build a HQL query string from command line arguments plus some default
 		  if( cmd.hasOption("q")) {
         String query = cmd.getOptionValue("q");
@@ -136,7 +137,29 @@ public class FileXMLWriter {
         for( int i = 0; i < datasets.size(); ++i ){
           Dataset d = (Dataset) datasets.get( i );
 				  logger.info("Processing Dataset '" + d.Title + "' with uuid "+d.UUID);
-          jibxit(d, cmd, path, d.UUID, d.ANZLICID, src);
+          jibxit(d, cmd, path, d.UUID, d.ANZLICID, src, false);
+        }
+
+		  } catch( org.hibernate.HibernateException e ) {
+			  logger.error( "Hibernate exception occurred" );
+			  logThrowableMsgStack( e, "N/A" );
+			  System.exit( 1 );
+	  	} finally {
+			  src.close( );
+			  //dest.close( );
+		  }
+    } else if (cmd.hasOption("c")) {
+      /* Fetch list of (or iterator over?) inidviduals from Oracle DB */
+      HQL = "FROM Individual";
+      logger.info("Requesting rastermeta individual records using:\n" + HQL);
+  
+		  ArrayList individuals = (ArrayList) src.createQuery( HQL ).list( );
+	  	
+		  try {
+        for( int i = 0; i < individuals.size(); ++i ){
+          Individual ind = (Individual) individuals.get( i );
+				  logger.info("Processing Individual '" + ind.ID +"'");
+          jibxit(ind, cmd, path, ind.ID+"", null, src, true);
         }
 
 		  } catch( org.hibernate.HibernateException e ) {
@@ -148,9 +171,10 @@ public class FileXMLWriter {
 			  //dest.close( );
 		  }
     }
+
   }
 	
-  private static void jibxit(Object d, CommandLine cmd, String path, String UUID, String ANZLICID, Session src) {
+  private static void jibxit(Object d, CommandLine cmd, String path, String UUID, String ANZLICID, Session src, boolean forceSkip) {
 				
 		IMarshallingContext mctx = getMarshallingContext( );
 				/* Transform Project instance to XML */
@@ -170,9 +194,7 @@ public class FileXMLWriter {
 
 	
           boolean xmlIsValid = true;
-          if (cmd.hasOption("s")) {
-					  logger.error("Validation is skipped.");
-          } else {
+          if (!(cmd.hasOption("s") || forceSkip)) {
             try {
               Xml.validate(mdXml);
             } catch (Exception e) {

@@ -17,7 +17,7 @@
 		<property name='Faxnumber' column='faxnumber' />
 		<property name='Email' column='emailname' />
 		<property name='Retired' column='retired' />
-		<many-to-one name='OrganisationDetails' class='Organisation' column='organisationid' unique='true' not-null='true' insert='false' update='false' />
+		<many-to-one name='OrganisationDetails' class='Organisation' column='organisationid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
 	</class>
 
 	<class name='Organisation' table='data_organisations' mutable='false' lazy='false'>

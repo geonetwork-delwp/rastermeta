@@ -73,6 +73,18 @@ public class Individual {
     Default = i;
   }
 
+  public String getUUID() {
+    return Utils.generateIndividualUUID(ID+"");
+  }
+
+  public String getTitle() {
+    if (StringUtils.isEmpty(getName())) {
+      return OrganisationDetails.Name;
+    } else {
+      return getName() + " @ " + OrganisationDetails.Name;
+    }
+  }
+
   public static Individual getDefault() {
     return Default;
   }

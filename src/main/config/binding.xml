@@ -448,6 +448,8 @@
   </mapping>
 
   <mapping name="CI_Organisation" class='au.gov.vic.delwp.Individual' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+    <value name='uuid' style='attribute' get-method='getUUID'/>
+    <value name='title' style='attribute' get-method='getTitle'/>
     <structure field='OrganisationDetails' >
       <structure name='name' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
         <value field='Name' name='CharacterString'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
@@ -473,26 +475,6 @@
               </structure>
             </structure>
           </structure>
-        </structure>
-      </structure>
-      <structure name='partyIdentifier' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-        <structure name='MD_Identifier' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-          <structure name='code' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-            <value name='CharacterString' field='ID' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
-          </structure>
-          <structure name='description' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-            <value name='CharacterString' constant='RasterMeta Organisation ID' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
-          </structure>
-        </structure>
-      </structure>
-    </structure>
-    <structure name='partyIdentifier' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-      <structure name='MD_Identifier' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-        <structure name='code' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-          <value name='CharacterString' field='ID' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
-        </structure>
-        <structure name='description' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
-          <value name='CharacterString' constant='RasterMeta Individual ID' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
         </structure>
       </structure>
     </structure>
