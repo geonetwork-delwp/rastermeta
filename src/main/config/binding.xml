@@ -395,8 +395,7 @@
                 </structure>
               </structure>
               <structure name='status' ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
-                <value name='nilReason' constant='unknown' usage='optional' style='attribute' test-method='acquisitionStatusIsUnknown' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
-                <structure name='MD_ProgressCode' value-style='attribute' usage='optional' test-method='acquisitionStatusIsKnown' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                <structure name='MD_ProgressCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
                   <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ProgressCode' />
                   <value name='codeListValue' constant='complete' />
                 </structure>
@@ -1060,10 +1059,9 @@
           <structure name="operation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
             <structure name="MI_Operation" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
               <structure name='status' ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
-                <value name='nilReason' constant='unknown' usage='optional' style='attribute' test-method='acquisitionStatusIsUnknown' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
-                <structure name='MD_ProgressCode' value-style='attribute' usage='optional' test-method='acquisitionStatusIsKnown' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                <structure name='MD_ProgressCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
                   <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ProgressCode' />
-                  <value name='codeListValue' get-method='getAcquisitionStatus' />
+                  <value name='codeListValue' constant='complete' />
                 </structure>
               </structure>
               <structure name="otherProperty" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
