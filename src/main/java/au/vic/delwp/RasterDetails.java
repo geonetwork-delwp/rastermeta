@@ -56,6 +56,10 @@ public class RasterDetails {
     return NumberBands != null;
   }
 
+  public boolean missingNumberBands() {
+    return NumberBands == null;
+  }
+
   public boolean hasNumberColumns() {
     return NumberColumns != null;
   }

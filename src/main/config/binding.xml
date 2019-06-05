@@ -1259,8 +1259,9 @@
         <value name='codeListValue' get-method='getRasterTypeCode' />
       </structure>
     </structure>
-    <structure name='numberOfBands' usage='optional' test-method='hasNumberBands' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
-      <value name='Integer' field='NumberBands' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    <structure name='numberOfBands' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='nilReason' usage='optional' style="attribute" test-method='missingNumberBands' constant='missing' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+      <value name='Integer' usage='optional' test-method="hasNumberBands" field='NumberBands' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
     </structure>
     <structure name="bandList" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='MD_BandListCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>

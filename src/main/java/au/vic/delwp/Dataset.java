@@ -156,7 +156,8 @@ public class Dataset {
   }
 
   public String getTilesize() {
-    return Tilesize.Text;
+    if (Tilesize.Text.equals("1:1million mapsheet")) return "1million mapsheet";
+    else return Tilesize.Text;
   }
 
   public String getProjectTopic() {
