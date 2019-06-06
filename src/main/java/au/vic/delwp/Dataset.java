@@ -85,7 +85,13 @@ public class Dataset {
   }
 
   public boolean hasHorizontalAccuracy() {
-    return HorizontalAccuracy != null;
+    return !Utils.isBlank(HorizontalAccuracy);
+  }
+
+  public String getHorizontalAccuracy() {
+    if (HorizontalAccuracy.trim().equals("+/- 10cm")) return "0.1";
+    else if (HorizontalAccuracy.trim().endsWith("m")) return HorizontalAccuracy.substring(0,HorizontalAccuracy.length()-1);
+    else return HorizontalAccuracy;
   }
 
   public boolean hasVerticalAccuracy() {
