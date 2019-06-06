@@ -31,6 +31,10 @@ public class AcquisitionDetails {
     return (Supplier != null);
   }
 
+  public XlinkedIndividual getSupplier() {
+    return new XlinkedIndividual(Supplier);
+  }
+
   public boolean hasProgram() {
     return (Program != null);
   }

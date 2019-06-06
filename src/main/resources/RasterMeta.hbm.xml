@@ -71,6 +71,7 @@
 		<property name='AcquisitionYear' column='acquisitionyear' />
     <one-to-one name="project" constrained="true" class="Project" /> 
 		<many-to-one name='AcquisitionMethod' entity-name="AcquisitionMethod" column='acquisitionmethodid' />
+		<many-to-one name="Supplier" class="Individual" column='supplierid' unique='true' not-null='true' insert='false' update='false' not-found='ignore'/>
   </class>
 
   <class entity-name='AcquisitionMethod' name='IDnText' table='rt_acquisitionmethod' lazy='false' mutable='false' >

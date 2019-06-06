@@ -375,9 +375,7 @@
                           <value name='codeListValue' constant='resourceProvider' />
                         </structure>
                       </structure>
-                      <structure name='party' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
-                        <structure field="Supplier"/>
-                      </structure>
+                      <structure name='party' get-method="getSupplier" ns='http://standards.iso.org/iso/19115/-3/cit/2.0'/>
                     </structure>
                   </structure>
                 </structure>
