@@ -81,7 +81,8 @@ public class Dataset {
   }
 
   public String getSpatialRepresentationType() {
-    return (String)SpatialRepresentationTypeCodes.get(DatasetType.Text);
+    if (isContour()) return "contour"; // contour datasets should have spatial rep type set
+    else return (String)SpatialRepresentationTypeCodes.get(DatasetType.Text);
   }
 
   public boolean hasHorizontalAccuracy() {
