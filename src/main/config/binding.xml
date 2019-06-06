@@ -650,9 +650,11 @@
                   <value name='codeListValue' constant='column' />
                 </structure>
               </structure>
-              <structure name='dimensionSize' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
-                <value name='Integer' field='NumberColumns' usage='optional' test-method='hasNumberColumns' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
-                <value name='nilReason' style='attribute' constant='unknown' usage='optional' test-method="doesNotHaveNumberColumns"  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+              <structure name='dimensionSize' usage='optional' test-method='hasNumberColumns' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+                <value name='Integer' field='NumberColumns' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+              </structure>
+              <structure name='dimensionSize' usage='optional' test-method='doesNotHaveNumberColumns' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+                <value name='nilReason' style='attribute' constant='unknown' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
               </structure>
               <structure name='resolution' usage='optional' test-method='hasXPixelResolution' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
                 <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
@@ -670,9 +672,11 @@
                   <value name='codeListValue' constant='row' />
                 </structure>
               </structure>
-              <structure name='dimensionSize' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
-                <value name='Integer' field='NumberRows' usage='optional' test-method='hasNumberRows' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
-                <value name='nilReason' constant='unknown' style='attribute' usage='optional' test-method="doesNotHaveNumberRows"  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+              <structure name='dimensionSize' usage='optional' test-method='hasNumberRows' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+                <value name='Integer' field='NumberRows' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+              </structure>
+              <structure name='dimensionSize' usage='optional' test-method="doesNotHaveNumberRows" ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
+                <value name='nilReason' constant='unknown' style='attribute' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
               </structure>
               <structure name='resolution' usage='optional' test-method='hasYPixelResolution' ns='http://standards.iso.org/iso/19115/-3/msr/2.0'>
                 <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
@@ -1259,9 +1263,11 @@
         <value name='codeListValue' get-method='getRasterTypeCode' />
       </structure>
     </structure>
-    <structure name='numberOfBands' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
-      <value name='nilReason' usage='optional' style="attribute" test-method='missingNumberBands' constant='missing' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
-      <value name='Integer' usage='optional' test-method="hasNumberBands" field='NumberBands' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    <structure name='numberOfBands' usage='optional' test-method="hasNumberBands" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Integer' field='NumberBands' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='numberOfBands' usage='optional' test-method="doesNotHaveNumberBands" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='nilReason' style="attribute" constant='missing' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
     </structure>
     <structure name="bandList" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='MD_BandListCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>

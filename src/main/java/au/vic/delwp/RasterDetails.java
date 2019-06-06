@@ -53,11 +53,11 @@ public class RasterDetails {
   }
 
   public boolean hasNumberBands() {
-    return NumberBands != null;
+    return !Utils.isBlank(NumberBands);
   }
 
-  public boolean missingNumberBands() {
-    return NumberBands == null;
+  public boolean doesNotHaveNumberBands() {
+    return Utils.isBlank(NumberBands);
   }
 
   public boolean hasNumberColumns() {
