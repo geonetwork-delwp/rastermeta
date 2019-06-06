@@ -807,7 +807,7 @@
             <structure name='vertical' ns='http://standards.iso.org/iso/19115/-3/mri/1.0'>
               <structure name='Distance' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' >
                 <value name='uom' constant='m'  style='attribute' />
-                <value field='VerticalAccuracy' style='text' />
+                <value get-method='getVerticalAccuracy' style='text' />
               </structure>
             </structure>
           </structure>

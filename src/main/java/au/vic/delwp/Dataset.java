@@ -95,7 +95,12 @@ public class Dataset {
   }
 
   public boolean hasVerticalAccuracy() {
-    return VerticalAccuracy != null;
+    return !Utils.isBlank(VerticalAccuracy);
+  }
+
+  public String getVerticalAccuracy() {
+    if (VerticalAccuracy.trim().endsWith("m")) return VerticalAccuracy.substring(0,VerticalAccuracy.length()-1);
+    else return VerticalAccuracy;
   }
 
   public boolean hasSurvey() {

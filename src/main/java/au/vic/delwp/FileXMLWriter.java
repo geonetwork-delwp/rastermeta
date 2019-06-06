@@ -155,6 +155,8 @@ public class FileXMLWriter {
       logger.info("Requesting rastermeta individual records using:\n" + HQL);
   
 		  ArrayList individuals = (ArrayList) src.createQuery( HQL ).list( );
+
+      individuals.add(Individual.getDefault());
 	  	
 		  try {
         for( int i = 0; i < individuals.size(); ++i ){
