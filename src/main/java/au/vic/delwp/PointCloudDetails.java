@@ -37,6 +37,46 @@ public class PointCloudDetails {
     return ScanAngle != null;
   }
 
+  public boolean hasScanRate() {
+    return !Utils.isBlank(ScanRate);
+  }
+
+  public boolean doesNotHaveScanRate() {
+    return Utils.isBlank(ScanRate);
+  }
+
+  public boolean hasScanFrequency() {
+    return !Utils.isBlank(ScanFrequency);
+  }
+
+  public boolean doesNotHaveScanFrequency() {
+    return Utils.isBlank(ScanFrequency);
+  }
+
+  public boolean hasFootprintSize() {
+    return !Utils.isBlank(FootprintSize);
+  }
+
+  public boolean doesNotHaveFootprintSize() {
+    return Utils.isBlank(FootprintSize);
+  }
+
+  public boolean hasPointDensityActual() {
+    return !Utils.isBlank(PointDensityActual);
+  }
+
+  public boolean doesNotHavePointDensityActual() {
+    return Utils.isBlank(PointDensityActual);
+  }
+
+  public boolean hasPointSpacingActual() {
+    return !Utils.isBlank(PointSpacingActual);
+  }
+
+  public boolean doesNotHavePointSpacingActual() {
+    return Utils.isBlank(PointSpacingActual);
+  }
+
   public boolean hasPointDensityTarget() {
     return PointDensityTarget != null;
   }
@@ -70,7 +110,7 @@ public class PointCloudDetails {
   }
 
   public String getEllipsoidProvided() {
-    if (StringUtils.isBlank(EllipsoidProvided) || EllipsoidProvided.trim().equals("0")) {
+    if (Utils.isBlank(EllipsoidProvided) || EllipsoidProvided.trim().equals("0")) {
       return "0";
     } else {
       return "1";

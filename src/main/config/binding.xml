@@ -1122,17 +1122,23 @@
     <structure name='returnType' usage="optional" test-method="hasReturnType" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <value name='CharacterString' field='ReturnType' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
     </structure>
-    <structure name='scanRate' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+    <structure name='scanRate' usage="optional" test-method="hasScanRate" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
         <value name='uom' constant='Hz' style='attribute'/>
         <value style='text' field='ScanRate'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
       </structure>
     </structure>
-    <structure name='scanFrequency' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+    <structure name='scanRate' usage="optional" test-method="doesNotHaveScanRate" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='nilReason' constant='missing' style='attribute' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    </structure>
+    <structure name='scanFrequency' usage="optional" test-method="hasScanFrequency" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
         <value name='uom' constant='kHz' style='attribute'/>
         <value style='text' field='ScanFrequency'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
       </structure>
+    </structure>
+    <structure name='scanFrequency' usage="optional" test-method="doesNotHaveScanFrequency" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='nilReason' constant='missing' style='attribute' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
     </structure>
     <structure name='scanAngle' usage='optional' test-method='hasScanAngle' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
@@ -1140,11 +1146,14 @@
         <value style='text' field='ScanAngle'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
       </structure>
     </structure>
-    <structure name='footprintSize' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+    <structure name='footprintSize' usage='optional' test-method='hasFootprintSize' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
         <value name='uom' constant='m' style='attribute'/>
         <value style='text' field='FootprintSize'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
       </structure>
+    </structure>
+    <structure name='footprintSize' usage='optional' test-method='doesNotHaveFootprintSize' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='nilReason' constant='missing' style='attribute' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
     </structure>
     <structure name='pointDensityTarget' usage='optional' test-method='hasPointDensityTarget' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
@@ -1152,11 +1161,14 @@
         <value style='text' field='PointDensityTarget'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
       </structure>
     </structure>
-    <structure name='pointDensityActual' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+    <structure name='pointDensityActual' usage='optional' test-method='hasPointDensityActual' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
         <value name='uom' constant='points/m2' style='attribute'/>
         <value style='text' field='PointDensityActual'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
       </structure>
+    </structure>
+    <structure name='pointDensityActual' usage='optional' test-method='doesNotHavePointDensityActual' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='nilReason' constant='missing' style='attribute' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
     </structure>
     <structure name='pointSpacingTarget' usage='optional' test-method='hasPointSpacingTarget' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
@@ -1164,11 +1176,14 @@
         <value style='text' field='PointSpacingTarget'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
       </structure>
     </structure>
-    <structure name='pointSpacingActual' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+    <structure name='pointSpacingActual' usage='optional' test-method='hasPointSpacingActual' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
         <value name='uom' constant='points/m2' style='attribute'/>
         <value style='text' field='PointSpacingActual'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
       </structure>
+    </structure>
+    <structure name='pointSpacingActual' usage='optional' test-method='doesNotHavePointSpacingActual' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='nilReason' constant='missing' style='attribute' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
     </structure>
     <structure name='ellipsoidProvided' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <value name='Boolean' get-method='getEllipsoidProvided' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
