@@ -1187,7 +1187,7 @@
       <value name='Boolean' get-method='getEllipsoidProvided' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
     </structure>
 
-    <structure name='ellipsoidVerticalDatum' usage='optional' test-method='hasEllipsoidProvided' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+    <structure name='ellipsoidVerticalDatum' usage='optional' test-method='hasEllipsoidVerticalDatum' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='MD_EllipsoidVerticalDatumCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
         <value name='codeList' constant='https://github.com/geonetwork-delwp/iso19115-3.2018/blob/master/codelists.xml#MD_EllipsoidVerticalDatumCode'/>
         <value name='codeListValue' get-method='getEllipsoidVerticalDatumCode' />

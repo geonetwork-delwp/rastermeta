@@ -18,8 +18,8 @@ public class PointCloudDetails {
 	public String PointSpacingActual;
 	public String EllipsoidProvided;
 	public String EllipsoidFormat;
-	public String EllipsoidVerticalDatum;
-	public String GeoidVerticalDatum;
+	public IDnText EllipsoidVerticalDatum;
+	public IDnText GeoidVerticalDatum;
 	public String AdditionalAdjustments;
 	public String TidalConditions;
 	public String EnvironmentalConditions;
@@ -102,7 +102,11 @@ public class PointCloudDetails {
   }
 
   public boolean hasGeoidVerticalDatum() {
-    return !(StringUtils.isBlank(GeoidVerticalDatum) || GeoidVerticalDatum.trim().equals("0"));
+    return GeoidVerticalDatum != null;
+  }
+
+  public boolean hasEllipsoidVerticalDatum() {
+    return EllipsoidVerticalDatum != null;
   }
 
   public boolean hasPointCloudClassificationDetails() {
@@ -118,7 +122,7 @@ public class PointCloudDetails {
   }
 
   public String getEllipsoidVerticalDatumCode() {
-    return EllipsoidVerticalDatum;
+    return EllipsoidVerticalDatum.Text;
   }
 
   public String getEllipsoidFormatCode() {
@@ -126,7 +130,7 @@ public class PointCloudDetails {
   }
 
   public String getGeoidVerticalDatumCode() {
-    return GeoidVerticalDatum;
+    return GeoidVerticalDatum.Text;
   }
 
 }

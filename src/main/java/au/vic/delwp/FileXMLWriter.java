@@ -41,6 +41,8 @@ public class FileXMLWriter {
 
   public static void main( String args[] ){
 
+    final String iwsWMS = "http://images.land.vic.gov.au/erdas-iws/ogc/wms?request=getcapabilities&service=wms";
+
     String oasisCatalogFile = "schemas/iso19115-3/src/main/plugin/iso19115-3/oasis-catalog.xml";
 
     try {
@@ -110,7 +112,7 @@ public class FileXMLWriter {
           d.hostNameForLinks = hostNameForLinks;
 				  d.UUID = d.generateUUID( ); // generate new UUID for dataset
 				  logger.info("Processing Project '" + d.Title + "' with ID "+d.ID+" uuid "+d.UUID);
-          jibxit(d, cmd, path, d.UUID, null, src, false);
+          jibxit(d, cmd, path, d.UUID, null, null, src, false);
         }
   
 		  } catch( org.hibernate.HibernateException e ) {
@@ -122,6 +124,24 @@ public class FileXMLWriter {
 			  //dest.close( );
 		  }
     } else if (cmd.hasOption("D")) {
+
+      /* First run the iws-wms.xsl to get the layer names from the iws wms in delwp */
+      Map<String,String> xsltparams = new HashMap<String,String>();
+      xsltparams.put("wms", iwsWMS);
+      String iwslayersFile = "data" + File.separator + "iws-layers.xml";
+      try {
+        Element iwslayers = Xml.transform(new Element("nothing"), "data" + File.separator + "iws-wms.xsl", xsltparams);				
+        XMLOutputter out = new XMLOutputter();
+        Format f = Format.getPrettyFormat();
+        f.setEncoding("UTF-8");
+        out.setFormat(f);
+        FileOutputStream fo = new FileOutputStream(iwslayersFile);
+        out.output(iwslayers, fo);
+        fo.close(); 
+      } catch (Exception ex) {
+			  logger.error( "Cannot get list of layer names from wms server "+iwsWMS );
+        ex.printStackTrace();
+      }
 
 		  /* Fetch list of (or iterator over?) datasets from Oracle DB */
 		  HQL = "FROM Dataset"; // Build a HQL query string from command line arguments plus some default
@@ -138,7 +158,7 @@ public class FileXMLWriter {
           Dataset d = (Dataset) datasets.get( i );
           d.UUID = d.getUUID();
 				  logger.info("Processing Dataset '" + d.Title + "' with ID "+d.ID+" uuid "+d.UUID);
-          jibxit(d, cmd, path, d.UUID, d.ANZLICID, src, false);
+          jibxit(d, cmd, path, d.UUID, d.ANZLICID, iwslayersFile, src, false);
         }
 
 		  } catch( org.hibernate.HibernateException e ) {
@@ -162,7 +182,7 @@ public class FileXMLWriter {
         for( int i = 0; i < individuals.size(); ++i ){
           Individual ind = (Individual) individuals.get( i );
 				  logger.info("Processing Individual '" + ind.ID +"'");
-          jibxit(ind, cmd, path, ind.ID+"", null, src, true);
+          jibxit(ind, cmd, path, ind.ID+"", null, null, src, true);
         }
 
 		  } catch( org.hibernate.HibernateException e ) {
@@ -177,7 +197,7 @@ public class FileXMLWriter {
 
   }
 	
-  private static void jibxit(Object d, CommandLine cmd, String path, String UUID, String ANZLICID, Session src, boolean forceSkip) {
+  private static void jibxit(Object d, CommandLine cmd, String path, String UUID, String ANZLICID, String iwslayersFile, Session src, boolean forceSkip) {
 				
 		IMarshallingContext mctx = getMarshallingContext( );
 				/* Transform Project instance to XML */
@@ -191,6 +211,7 @@ public class FileXMLWriter {
           if (ANZLICID != null) {
             Map<String,String> xsltparams = new HashMap<String,String>();
             xsltparams.put("anzlicid", ANZLICID);
+            xsltparams.put("iwslayersfile", iwslayersFile);
             logger.debug("Transforming "+UUID );
             mdXml = Xml.transform(mdXml, "data" + File.separator + "insert-gml.xsl",  xsltparams);				
           }
