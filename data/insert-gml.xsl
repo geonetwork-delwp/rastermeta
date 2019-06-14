@@ -4,24 +4,30 @@
   xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0"
   xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
   xmlns:mdb="http://standards.iso.org/iso/19115/-3/mdb/2.0"
+  xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0"
+  xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/2.0"
   xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:oldgml="http://www.opengis.net/gml"
-  xmlns:ogr="http://ogr.maptools.org/"
+  xmlns:wms="http://www.opengis.net/wms"
   xmlns:fme="http://www.safe.com/gml/fme"
-  exclude-result-prefixes="fme ogr xs oldgml">
+  exclude-result-prefixes="fme xs oldgml">
 
   <xsl:param name="anzlicid"/>
+  <xsl:param name="iwslayersfile"/>
 
   <xsl:output method="xml" indent="yes"/>
 
   <xsl:variable name="gmlDocument" select="document('RasterMosaicFootprints.gml')"/>
+  <xsl:variable name="iwsLayers" select="document($iwslayersfile)"/>
 
   <xsl:variable name="gml32">
-    <xsl:apply-templates mode="togml32" select="$gmlDocument//oldgml:featureMember/fme:RasterappMosaicFootprints[fme:ANZLICID=$anzlicid]/oldgml:*|$gmlDocument//oldgml:featureMember/ogr:RasterappMosaicFootprints[ogr:ANZLICID=$anzlicid]/ogr:geometryProperty/oldgml:*"/>
+    <xsl:apply-templates mode="togml32" select="$gmlDocument//oldgml:featureMember/fme:RasterappMosaicFootprints[fme:ANZLICID=$anzlicid]/oldgml:*"/>
   </xsl:variable>
+
+  <xsl:variable name="filename" select="$gmlDocument//oldgml:featureMember/fme:RasterappMosaicFootprints[fme:ANZLICID=$anzlicid]/fme:FILENAME"/>
 
   <xsl:template mode="togml32" match="oldgml:*">
     <xsl:variable name="gmlname" select="if (local-name()='outerBoundaryIs') then 'exterior'
@@ -71,7 +77,7 @@
       <xsl:apply-templates select="mri:processingLevel"/>
       <xsl:apply-templates select="mri:resourceMaintenance"/>
 
-      <xsl:apply-templates select="mri:graphicOverview"/>
+      <xsl:call-template name="doGraphicOverview"/> 
 
       <xsl:apply-templates select="mri:resourceFormat"/>
       <xsl:apply-templates select="mri:descriptiveKeywords"/>
@@ -103,6 +109,52 @@
           </gex:geographicElement>
         </gex:EX_Extent>
       </mri:extent>
+  </xsl:template>
+
+  <xsl:template name="doGraphicOverview">
+    <xsl:choose>
+      <xsl:when test="normalize-space($filename)!=''">
+        <xsl:variable name="fixedfilename" select="if (contains($filename,'.')) then
+                                                     substring-before($filename,'.')
+                                                   else $filename"/>
+        <xsl:message>USING FILENAME: <xsl:value-of select="$fixedfilename"/></xsl:message>
+        <xsl:for-each select="$iwsLayers/wms:layers/wms:layer">
+          <xsl:variable name="wmslayer" select="if (contains(wms:Name,$fixedfilename)) then
+                                                 wms:Name else ''"/>
+          <xsl:choose>
+            <xsl:when test="normalize-space($wmslayer)=''">
+              <xsl:apply-templates select="mri:graphicOverview"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:message>FOUND WMS Layer <xsl:value-of select="wms:Name"/></xsl:message>
+              <mri:graphicOverview>
+                <mcc:MD_BrowseGraphic>
+                  <mcc:fileName gco:nilReason="inapplicable" />
+                  <mcc:linkage>
+                    <cit:CI_OnlineResource>
+                      <cit:linkage>
+                        <gco:CharacterString><xsl:value-of select="
+concat('http://images.land.vic.gov.au/erdas-iws/ogc/wms?request=getmap&amp;service=wms&amp;layer=',$wmslayer)
+                        "/></gco:CharacterString>
+                      </cit:linkage>
+                      <cit:protocol>
+                        <gco:CharacterString>OGC:WMS</gco:CharacterString>
+                      </cit:protocol>
+                      <cit:description>
+                        <gco:CharacterString>Graphic Overview of Data Footprint from WMS</gco:CharacterString>
+                      </cit:description>
+                    </cit:CI_OnlineResource>
+                  </mcc:linkage>
+                </mcc:MD_BrowseGraphic>
+              </mri:graphicOverview>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:for-each>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="mri:graphicOverview"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <!-- copy everything else as is -->
