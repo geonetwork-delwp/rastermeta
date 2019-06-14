@@ -53,12 +53,12 @@ public class FileXMLWriter {
       logger.error("Failed to create cache for schema files");
     }
 
-    String hostNameForLinks = "http://localhost:8080/geonetwork/srv/eng/";
+    String hostNameForLinks = "https://dev-metashare.delwp.vic.gov.au/geonetwork/srv/eng/";
 		
 		Session src = new Configuration( ).configure("SourceDB.cfg.xml").buildSessionFactory( ).openSession( );
 
     Options options = new Options();
-    options.addOption("h", true, "Specify host name for linkages to metadata records. If not specified then http://localhost:8080/geonetwork/srv/eng/ will be used.");
+    options.addOption("h", true, "Specify host name for linkages to metadata records. If not specified then https://dev-metashare.delwp.vic.gov.au/geonetwork/srv/eng/ will be used.");
     options.addOption("D", false, "Process rastermeta datasets (mutually exclusive with -P and -c.");
     options.addOption("P", false, "Process rastermeta projects (mutually exclusive with -D and -c.");
     options.addOption("c", false, "Process rastermeta contacts (mutually exclusive with -D and -P");
