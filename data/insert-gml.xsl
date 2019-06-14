@@ -141,7 +141,7 @@
                     <cit:CI_OnlineResource>
                       <cit:linkage>
                         <gco:CharacterString><xsl:value-of select="
-concat('http://images.land.vic.gov.au/erdas-iws/ogc/wms?request=getmap&amp;service=wms&amp;layers=',$wmslayer,'&amp;width=400&amp;height=200&amp;version=1.1.1&amp;format=image/jpeg&amp;styles=&amp;srs=epsg:4326&amp;bbox=',$bbox)
+concat('https://images.land.vic.gov.au/erdas-iws/ogc/wms?request=getmap&amp;service=wms&amp;layers=',$wmslayer,'&amp;width=400&amp;height=200&amp;version=1.1.1&amp;format=image/jpeg&amp;styles=&amp;srs=epsg:4326&amp;bbox=',$bbox)
                         "/></gco:CharacterString>
                       </cit:linkage>
                       <cit:protocol>
