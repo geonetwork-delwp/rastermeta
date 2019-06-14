@@ -1315,8 +1315,8 @@
     <structure name='rectificationNotes' usage="optional" test-method="hasRectificationNotes" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <value name='CharacterString' field='RectificationNotes' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
     </structure>
-    <structure name='rasterPlatformSpecificProperties' usage='optional' test-method='hasRasterPlatformSpecificProperties' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
-      <structure name='MD_RasterPlatformSpecificProperties' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+    <structure name='rasterTypeSpecificProperties' usage='optional' test-method='hasRasterPlatformSpecificProperties' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='MD_RasterTypeSpecificProperties' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
         <structure name='aerialPhoto' usage="optional" test-method="hasAerialPhoto" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
           <structure name='MD_AerialPhoto' get-method="getAerialPhoto" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
           </structure>

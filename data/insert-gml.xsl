@@ -113,14 +113,16 @@
 
   <xsl:template name="doGraphicOverview">
     <xsl:choose>
-      <xsl:when test="normalize-space($filename)!=''">
-        <xsl:variable name="fixedfilename" select="if (contains($filename,'.')) then
-                                                     substring-before($filename,'.')
-                                                   else $filename"/>
-        <xsl:message>USING FILENAME: <xsl:value-of select="$fixedfilename"/></xsl:message>
-        <xsl:for-each select="$iwsLayers/wms:layers/wms:layer">
-          <xsl:variable name="wmslayer" select="if (contains(wms:Name,$fixedfilename)) then
-                                                 wms:Name else ''"/>
+      <xsl:when test="count($filename)>0">
+        <xsl:for-each select="distinct-values($filename)">
+          <xsl:variable name="fixedfilename" select="if (contains(.,'.')) then
+                                                     substring-before(.,'.')
+                                                   else ."/>
+          <xsl:message>USING FILENAME: <xsl:value-of select="$fixedfilename"/></xsl:message>
+          <xsl:for-each select="$iwsLayers/wms:layers/wms:layer">
+            <xsl:variable name="wmslayer" select="
+                                             if (contains(wms:Name,$fixedfilename)) then
+                                             wms:Name else ''"/>
           <xsl:choose>
             <xsl:when test="normalize-space($wmslayer)=''">
               <xsl:apply-templates select="mri:graphicOverview"/>
@@ -146,7 +148,7 @@ concat('http://images.land.vic.gov.au/erdas-iws/ogc/wms?request=getmap&amp;servi
                         <gco:CharacterString>OGC:WMS</gco:CharacterString>
                       </cit:protocol>
                       <cit:description>
-                        <gco:CharacterString>Graphic Overview of Data Footprint from WMS</gco:CharacterString>
+                        <gco:CharacterString><xsl:value-of select="concat('Graphic Overview of Data Footprint from WMS ',$fixedfilename)"/></gco:CharacterString>
                       </cit:description>
                     </cit:CI_OnlineResource>
                   </mcc:linkage>
@@ -154,6 +156,8 @@ concat('http://images.land.vic.gov.au/erdas-iws/ogc/wms?request=getmap&amp;servi
               </mri:graphicOverview>
             </xsl:otherwise>
           </xsl:choose>
+        
+          </xsl:for-each>
         </xsl:for-each>
       </xsl:when>
       <xsl:otherwise>
