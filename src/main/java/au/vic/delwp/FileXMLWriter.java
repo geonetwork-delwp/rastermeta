@@ -127,6 +127,7 @@ public class FileXMLWriter {
     } else if (cmd.hasOption("D")) {
 
       /* First run the iws-wms.xsl to get the layer names from the iws wms in delwp */
+      logger.info("Requesting layer names from wms..");
       Map<String,String> xsltparams = new HashMap<String,String>();
       xsltparams.put("wms", iwsWMS);
       String iwsLayersFile = "data" + File.separator + iwsLayersFilename;

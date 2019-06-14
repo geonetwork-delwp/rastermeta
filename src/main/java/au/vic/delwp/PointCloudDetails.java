@@ -17,7 +17,7 @@ public class PointCloudDetails {
 	public String PointSpacingTarget;
 	public String PointSpacingActual;
 	public String EllipsoidProvided;
-	public String EllipsoidFormat;
+	public IDnText EllipsoidFormat;
 	public IDnText EllipsoidVerticalDatum;
 	public IDnText GeoidVerticalDatum;
 	public String AdditionalAdjustments;
@@ -109,6 +109,10 @@ public class PointCloudDetails {
     return EllipsoidVerticalDatum != null;
   }
 
+  public boolean hasEllipsoidFormat() {
+    return EllipsoidFormat != null;
+  }
+
   public boolean hasPointCloudClassificationDetails() {
     return PointCloudClassification != null;
   }
@@ -126,7 +130,7 @@ public class PointCloudDetails {
   }
 
   public String getEllipsoidFormatCode() {
-    return EllipsoidFormat;
+    return EllipsoidFormat.Text;
   }
 
   public String getGeoidVerticalDatumCode() {

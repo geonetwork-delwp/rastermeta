@@ -126,7 +126,8 @@
 		<property name='PointSpacingTarget' column='pointspacing_target' />
 		<property name='PointSpacingActual' column='pointspacing_actual' />
 		<property name='EllipsoidProvided' column='ellipsoidprovided' />
-		<property name='EllipsoidFormat' column='ellipsoidformat' />
+		<!-- <property name='EllipsoidFormat' column='ellipsoidformat' /> -->
+		<many-to-one name='EllipsoidFormat' entity-name="DatasetFormat" column='ellipsoidformat' unique="true" not-found='ignore' fetch='select'/>
 		<!--<property name='EllipsoidVerticalDatum' column='ellipsoidverticaldatum' />-->
 		<many-to-one name='EllipsoidVerticalDatum' entity-name="VerticalModel" column='ellipsoidverticaldatum' unique="true" not-found='ignore' fetch='select'/>
 		<!--<property name='GeoidVerticalDatum' column='geoidverticaldatum' />-->
