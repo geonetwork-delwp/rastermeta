@@ -13,7 +13,7 @@
   xmlns:oldgml="http://www.opengis.net/gml"
   xmlns:wms="http://www.opengis.net/wms"
   xmlns:fme="http://www.safe.com/gml/fme"
-  exclude-result-prefixes="fme xs oldgml">
+  exclude-result-prefixes="fme xs oldgml wms">
 
   <xsl:param name="anzlicid"/>
   <xsl:param name="iwslayersfile"/>
