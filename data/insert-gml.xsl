@@ -13,6 +13,7 @@
   xmlns:oldgml="http://www.opengis.net/gml"
   xmlns:wms="http://www.opengis.net/wms"
   xmlns:fme="http://www.safe.com/gml/fme"
+  xmlns:mf="http://github.com/geonetwork-delwp/rastermeta"
   exclude-result-prefixes="fme xs oldgml wms">
 
   <xsl:param name="anzlicid"/>
@@ -114,26 +115,23 @@
   <xsl:template name="doGraphicOverview">
     <xsl:choose>
       <xsl:when test="count($filename)>0">
-        <xsl:for-each select="distinct-values($filename)">
-          <xsl:variable name="fixedfilename" select="if (contains(.,'.')) then
-                                                     substring-before(.,'.')
-                                                   else ."/>
-          <xsl:message>USING FILENAME: <xsl:value-of select="$fixedfilename"/></xsl:message>
-          <xsl:for-each select="$iwsLayers/wms:layers/wms:layer">
-            <xsl:variable name="wmslayer" select="
-                                             if (contains(wms:Name,$fixedfilename)) then
-                                             wms:Name else ''"/>
+          <xsl:variable name="fixedfilenames" select="mf:buildfixedfilenames(distinct-values($filename))"/>
+          <xsl:message>USING FILENAMES: <xsl:sequence select="$fixedfilenames"/></xsl:message>
+          <xsl:variable name="layers" select="string-join($iwsLayers/wms:layers/wms:layer[mf:containsF(wms:Name,$fixedfilenames)!='']/wms:Name,',')"/>
+          <xsl:message>FOUND LAYERS: <xsl:value-of select="$layers"/></xsl:message>
+
+          <xsl:variable name="wB" select="min($iwsLayers/wms:layers/wms:layer[mf:containsF(wms:Name,$fixedfilenames)!='']/wms:EX_GeographicBoundingBox/wms:westBoundLongitude)"/>
+          <xsl:variable name="sB" select="min($iwsLayers/wms:layers/wms:layer[mf:containsF(wms:Name,$fixedfilenames)!='']/wms:EX_GeographicBoundingBox/wms:southBoundLatitude)"/>
+          <xsl:variable name="eB" select="max($iwsLayers/wms:layers/wms:layer[mf:containsF(wms:Name,$fixedfilenames)!='']/wms:EX_GeographicBoundingBox/wms:eastBoundLongitude)"/>
+          <xsl:variable name="nB" select="max($iwsLayers/wms:layers/wms:layer[mf:containsF(wms:Name,$fixedfilenames)!='']/wms:EX_GeographicBoundingBox/wms:northBoundLatitude)"/>
           <xsl:choose>
-            <xsl:when test="normalize-space($wmslayer)=''">
+            <xsl:when test="normalize-space($layers)=''">
+              <xsl:message>NO LAYERS FOUND</xsl:message>
               <xsl:apply-templates select="mri:graphicOverview"/>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:message>FOUND WMS Layer <xsl:value-of select="wms:Name"/></xsl:message>
-              <xsl:variable name="bbox" select="concat(
-                    wms:EX_GeographicBoundingBox/wms:westBoundLongitude,',',
-                    wms:EX_GeographicBoundingBox/wms:southBoundLatitude,',',
-                    wms:EX_GeographicBoundingBox/wms:eastBoundLongitude,',',
-                    wms:EX_GeographicBoundingBox/wms:northBoundLatitude)"/>
+              <!-- <xsl:message>FOUND WMS Layer(s) <xsl:value-of select="$layers"/></xsl:message> -->
+              <xsl:variable name="bbox" select="concat($wB,',',$sB,',',$eB,',',$nB)"/>
               <mri:graphicOverview>
                 <mcc:MD_BrowseGraphic>
                   <mcc:fileName gco:nilReason="inapplicable" />
@@ -141,14 +139,14 @@
                     <cit:CI_OnlineResource>
                       <cit:linkage>
                         <gco:CharacterString><xsl:value-of select="
-concat('https://images.land.vic.gov.au/erdas-iws/ogc/wms?request=getmap&amp;service=wms&amp;layers=',$wmslayer,'&amp;width=400&amp;height=200&amp;version=1.1.1&amp;format=image/jpeg&amp;styles=&amp;srs=epsg:4326&amp;bbox=',$bbox)
+concat('https://images.land.vic.gov.au/erdas-iws/ogc/wms?request=getmap&amp;service=wms&amp;layers=',$layers,'&amp;width=400&amp;height=200&amp;version=1.1.1&amp;format=image/jpeg&amp;styles=&amp;srs=epsg:4326&amp;bbox=',$bbox)
                         "/></gco:CharacterString>
                       </cit:linkage>
                       <cit:protocol>
                         <gco:CharacterString>OGC:WMS</gco:CharacterString>
                       </cit:protocol>
                       <cit:description>
-                        <gco:CharacterString><xsl:value-of select="concat('Graphic Overview of Data Footprint from WMS ',$fixedfilename)"/></gco:CharacterString>
+                        <gco:CharacterString><xsl:value-of select="concat('Graphic Overview of Data Footprint from WMS ',$layers)"/></gco:CharacterString>
                       </cit:description>
                     </cit:CI_OnlineResource>
                   </mcc:linkage>
@@ -157,14 +155,34 @@ concat('https://images.land.vic.gov.au/erdas-iws/ogc/wms?request=getmap&amp;serv
             </xsl:otherwise>
           </xsl:choose>
         
-          </xsl:for-each>
-        </xsl:for-each>
       </xsl:when>
       <xsl:otherwise>
         <xsl:apply-templates select="mri:graphicOverview"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+
+  <xsl:function name="mf:buildfixedfilenames">
+    <xsl:param name="fnames"/>
+    <xsl:if test="count($fnames)>0">
+      <xsl:variable name="fixed" select="if (contains($fnames[0],'.')) then
+       mf:buildfixedfilenames( (remove($fnames,1), substring-before($fnames[0],'.')) )
+                                         else
+       mf:buildfixedfilenames( (remove($fnames,1), $fnames[0]) )"/>
+    </xsl:if>
+    <xsl:sequence select="$fnames"/>
+  </xsl:function>
+
+  <xsl:function name="mf:containsF" as="xs:string?">
+    <xsl:param name="layer" as="xs:string"/>
+    <xsl:param name="fixedfilenames"/>
+
+    <xsl:for-each select="$fixedfilenames">
+      <xsl:if test="contains($layer,.)">
+        <xsl:copy-of select="."/>
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:function>
 
   <!-- copy everything else as is -->
 

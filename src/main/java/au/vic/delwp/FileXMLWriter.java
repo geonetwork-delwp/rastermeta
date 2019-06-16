@@ -53,7 +53,7 @@ public class FileXMLWriter {
       logger.error("Failed to create cache for schema files");
     }
 
-    String hostNameForLinks = "https://dev-metashare.delwp.vic.gov.au/geonetwork/srv/eng/";
+    String hostNameForLinks = "https://dev-metashare.maps.vic.gov.au/geonetwork/srv/eng/";
 		
 		Session src = new Configuration( ).configure("SourceDB.cfg.xml").buildSessionFactory( ).openSession( );
 
@@ -127,6 +127,7 @@ public class FileXMLWriter {
     } else if (cmd.hasOption("D")) {
 
       /* First run the iws-wms.xsl to get the layer names from the iws wms in delwp */
+      /*
       logger.info("Requesting layer names from wms..");
       Map<String,String> xsltparams = new HashMap<String,String>();
       xsltparams.put("wms", iwsWMS);
@@ -144,6 +145,7 @@ public class FileXMLWriter {
 			  logger.error( "Cannot get list of layer names from wms server "+iwsWMS );
         ex.printStackTrace();
       }
+      */
 
 		  /* Fetch list of (or iterator over?) datasets from Oracle DB */
 		  HQL = "FROM Dataset"; // Build a HQL query string from command line arguments plus some default
