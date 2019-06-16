@@ -14,7 +14,7 @@
   xmlns:wms="http://www.opengis.net/wms"
   xmlns:fme="http://www.safe.com/gml/fme"
   xmlns:mf="http://github.com/geonetwork-delwp/rastermeta"
-  exclude-result-prefixes="fme xs oldgml wms">
+  exclude-result-prefixes="fme xs oldgml wms mf">
 
   <xsl:param name="anzlicid"/>
   <xsl:param name="iwslayersfile"/>
