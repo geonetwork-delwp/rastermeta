@@ -58,7 +58,7 @@ public class FileXMLWriter {
 		Session src = new Configuration( ).configure("SourceDB.cfg.xml").buildSessionFactory( ).openSession( );
 
     Options options = new Options();
-    options.addOption("h", true, "Specify host name for linkages to metadata records. If not specified then https://dev-metashare.delwp.vic.gov.au/geonetwork/srv/eng/ will be used.");
+    options.addOption("h", true, "Specify host name for linkages to metadata records. If not specified then "+hostNameForLinks+" will be used.");
     options.addOption("D", false, "Process rastermeta datasets (mutually exclusive with -P and -c.");
     options.addOption("P", false, "Process rastermeta projects (mutually exclusive with -D and -c.");
     options.addOption("c", false, "Process rastermeta contacts (mutually exclusive with -D and -P");
@@ -127,7 +127,6 @@ public class FileXMLWriter {
     } else if (cmd.hasOption("D")) {
 
       /* First run the iws-wms.xsl to get the layer names from the iws wms in delwp */
-      /*
       logger.info("Requesting layer names from wms..");
       Map<String,String> xsltparams = new HashMap<String,String>();
       xsltparams.put("wms", iwsWMS);
@@ -145,7 +144,6 @@ public class FileXMLWriter {
 			  logger.error( "Cannot get list of layer names from wms server "+iwsWMS );
         ex.printStackTrace();
       }
-      */
 
 		  /* Fetch list of (or iterator over?) datasets from Oracle DB */
 		  HQL = "FROM Dataset"; // Build a HQL query string from command line arguments plus some default
