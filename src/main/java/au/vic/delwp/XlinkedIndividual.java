@@ -7,7 +7,7 @@ public class XlinkedIndividual {
   public XlinkedIndividual(Individual ind) { this.ind = ind; }
 
   public String getIndividualXlink(){
-    return "local://xml.metadata.get?uuid="+Utils.generateIndividualUUID(ind.ID+"");
+    return "local://srv/api/registries/entries/"+Utils.generateIndividualUUID(ind.ID+"");
   }
 
 }
