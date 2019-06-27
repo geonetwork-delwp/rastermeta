@@ -4,7 +4,7 @@
 
   <groupId>au.gov.vic.delwp.rastermeta</groupId>
   <artifactId>rastermeta</artifactId>
-  <version>2.0</version>
+  <version>2.1</version>
   <packaging>jar</packaging>
   <name>rastermeta</name>
   <description></description>
