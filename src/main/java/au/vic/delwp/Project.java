@@ -69,8 +69,12 @@ public class Project {
 	}
 
   public String getAbstract() {
-    if (Abstract == null) { return Title; } else { return Abstract; }
+    if (Utils.isBlank(Abstract)) { return Title; } else { return Abstract; }
 	}
+
+  public boolean hasPurpose() {
+    return !Utils.isBlank(Purpose);
+  }
 
   public ISODateBlock getDateStamp( ) throws ParseException {
     ISODateBlock db = new ISODateBlock();
@@ -128,10 +132,6 @@ public class Project {
 
   public XlinkedIndividual getMetadataAuthor() {
     return new XlinkedIndividual(MetadataAuthor);
-  }
-
-  public boolean hasPurpose() {
-    return !StringUtils.isBlank(Purpose);
   }
 
   public Set getAssociatedResources() {

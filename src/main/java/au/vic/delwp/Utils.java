@@ -8,6 +8,7 @@ public class Utils {
      if (StringUtils.isBlank(value) || 
          value.trim().equalsIgnoreCase("unknown") || 
          value.trim().equalsIgnoreCase("notentered") ||
+         value.trim().equalsIgnoreCase("unrecorded") ||
          value.trim().equalsIgnoreCase("null") ||
          value.trim().equalsIgnoreCase("na") ||
          value.trim().equalsIgnoreCase("not documented") ||

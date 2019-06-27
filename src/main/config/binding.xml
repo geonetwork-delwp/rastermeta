@@ -388,6 +388,7 @@
               </structure>
               <structure name="otherProperty" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
                 <structure name="Record" ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+                  <value name="type" ns='http://www.w3.org/2001/XMLSchema-instance' style='attribute' constant='delwp:MD_OperationProperties_Type'/>
                   <structure name="projectDetails" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
                     <structure name="MD_ProjectDetails" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
                       <structure name="method" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
@@ -1056,6 +1057,7 @@
               </structure>
               <structure name="otherProperty" ns='http://standards.iso.org/iso/19115/-3/mac/2.0'>
                 <structure name="Record" ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+                  <value name="type" ns='http://www.w3.org/2001/XMLSchema-instance' style='attribute' constant='delwp:MD_OperationProperties_Type'/>
                   <structure name="datasetDetails" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
                     <structure name="MD_DatasetDetails" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
                       <structure name="platformType" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>

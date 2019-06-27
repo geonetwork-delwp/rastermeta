@@ -28,7 +28,7 @@
     <xsl:apply-templates mode="togml32" select="$gmlDocument//oldgml:featureMember/fme:RasterappMosaicFootprints[fme:ANZLICID=$anzlicid]/oldgml:*"/>
   </xsl:variable>
 
-  <xsl:variable name="filename" select="$gmlDocument//oldgml:featureMember/fme:RasterappMosaicFootprints[fme:ANZLICID=$anzlicid]/fme:FILENAME"/>
+  <xsl:variable name="filename" select="$gmlDocument//oldgml:featureMember/fme:RasterappMosaicFootprints[fme:ANZLICID=$anzlicid]/fme:FILENAME/text()"/>
 
   <xsl:template mode="togml32" match="oldgml:*">
     <xsl:variable name="gmlname" select="if (local-name()='outerBoundaryIs') then 'exterior'
@@ -101,7 +101,10 @@
             <gex:EX_BoundingPolygon>
     <xsl:for-each select="$gml32//gml:PolygonPatch|$gml32//gml:Polygon">
               <gex:polygon>
-                <gml:Polygon gml:id="{generate-id()}">
+                <!-- Note we use the following srsName because the coord order
+                     coming out of fme is lat,long - if that changes to long,lat
+                     then this will need to be changed -->
+                <gml:Polygon gml:id="{generate-id()}" srsName="urn:x-ogc:def:crs:EPSG:4326">
                   <xsl:copy-of select="./*"/>
                 </gml:Polygon>
               </gex:polygon>
