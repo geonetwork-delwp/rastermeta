@@ -532,7 +532,7 @@
             </structure>
           </structure>
         </structure>
-        <structure name='positionName' usage='optional' test-method='hasPosition'ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+        <structure name='positionName' usage='optional' test-method='hasPosition' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
           <value field='Position' name='CharacterString'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
         </structure>
       </structure>
