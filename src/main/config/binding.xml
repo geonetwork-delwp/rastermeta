@@ -131,6 +131,9 @@
             <structure name='title' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
               <value field='Title' name='CharacterString' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
             </structure>
+            <structure name='alternateTitle' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+              <value field='Name' name='CharacterString' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+            </structure>
             <structure name='date' ns='http://standards.iso.org/iso/19115/-3/cit/2.0' get-method="getDateStamp"/>
             <structure name='citedResponsibleParty' usage='optional' test-method='hasOwner' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
               <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
