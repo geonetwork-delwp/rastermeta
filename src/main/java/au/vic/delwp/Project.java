@@ -68,6 +68,10 @@ public class Project {
     return "project "+Title;
 	}
 
+  public boolean hasName() {
+    return !Utils.isBlank(Name); 
+	}
+
   public String getAbstract() {
     if (Utils.isBlank(Abstract)) { return Title; } else { return Abstract; }
 	}

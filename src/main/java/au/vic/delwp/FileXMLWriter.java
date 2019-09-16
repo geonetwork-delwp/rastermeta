@@ -250,7 +250,7 @@ public class FileXMLWriter {
 					/* This usually due to data problems such as unexpected nulls or
 					 * referential integrity failures. Once a JiBXException occurs, JiBX's
 					 * state is corrupted, hence it must be reinitialised */
-					logThrowableMsgStack( e.getRootCause( ), UUID );
+					logThrowableMsgStack( e, UUID );
 					mctx = getMarshallingContext( );					
 				} catch( Exception e ) {
 					// Write exception info to console, then continue processing next
