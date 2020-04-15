@@ -146,6 +146,31 @@
                 <structure name='party' get-method="getOwner" ns='http://standards.iso.org/iso/19115/-3/cit/2.0'/>
               </structure>
             </structure>
+            <structure name='identifier' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+              <structure name='MD_Identifier' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                <structure name='authority' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                  <structure name='CI_Citation' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                    <structure name='title' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                      <value name='CharacterString' constant='DELWP Rastermeta Project Identifier'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                    </structure>
+                    <structure name='citedResponsibleParty' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                      <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                        <structure name='role'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                          <structure name='CI_RoleCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                            <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode' />
+                            <value name='codeListValue' constant='owner' />
+                          </structure>
+                        </structure>
+       						      <structure name='party' get-method="getDefaultDELWP" ns='http://standards.iso.org/iso/19115/-3/cit/2.0'/>
+          						</structure>
+                    </structure>
+                  </structure>
+                </structure>
+                <structure name='code' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+                  <value name='CharacterString' field='ID' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                </structure>
+              </structure>
+            </structure>
             <structure name='citedResponsibleParty' usage='optional' test-method='hasCustodian' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
               <structure name='CI_Responsibility' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                 <structure name='role'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
