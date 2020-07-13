@@ -120,6 +120,10 @@ public class FileXMLWriter {
 			  logger.error( "Hibernate exception occurred" );
 			  logThrowableMsgStack( e, "N/A" );
 			  System.exit( 1 );
+      } catch (Exception e) {
+			  logger.error( "Exception occurred" );
+			  logThrowableMsgStack( e, "N/A" );
+			  System.exit( 1 );
 		  } finally {
 			  src.close( );
 			  //dest.close( );
@@ -165,6 +169,10 @@ public class FileXMLWriter {
 
 		  } catch( org.hibernate.HibernateException e ) {
 			  logger.error( "Hibernate exception occurred" );
+			  logThrowableMsgStack( e, "N/A" );
+			  System.exit( 1 );
+      } catch (Exception e) {
+			  logger.error( "Exception occurred" );
 			  logThrowableMsgStack( e, "N/A" );
 			  System.exit( 1 );
 	  	} finally {

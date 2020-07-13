@@ -14,7 +14,8 @@ import java.util.regex.*;
 import java.text.ParseException;
 import java.util.StringTokenizer;
 
-import org.apache.commons.codec.digest.DigestUtils;
+import com.baeldung.uuid.UUIDGenerator;
+
 import org.apache.commons.lang3.StringUtils;
 
 public class Project {
@@ -44,8 +45,10 @@ public class Project {
 		MapUtils.Populate( "availabilityToMD_ClassificationCode.txt", ClassificationCodes);
 		}
 
-	public String generateUUID( ){	
-    return DigestUtils.sha1Hex("urn:au.gov.vic.delwp:rastermeta:project:" + ID);
+	public String generateUUID( ) throws Exception {	
+    //return DigestUtils.sha1Hex("urn:au.gov.vic.delwp:rastermeta:project:" + ID);
+    Rastermeta rm = Rastermeta.getInstance();
+    return UUIDGenerator.generateType5UUID(rm.getBaseUUID(), "urn:au.gov.vic.delwp:rastermeta:project:" + ID).toString();
 		}
 
   public String getAvailability() {
@@ -139,7 +142,7 @@ public class Project {
     return new XlinkedIndividual(MetadataAuthor);
   }
 
-  public Set getAssociatedResources() {
+  public Set getAssociatedResources() throws Exception {
     Set asrs = new HashSet();
     for (Object o : DatasetDetails) { 
       Dataset ds = (Dataset)o;

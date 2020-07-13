@@ -14,7 +14,8 @@ import java.util.regex.*;
 import java.text.ParseException;
 import java.util.StringTokenizer;
 
-import org.apache.commons.codec.digest.DigestUtils;
+import com.baeldung.uuid.UUIDGenerator;
+
 import org.apache.commons.lang3.StringUtils;
 
 public class Dataset {
@@ -105,6 +106,7 @@ public class Dataset {
   }
 
   public boolean hasSurvey() {
+    if (Survey == null) System.out.println("  Validation Problem: Survey is null");
     return Survey != null;
   }
 
@@ -192,8 +194,10 @@ public class Dataset {
     return (Contour != null);
   }
 
-  public String getUUID() {
-    return DigestUtils.sha1Hex(ANZLICID);
+  public String getUUID() throws Exception {
+    //return DigestUtils.sha1Hex(ANZLICID);
+    Rastermeta rm = Rastermeta.getInstance();
+    return UUIDGenerator.generateType5UUID(rm.getBaseUUID(), ANZLICID).toString();
   }
 
   public boolean acquisitionStatusIsUnknown() {
