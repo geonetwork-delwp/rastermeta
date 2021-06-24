@@ -220,8 +220,9 @@ public class FileXMLWriter {
           Element mdXml = Xml.loadString(sw.toString(), false);
           if (ANZLICID != null) {
             Map<String,String> xsltparams = new HashMap<String,String>();
-            xsltparams.put("anzlicid", ANZLICID);
-            xsltparams.put("iwslayersfile", iwsLayersFilename);
+            //xsltparams.put("anzlicid", ANZLICID);
+            //xsltparams.put("iwslayersfile", iwsLayersFilename);
+            xsltparams.put("uuid", UUID);
             logger.debug("Transforming "+UUID );
             mdXml = Xml.transform(mdXml, "data" + File.separator + "insert-gml.xsl",  xsltparams);				
           }

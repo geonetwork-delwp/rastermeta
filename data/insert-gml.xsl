@@ -10,42 +10,18 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns:oldgml="http://www.opengis.net/gml"
   xmlns:wms="http://www.opengis.net/wms"
   xmlns:fme="http://www.safe.com/gml/fme"
   xmlns:mf="http://github.com/geonetwork-delwp/rastermeta"
-  exclude-result-prefixes="fme xs oldgml wms mf">
+  exclude-result-prefixes="fme xs wms mf">
 
-  <xsl:param name="anzlicid"/>
-  <xsl:param name="iwslayersfile"/>
+  <xsl:param name="uuid"/>
+  <!-- <xsl:param name="iwslayersfile"/> -->
 
   <xsl:output method="xml" indent="yes"/>
 
-  <xsl:variable name="gmlDocument" select="document('RasterMosaicFootprints.gml')"/>
-  <xsl:variable name="iwsLayers" select="document($iwslayersfile)"/>
-
-  <xsl:variable name="gml32">
-    <xsl:apply-templates mode="togml32" select="$gmlDocument//oldgml:featureMember/fme:RasterappMosaicFootprints[fme:ANZLICID=$anzlicid]/oldgml:*"/>
-  </xsl:variable>
-
-  <xsl:variable name="filename" select="$gmlDocument//oldgml:featureMember/fme:RasterappMosaicFootprints[fme:ANZLICID=$anzlicid]/fme:FILENAME/text()"/>
-
-  <xsl:template mode="togml32" match="oldgml:*">
-    <xsl:variable name="gmlname" select="if (local-name()='outerBoundaryIs') then 'exterior'
-                          else if (local-name()='innerBoundaryIs') then 'interior'
-                          else local-name()" as="xs:string"/>
-    <!-- <xsl:message>NAME <xsl:value-of select="$gmlname"/></xsl:message> -->
-    <xsl:variable name="newgmlname" select="concat('gml:',$gmlname)"/> 
-    <xsl:element name="{$newgmlname}">
-      <xsl:apply-templates mode="togml32" select="@*|node()"/>
-    </xsl:element>
-  </xsl:template>
-
-  <xsl:template mode="togml32" match="@oldgml:*">
-    <xsl:variable name="newgmlname" select="concat('gml:',local-name())"/> 
-    <xsl:variable name="content" select="."/>
-    <xsl:attribute name="{$newgmlname}"><xsl:value-of select="$content"/></xsl:attribute>
-  </xsl:template>
+  <xsl:variable name="gml32" select="document(concat('https://services.land.vic.gov.au/catalogue/publicproxy/guest/dv_geoserver/wfs?request=getFeature\&version=2.0.0\&typename=RESOURCEFOOTPRINT\&cql_filter=MD_UUID%3d%27',$uuid,'%27'))"/>
+  <!-- <xsl:variable name="iwsLayers" select="document($iwslayersfile)"/> -->
 
   <xsl:template match="mri:MD_DataIdentification">
     <!-- match and copy everything before mri:extent with geographicExtent, which must
@@ -64,7 +40,7 @@
       <xsl:apply-templates select="mri:topicCategory"/>
 
       <xsl:choose>
-        <xsl:when test="count($gml32/*) > 0">
+        <xsl:when test="count($gml32//gml:Polygon) > 0">
           <xsl:apply-templates select="mri:extent[count(descendant::gex:geographicElement) = 0]"/>
           <!-- Now copy in the new gml -->
           <xsl:call-template name="fill"/>
@@ -78,7 +54,7 @@
       <xsl:apply-templates select="mri:processingLevel"/>
       <xsl:apply-templates select="mri:resourceMaintenance"/>
 
-      <xsl:call-template name="doGraphicOverview"/> 
+      <xsl:call-template name="doGraphicOverview"/>
 
       <xsl:apply-templates select="mri:resourceFormat"/>
       <xsl:apply-templates select="mri:descriptiveKeywords"/>
@@ -94,7 +70,7 @@
   </xsl:template>
 
   <xsl:template name="fill">
-      <!-- <xsl:message><xsl:copy-of select="$gml32"/></xsl:message> -->
+      <xsl:message><xsl:copy-of select="$gml32"/></xsl:message>
       <mri:extent>
         <gex:EX_Extent>
           <gex:geographicElement>
@@ -115,7 +91,9 @@
       </mri:extent>
   </xsl:template>
 
+  <!-- this is a problem as the filename is no longer part of the wfs returned -->
   <xsl:template name="doGraphicOverview">
+    <!--
     <xsl:choose>
       <xsl:when test="count($filename)>0">
           <xsl:variable name="fixedfilenames" select="mf:buildfixedfilenames(distinct-values($filename))"/>
@@ -133,7 +111,7 @@
               <xsl:apply-templates select="mri:graphicOverview"/>
             </xsl:when>
             <xsl:otherwise>
-              <!-- <xsl:message>FOUND WMS Layer(s) <xsl:value-of select="$layers"/></xsl:message> -->
+              <!- - <xsl:message>FOUND WMS Layer(s) <xsl:value-of select="$layers"/></xsl:message> - ->
               <xsl:variable name="bbox" select="concat($wB,',',$sB,',',$eB,',',$nB)"/>
               <mri:graphicOverview>
                 <mcc:MD_BrowseGraphic>
@@ -160,9 +138,12 @@ concat('https://images.land.vic.gov.au/erdas-iws/ogc/wms?request=getmap&amp;serv
         
       </xsl:when>
       <xsl:otherwise>
+        -->
         <xsl:apply-templates select="mri:graphicOverview"/>
+        <!--
       </xsl:otherwise>
     </xsl:choose>
+        -->
   </xsl:template>
 
   <xsl:function name="mf:buildfixedfilenames">
