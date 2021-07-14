@@ -20,7 +20,7 @@
 
   <xsl:output method="xml" indent="yes"/>
 
-  <xsl:variable name="gml32" select="document(concat('https://services.land.vic.gov.au/catalogue/publicproxy/guest/dv_geoserver/wfs?request=getFeature\&version=2.0.0\&typename=RESOURCEFOOTPRINT\&cql_filter=MD_UUID%3d%27',$uuid,'%27'))"/>
+  <xsl:variable name="gml32" select="document(concat('https://services.land.vic.gov.au/catalogue/publicproxy/guest/dv_geoserver/wfs?request=getFeature&amp;version=2.0.0&amp;typename=RESOURCEFOOTPRINT&amp;cql_filter=MD_UUID%3d%27',$uuid,'%27'))"/>
   <!-- <xsl:variable name="iwsLayers" select="document($iwslayersfile)"/> -->
 
   <xsl:template match="mri:MD_DataIdentification">
