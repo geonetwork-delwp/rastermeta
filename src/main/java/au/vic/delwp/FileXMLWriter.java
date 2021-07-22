@@ -218,7 +218,7 @@ public class FileXMLWriter {
           // Now run the created XML through a postprocessing XSLT which does
           // things like add the GML polygons (if anzlic_id matches)
           Element mdXml = Xml.loadString(sw.toString(), false);
-          if (ANZLICID != null) {
+          if (UUID != null) {
             Map<String,String> xsltparams = new HashMap<String,String>();
             //xsltparams.put("anzlicid", ANZLICID);
             //xsltparams.put("iwslayersfile", iwsLayersFilename);
