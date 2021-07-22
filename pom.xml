@@ -215,6 +215,7 @@ $JAVA_HOME/bin/java -Xbootclasspath/p:lib/jaxp-api.jar -cp classes:lib/hibernate
       <name>local-repo</name>
       <url>file:${project.basedir}/local-repo</url>
     </repository>
+    <!--
     <repository>
       <releases>
         <enabled>true</enabled>
@@ -226,6 +227,7 @@ $JAVA_HOME/bin/java -Xbootclasspath/p:lib/jaxp-api.jar -cp classes:lib/hibernate
       <name>central</name>
       <url>http://central.maven.org/maven2/</url>
     </repository>
+    -->
     <repository>
       <releases>
         <enabled>true</enabled>
