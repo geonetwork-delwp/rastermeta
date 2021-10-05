@@ -311,21 +311,16 @@
       </structure>
     </structure>
 
-    <!--
     <structure name='metadataConstraints' ns='http://standards.iso.org/iso/19115/-3/mdb/2.0'>
       <structure name='MD_SecurityConstraints' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
-        <structure name='useLimitation' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
-          <value name='CharacterString' get-method='getUseLimitation' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
-        </structure>
         <structure name='classification' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
           <structure name='MD_ClassificationCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
             <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ClassificationCode' />
-            <value name='codeListValue' get-method='getMetadataAccessClassification'/>
+            <value name='codeListValue' constant='restricted'/>
           </structure>
         </structure>
       </structure>
     </structure>
-    -->
 
     
     <structure name='acquisitionInformation' usage="optional" test-method="hasAcquisitionInfo" ns='http://standards.iso.org/iso/19115/-3/mdb/2.0'>
@@ -924,7 +919,7 @@
       </structure>
     </structure>
 
-    <structure name='dataQualityInfo' usage='optional' test-method='hasDataQualityInfo'>
+    <structure name='dataQualityInfo'>
       <structure name='DQ_DataQuality' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
         <structure name='scope' ns='http://standards.iso.org/iso/19157/-2/mdq/1.0'>
           <structure name='MD_Scope' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
@@ -934,7 +929,7 @@
                 <value name='codeListValue' constant='dataset' />
               </structure>
             </structure>
-            <structure name='levelDescription' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
+            <structure name='levelDescription' usage='optional' test-method='hasDataQualityInfo' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
               <structure name='MD_ScopeDescription' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
                 <structure name='other' ns='http://standards.iso.org/iso/19115/-3/mcc/1.0'>
                   <value name='CharacterString' field='Title' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
@@ -989,9 +984,13 @@
       </structure>
     </structure>
 
-    <structure name='resourceLineage' usage='optional' test-method='hasProcessingLineage'  ns='http://standards.iso.org/iso/19115/-3/mdb/2.0'>
+    <structure name='resourceLineage' ns='http://standards.iso.org/iso/19115/-3/mdb/2.0'>
       <structure name='LI_Lineage'  ns='http://standards.iso.org/iso/19115/-3/mrl/2.0'>
-        <structure name='processStep' ns='http://standards.iso.org/iso/19115/-3/mrl/2.0'>
+        <structure name='statement'  ns='http://standards.iso.org/iso/19115/-3/mrl/2.0'>
+          <value name='CharacterString' constant='' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+        </structure>
+        
+        <structure name='processStep' usage='optional' test-method='hasProcessingLineage' ns='http://standards.iso.org/iso/19115/-3/mrl/2.0'>
           <structure name='LI_ProcessStep'  ns='http://standards.iso.org/iso/19115/-3/mrl/2.0'>
             <structure name='description'  ns='http://standards.iso.org/iso/19115/-3/mrl/2.0'>
               <value field='ProcessingLineage' name='CharacterString' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
@@ -1001,16 +1000,12 @@
       </structure>
     </structure>
 
-    <!--
     <structure name='metadataConstraints' ns='http://standards.iso.org/iso/19115/-3/mdb/2.0'>
       <structure name='MD_SecurityConstraints' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
-        <structure name='useLimitation' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
-          <value name='CharacterString' get-method='getUseLimitation' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
-        </structure>
         <structure name='classification' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
           <structure name='MD_ClassificationCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
             <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ClassificationCode' />
-            <value name='codeListValue' get-method='getMetadataAccessClassification'/>
+            <value name='codeListValue' constant='restricted'/>
           </structure>
         </structure>
       </structure>
@@ -1164,7 +1159,13 @@
       </structure>
     </structure>
     <structure name='scanRate' usage="optional" test-method="doesNotHaveScanRate" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+        <value name='uom' constant='Hz' style='attribute'/>
+        <value style='text' constant='' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
+      </structure>
+    <!--
       <value name='nilReason' constant='missing' style='attribute' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    -->
     </structure>
     <structure name='scanFrequency' usage="optional" test-method="hasScanFrequency" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
@@ -1173,7 +1174,13 @@
       </structure>
     </structure>
     <structure name='scanFrequency' usage="optional" test-method="doesNotHaveScanFrequency" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+        <value name='uom' constant='kHz' style='attribute'/>
+        <value style='text' constant=''  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
+      </structure>
+    <!--
       <value name='nilReason' constant='missing' style='attribute' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    -->
     </structure>
     <structure name='scanAngle' usage='optional' test-method='hasScanAngle' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
@@ -1188,7 +1195,13 @@
       </structure>
     </structure>
     <structure name='footprintSize' usage='optional' test-method='doesNotHaveFootprintSize' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+        <value name='uom' constant='m' style='attribute'/>
+        <value style='text' constant=''  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
+      </structure>
+    <!--
       <value name='nilReason' constant='missing' style='attribute' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    -->
     </structure>
     <structure name='pointDensityTarget' usage='optional' test-method='hasPointDensityTarget' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
@@ -1203,7 +1216,13 @@
       </structure>
     </structure>
     <structure name='pointDensityActual' usage='optional' test-method='doesNotHavePointDensityActual' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+        <value name='uom' constant='points/m2' style='attribute'/>
+        <value style='text' constant=''  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
+      </structure>
+    <!--
       <value name='nilReason' constant='missing' style='attribute' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    -->
     </structure>
     <structure name='pointSpacingTarget' usage='optional' test-method='hasPointSpacingTarget' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
@@ -1218,7 +1237,13 @@
       </structure>
     </structure>
     <structure name='pointSpacingActual' usage='optional' test-method='doesNotHavePointSpacingActual' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <structure name='Measure' ns='http://standards.iso.org/iso/19115/-3/gco/1.0'>
+        <value name='uom' constant='points/m2' style='attribute'/>
+        <value style='text' constant=''  ns='http://standards.iso.org/iso/19115/-3/gco/1.0'/>
+      </structure>
+    <!--
       <value name='nilReason' constant='missing' style='attribute' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    -->
     </structure>
     <structure name='ellipsoidProvided' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <value name='Boolean' get-method='getEllipsoidProvided' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
@@ -1317,7 +1342,10 @@
       <value name='Integer' field='NumberBands' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
     </structure>
     <structure name='numberOfBands' usage='optional' test-method="doesNotHaveNumberBands" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
+      <value name='Integer' constant='-1' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    <!--
       <value name='nilReason' style="attribute" constant='missing' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+    -->
     </structure>
     <structure name="bandList" ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
       <structure name='MD_BandListCode' value-style='attribute' ns='https://github.com/geonetwork-delwp/iso19115-3.2018'>
