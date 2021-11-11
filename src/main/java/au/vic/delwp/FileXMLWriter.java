@@ -218,6 +218,8 @@ public class FileXMLWriter {
           // Now run the created XML through a postprocessing XSLT which does
           // things like add the GML polygons (if anzlic_id matches)
           Element mdXml = Xml.loadString(sw.toString(), false);
+          /* Temporarily exclude gml polygons - SP Nov, 11, 2021 */
+          /*
           if (UUID != null) {
             Map<String,String> xsltparams = new HashMap<String,String>();
             //xsltparams.put("anzlicid", ANZLICID);
@@ -226,6 +228,7 @@ public class FileXMLWriter {
             logger.debug("Transforming "+UUID );
             mdXml = Xml.transform(mdXml, "data" + File.separator + "insert-gml.xsl",  xsltparams);				
           }
+          */
 
 	
           boolean xmlIsValid = true;
