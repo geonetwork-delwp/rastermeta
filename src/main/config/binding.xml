@@ -179,7 +179,9 @@
                     <value name='codeListValue' constant='custodian' />
                   </structure>
                 </structure>
-                <structure name='party' get-method="getCustodian" ns='http://standards.iso.org/iso/19115/-3/cit/2.0'/>
+                <!-- <structure name='party' get-method="getCustodian" ns='http://standards.iso.org/iso/19115/-3/cit/2.0'/> -->
+                <!-- For Project Records, the custodian will be DELWP - January 2022 -->
+                <structure name='party' get-method="getDefaultDELWP" ns='http://standards.iso.org/iso/19115/-3/cit/2.0'/>
               </structure>
             </structure>
           </structure>
