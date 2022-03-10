@@ -10,7 +10,7 @@ public class AcquisitionDetails {
 	public String ScheduleNumber;
 	public String Component;
 	public String AcquisitionYear;
-	public Individual Supplier;
+	public Organisation Supplier;
 	public IDnText AcquisitionMethod;
   public Project project;
 
@@ -31,8 +31,8 @@ public class AcquisitionDetails {
     return (Supplier != null);
   }
 
-  public XlinkedIndividual getSupplier() {
-    return new XlinkedIndividual(Supplier);
+  public Organisation getSupplier() {
+    return Supplier;
   }
 
   public boolean hasProgram() {

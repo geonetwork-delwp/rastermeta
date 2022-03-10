@@ -400,7 +400,36 @@
                           <value name='codeListValue' constant='resourceProvider' />
                         </structure>
                       </structure>
-                      <structure name='party' get-method="getSupplier" ns='http://standards.iso.org/iso/19115/-3/cit/2.0'/>
+                      <structure field='Supplier' >
+                        <structure name='party' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                            <structure name='name' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                              <value field='Name' name='CharacterString'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                            </structure>
+                            <structure name='contactInfo' usage='optional' test-method='hasAddress' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                              <structure name='CI_Contact' ns='http://standards.iso.org/iso/19115/-3/cit/2.0' >
+                                <structure name='address' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                                  <structure name='CI_Address' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                                    <structure name='deliveryPoint' ns='http://standards.iso.org/iso/19115/-3/cit/2.0' >
+                                      <value field='Postaladdress' name='CharacterString' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                                    </structure>
+                                    <structure name='city' usage='optional' test-method='hasCity'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                                      <value field='City' name='CharacterString' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                                    </structure>
+                                    <structure name='administrativeArea' usage='optional' test-method='hasStateOrProvince'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                                      <value field='Stateorprovince' name='CharacterString' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                                    </structure>
+                                    <structure name='postalCode' usage='optional' test-method='hasPostcode'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                                      <value field='Postalcode' name='CharacterString' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                                    </structure>
+                                    <structure name='country' usage='optional' test-method='hasCountry'  ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                                      <value field='Country' name='CharacterString' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                                    </structure>
+                                  </structure>
+                                </structure>
+                              </structure>
+                            </structure>
+                        </structure>
+                      </structure>
                     </structure>
                   </structure>
                 </structure>
