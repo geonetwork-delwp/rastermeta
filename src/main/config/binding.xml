@@ -402,6 +402,7 @@
                       </structure>
                       <structure field='Supplier' >
                         <structure name='party' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                          <structure name='CI_Organisation' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                             <structure name='name' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
                               <value field='Name' name='CharacterString'  ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
                             </structure>
@@ -428,6 +429,7 @@
                                 </structure>
                               </structure>
                             </structure>
+                          </structure>
                         </structure>
                       </structure>
                     </structure>
