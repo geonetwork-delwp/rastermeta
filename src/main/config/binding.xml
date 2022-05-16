@@ -313,6 +313,28 @@
       </structure>
     </structure>
 
+    <structure name='distributionInfo' ns='http://standards.iso.org/iso/19115/-3/mdb/2.0'>
+      <structure name='MD_Distribution' ns='http://standards.iso.org/iso/19115/-3/mrd/1.0'>
+        <structure name='transferOptions' ns='http://standards.iso.org/iso/19115/-3/mrd/1.0'>
+          <structure name='MD_DigitalTransferOptions' ns='http://standards.iso.org/iso/19115/-3/mrd/1.0'>
+            <structure name='onLine' ns='http://standards.iso.org/iso/19115/-3/mrd/1.0'>
+              <structure name='CI_OnlineResource' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                <structure name='linkage' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                  <value name='CharacterString' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' constant='https://www.delwp.vic.gov.au/maps' />
+                </structure>
+                <structure name='protocol' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                  <value name='CharacterString' constant='WWW:LINK-1.0-http--related' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                </structure>
+                <structure name='description' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                  <value name='CharacterString' constant='Web page listing describing spatial information in Department of Environment, Land, Water and Planning (DELWP)' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                </structure>
+              </structure>
+            </structure>
+          </structure>
+        </structure>
+      </structure>
+    </structure>
+
     <structure name='metadataConstraints' ns='http://standards.iso.org/iso/19115/-3/mdb/2.0'>
       <structure name='MD_SecurityConstraints' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
         <structure name='classification' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
@@ -947,6 +969,28 @@
           </structure>
           <structure name="cloudCoverPercentage" ns='http://standards.iso.org/iso/19115/-3/mrc/2.0'>
             <value name='Real' field='CloudCoverPercentage' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+          </structure>
+        </structure>
+      </structure>
+    </structure>
+
+    <structure name='distributionInfo' ns='http://standards.iso.org/iso/19115/-3/mdb/2.0'>
+      <structure name='MD_Distribution' ns='http://standards.iso.org/iso/19115/-3/mrd/1.0'>
+        <structure name='transferOptions' ns='http://standards.iso.org/iso/19115/-3/mrd/1.0'>
+          <structure name='MD_DigitalTransferOptions' ns='http://standards.iso.org/iso/19115/-3/mrd/1.0'>
+            <structure name='onLine' ns='http://standards.iso.org/iso/19115/-3/mrd/1.0'>
+              <structure name='CI_OnlineResource' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                <structure name='linkage' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                  <value name='CharacterString' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' constant='https://www.delwp.vic.gov.au/maps' />
+                </structure>
+                <structure name='protocol' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                  <value name='CharacterString' constant='WWW:LINK-1.0-http--related' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                </structure>
+                <structure name='description' ns='http://standards.iso.org/iso/19115/-3/cit/2.0'>
+                  <value name='CharacterString' constant='Web page listing describing spatial information in Department of Environment, Land, Water and Planning (DELWP)' ns='http://standards.iso.org/iso/19115/-3/gco/1.0' />
+                </structure>
+              </structure>
+            </structure>
           </structure>
         </structure>
       </structure>
