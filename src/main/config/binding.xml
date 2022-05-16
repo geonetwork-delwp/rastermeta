@@ -318,7 +318,7 @@
         <structure name='classification' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
           <structure name='MD_ClassificationCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
             <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ClassificationCode' />
-            <value name='codeListValue' constant='restricted'/>
+            <value name='codeListValue' constant='unclassified'/>
           </structure>
         </structure>
       </structure>
@@ -1038,12 +1038,11 @@
         <structure name='classification' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
           <structure name='MD_ClassificationCode' value-style='attribute' ns='http://standards.iso.org/iso/19115/-3/mco/1.0'>
             <value name='codeList' constant='http://standards.iso.org/iso/19115/resources/Codelist/cat/codelists.xml#MD_ClassificationCode' />
-            <value name='codeListValue' constant='restricted'/>
+            <value name='codeListValue' constant='unclassified'/>
           </structure>
         </structure>
       </structure>
     </structure>
-    -->
 
     
     <structure name='acquisitionInformation' ns='http://standards.iso.org/iso/19115/-3/mdb/2.0'>
